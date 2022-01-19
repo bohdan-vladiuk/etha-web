@@ -4,7 +4,7 @@ import { SitemapStream, streamToPromise, EnumChangefreq } from 'sitemap';
 import { createGzip } from 'zlib';
 import api from '../../services/api-helper';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function SitemapGenerator(req: NextApiRequest, res: NextApiResponse) {
     if (!res) return {};
     try {
         // Set response header
@@ -21,13 +21,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         // Add any static entries here
         smStream.write({ url: '/', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
         // smStream.write({ url: '/landing', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
-        smStream.write({ url: '/about-us', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.MONTHLY });
-        smStream.write({
-            url: '/press-release/etha-launch',
-            lastmod: process.env.siteUpdatedAt,
-            changefreq: EnumChangefreq.MONTHLY,
-        });
-        smStream.write({ url: '/investments', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.MONTHLY });
+        // smStream.write({ url: '/about-us', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.MONTHLY });
+        // smStream.write({
+        //     url: '/press-release/etha-launch',
+        //     lastmod: process.env.siteUpdatedAt,
+        //     changefreq: EnumChangefreq.MONTHLY,
+        // });
+        // smStream.write({ url: '/investments', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.MONTHLY });
         // smStream.write({
         //     url: '/political-timeline',
         //     lastmod: process.env.siteUpdatedAt,
@@ -65,4 +65,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (e) {
         res.status(500).end();
     }
-};
+}

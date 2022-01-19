@@ -5,7 +5,6 @@ import { DataReducer, ScreenReducer, UserReducer } from '.';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { createWrapper } from 'next-redux-wrapper';
 
 const rootReducer = combineReducers({
     userReducer: UserReducer,
