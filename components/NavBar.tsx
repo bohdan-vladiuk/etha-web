@@ -29,10 +29,10 @@ export const NavBar: React.FC = () => {
         <>
             <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
                 <Navbar.Brand className="d-sm-flex d-md-none" href="/landing">
-                    <Image className="pl-3" src="/nav_logo.jpg" alt="" height={25} width={120} />
+                    <Image className="pl-3" src="/nav_logo.png" alt="" height={25} width={120} />
                 </Navbar.Brand>
                 <Navbar.Brand className="d-none d-md-flex" href="/landing">
-                    <Image className="pl-5" src="/nav_logo.jpg" alt="" height={25} width={120} />
+                    <Image className="pl-5" src="/nav_logo.png" alt="" height={25} width={120} />
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Nav className="ml-auto d-none d-md-flex pr-5">
