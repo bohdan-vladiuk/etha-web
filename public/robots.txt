@@ -1,0 +1,8 @@
+Sitemap: https://etha.one/api/sitemap.xml
+
+User-agent: *
+Allow: /*
+Allow: /post/*
+Allow: /profile/*
+Allow: /api/sitemap.xml
+Disallow: /api/*

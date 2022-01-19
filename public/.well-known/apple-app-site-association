@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "9CN9LX7X4Y.one.etha.app",
+                "paths": ["*"]
+            }
+        ]
+    }
+}

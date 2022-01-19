@@ -1,0 +1,12 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "one.etha.app",
+            "sha256_cert_fingerprints": [
+                "60:99:E1:9F:49:F2:28:63:1B:87:68:A3:34:F3:FE:36:7A:23:D1:2C:C3:FC:87:47:D3:F3:1B:F9:F7:CF:38:39"
+            ]
+        }
+    }
+]
