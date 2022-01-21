@@ -28,7 +28,7 @@ class MyDocument extends Document {
                     <link rel="manifest" href="/manifest.json" />
                     <meta name="msapplication-TileColor" content="#ffffff" />
                     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-                    <meta name="theme-color" content="#000000" />
+                    <meta name="theme-color" content="#ffffff" />
 
                     <meta name="twitter:card" content="summary_large_image" />
                     <script
