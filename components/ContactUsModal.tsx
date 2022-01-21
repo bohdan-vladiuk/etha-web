@@ -1,184 +1,354 @@
 // Dependencies
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { ContactUs } from '../middleware';
-import React, { useState } from 'react';
-import { Modal, Button, FormControl } from 'react-bootstrap';
+import { Modal, Dropdown, DropdownButton, Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { SocialIcons } from './SocialIcons';
+
+import style from '../styles/ContactModal.module.css';
+
 interface ConatctUsModalProps {
     onHide: () => void;
-}
-
-interface ContactUsForm {
-    name: string;
-    email: string;
-    message: string;
+    show: boolean;
 }
 
 export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsModalProps) => {
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const [isFormSubmit, setFormSubmit] = useState(false);
+    const [mobile, setMobile] = useState('');
+
+    const [countryCode, setCountryCode] = useState('+1');
+    const [countryFlag, setCountryFlag] = useState(
+        'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg',
+    );
+
+    const [charLength, setCharLength] = useState(0);
+
     const { onHide } = props;
     const dispatch = useAppDispatch();
+
+    const [focusedEmail, setFocusedEmail] = useState<boolean>(false);
+    const [focusedMobile, setFocusedMobile] = useState<boolean>(false);
+
+    const [toggleDropdown, setToggle] = useState<boolean>(false);
+
+    const [submit, setSubmit] = useState<boolean>(false);
     const state = useAppSelector((reduxState) => ({
         isContactForm: reduxState.screenReducer.isContactForm,
     }));
+    const [countryData, setCountryData] = useState<any[]>([])
+
+    const [viewingMobile, setViewingMobile] = useState<boolean>(false);
+    const [viewingEmail, setViewingEmail] = useState<boolean>(false);
+
+    const cn = focusedEmail ? style.input_label_animate : style.input_label;
+    const pn = focusedMobile ? style.input_label_animate : style.input_label;
+      
+    
     useEffect(() => {
-        setName('');
+        focusing();
+        formatMobile(mobile);
+        document.addEventListener('keypress', function (e) {
+            if (e.keyCode === 13 || e.which === 13) {
+                e.preventDefault();
+                return false;
+            }  
+        });
+    });
+
+    useEffect(() => {
         setEmail('');
-        setMessage('');
-        setFormSubmit(false);
+        setMobile('');
+        setFocusedEmail(false);
+        setFocusedMobile(false);
+
+        // fetch('https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/index.json')
+        //     .then((response) => response.json())
+        //     .then((data) => setCountryFlagData(data));
+
+        fetch(
+            'https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json',
+        )
+            .then((response) => response.json())
+            .then((data) => setCountryData(data));
     }, []);
 
-    function validateEmail(testMail: string): boolean {
-        const re = /\S+@\S+\.\S+/;
-        return re.test(testMail);
+    function formatMobile(p: string) {
+        if (mobile.length >= charLength) {
+            if (p.length === 3) setMobile(p.replace(/^(\d{3})$/, '$1-'));
+            if (p.length === 7) setMobile(p.replace(/^(\d{3})\-(\d{3})$/, '$1-$2-'));
+            if (p.length === 12) setMobile(p.replace(/^(\d{3})\-(\d{3})\-(\d{4})$/, '$1-$2-$3'));
+        }
+    }
+
+    function focusing() {
+        email.length > 0 ? setViewingEmail(true) : setViewingEmail(false);
+        mobile.length > 0 ? setViewingMobile(true) : setViewingMobile(false);
     }
 
     return (
-        <Modal show={state.isContactForm} onHide={onHide} aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Body bsPrefix="signup-welcome-modal">
-                {!isFormSubmit ? (
-                    <Modal.Body style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div
-                            className="ml-2 mt-3"
-                            style={{
-                                height: '25px',
-                                width: '25px',
-                                filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                            }}
-                        >
-                            <Image
-                                src="/icons/back_arr.png"
-                                height={25}
-                                width={25}
-                                alt=""
-                                onClick={() => {
-                                    props.onHide();
-                                }}
-                            />
-                        </div>
-                        <h1>Contact Us</h1>
-                        <div className="d-flex w-100 pl-2">
-                            <h6>Name</h6>
-                        </div>
-                        <FormControl
-                            className="form-inputs"
-                            placeholder="Your Name"
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                        />
-                        <div className="d-flex w-100 pl-2 pt-2">
-                            <h6>Email</h6>
-                        </div>
-                        <FormControl
-                            className="form-inputs"
-                            placeholder="Your Email"
-                            aria-label="email"
-                            aria-describedby="basic-addon1"
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                        />
-                        <div className="d-flex w-100 pl-2 pt-2">
-                            <h6>Message</h6>
-                        </div>
-                        <FormControl
-                            className="form-inputs"
-                            as="textarea"
-                            placeholder="Send us a Message"
-                            aria-label="message"
-                            value={message}
-                            onChange={(event) => setMessage(event.target.value)}
-                            aria-describedby="basic-addon1"
-                        />
-                        <div className="d-flex w-100 pl-2 pt-2">
-                            <SocialIcons />
-                        </div>
-                    </Modal.Body>
-                ) : (
-                    <Modal.Body>
-                        <div
-                            className="ml-2 mt-3"
-                            style={{
-                                height: '25px',
-                                width: '25px',
-                                filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                            }}
-                        >
-                            <Image
-                                src="/icons/back_arr.png"
-                                height={25}
-                                width={25}
-                                alt=""
-                                onClick={() => {
-                                    props.onHide();
-                                }}
-                            />
-                        </div>
-                        <h1>Contact Us</h1>
-                        <div className="d-flex w-100 pl-2 pt-2" style={{ textAlign: 'justify' }}>
-                            <h6>Thanks for Contacting Us! We will respond to the message as soon as we can.</h6>
-                        </div>
-                        <div className="d-flex w-100 pl-2 pt-2" style={{ textAlign: 'justify' }}>
-                            <h6>
-                                In the mean time, don&apos;t foget to follow us on Social Media for all the latest news
-                                on government secrecy, surveillance, and protecting the rights of journalists
-                                everywhere.
-                            </h6>
-                        </div>
-                        <SocialIcons />
-                    </Modal.Body>
-                )}
-                <Modal.Footer>
-                    <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
-                        {!isFormSubmit ? (
-                            <Button
-                                onClick={() => {
-                                    if (
-                                        name.length > 0 &&
-                                        email.length > 0 &&
-                                        message.length > 0 &&
-                                        validateEmail(email)
-                                    ) {
-                                        const contactUsForm: ContactUsForm = {
-                                            name: name,
-                                            email: email,
-                                            message: message,
-                                        };
-                                        ContactUs(contactUsForm, dispatch, () => {
-                                            setName('');
-                                            setMessage('');
-                                            setEmail('');
-                                            setFormSubmit(true);
-                                        });
-                                    } else {
-                                        alert('Please fill the form properly');
-                                    }
-                                }}
-                                style={{ margin: 'auto', width: '40%' }}
-                                variant="submit-primary m-1"
-                            >
-                                <strong>Submit</strong>
-                            </Button>
-                        ) : (
-                            <Button
-                                onClick={() => {
-                                    onHide();
-                                }}
-                                style={{ margin: 'auto', width: '40%' }}
-                                variant="submit-primary m-1"
-                            >
-                                <strong>Close</strong>
-                            </Button>
-                        )}
+        <>
+            <Modal
+                className="d-flex m-0 p-0"
+                show={props.show}
+                onHide={onHide}
+                backdrop="static"
+                centered
+                dialogClassName="custom-modal"
+                bsClass="my-modal"
+            >
+                <Modal.Body bsPrefix={style.contact_modal_container}>
+                    <div
+                        className={style.close_btn}
+                        style={{
+                            zIndex: '10',
+                            cursor: 'pointer',
+                            position: 'absolute',
+                            right: '0px',
+                            top: '0px',
+                            margin: '20px',
+                        }}
+                        onClick={() => {
+                            onHide();
+                            setEmail('');
+                            setMobile('');
+                            setCountryCode('+1');
+                            setFocusedEmail(false);
+                            setFocusedMobile(false);
+                            focusing();
+                        }}
+                    >
+                        <Image src="/close.svg" height={40} width={40} />
                     </div>
-                </Modal.Footer>
-            </Modal.Body>
-        </Modal>
+                    <div className={style.contact_container}>
+                        <div
+                            className={`${style.contact_details} d-flex justify-content-md-center justify-content-start`}
+                        >
+                            <div style={{ width: '75%', margin: 'auto 0' }}>
+                                <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>
+                                    Be the first to get the truth
+                                </p>
+                                <p style={{ fontSize: '16px', fontWeight: '200' }}>
+                                    Enter your email to sign up for early-access to the Etha app!
+                                </p>
+
+                                <Form className="d-flex flex-column w-100  m-0" >
+                                    <Form.Group
+                                        className={`${style.input_container}`}
+                                        onClick={() => {
+                                            setFocusedEmail(true);
+                                            setFocusedMobile(false);
+                                        }}
+                                        controlId="formBasicEmail"
+                                    >
+                                        <Form.Label
+                                            className={`${viewingEmail ? style.input_label_animate : cn} p-0 m-0`}
+                                        >
+                                            Email address
+                                        </Form.Label>
+                                        {focusedEmail && (
+                                            <Form.Control
+                                                tabIndex={0}
+                                                className={`p-0 m-0`}
+                                                style={{
+                                                    backgroundColor: 'transparent',
+                                                    border: 'none',
+                                                    outline: 'none',
+                                                    fontSize: '16px',
+                                                    fontWeight: 'bold',
+                                                    color: 'black',
+                                                }}
+                                                type="email"
+                                                value={email}
+                                                placeholder="example@etha.one"
+                                                onChange={(e) => setEmail(e.target.value)}
+                                            />
+                                        )}
+                                        {viewingEmail && !focusedEmail && (
+                                            <Form.Control
+                                                className={`p-0 m-0`}
+                                                style={{
+                                                    backgroundColor: 'transparent',
+                                                    border: 'none',
+                                                    outline: 'none',
+                                                    fontSize: '16px',
+                                                    fontWeight: 'bold',
+                                                    color: 'black',
+                                                }}
+                                                type="email"
+                                                value={email}
+                                                placeholder="example@etha.one"
+                                                onChange={(e) => setEmail(e.target.value)}
+                                            />
+                                        )}
+                                    </Form.Group>
+                                    <Form.Group className="d-flex mb-2 mt-3">
+                                        <Dropdown
+                                            className={`${style.dropdown_container} mr-2`}
+                                            style={{ width: '20%' }}
+                                            onClick={() => setToggle(!toggleDropdown)}
+                                        >
+                                            <div className={`${style.dropdown_active}`}>
+                                                <p className="p-0 m-0" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                                                    {countryCode}
+                                                </p>
+                                                <Image
+                                                    className="p-0 m-0"
+                                                    src="/dropdownArrow.svg"
+                                                    height={10}
+                                                    width={10}
+                                                />
+                                            </div>
+                                            {toggleDropdown && (
+                                                <div className={`${style.dropdown_menu}`}>
+                                                    {Object.keys(countryData).map((val, idx) => {
+                                                        return (
+                                                            <div
+                                                                className="d-flex justify-content-between align-items-center w-100"
+                                                                style={{
+                                                                    borderBottom: '1px solid #0000000f',
+                                                                    width: '80%',
+                                                                }}
+                                                                onClick={() => {
+                                                                    setCountryCode(countryData[idx].dial_code);
+                                                                    setToggle(false);
+                                                                }}
+                                                            >
+                                                                {console.log()}
+                                                                <p className="m-0 py-2" style={{ fontWeight: 'bold' }}>
+                                                                    {countryData[idx].code}
+                                                                </p>
+                                                                <p className="m-0 py-2" style={{ fontWeight: 'bold' }}>
+                                                                    {countryData[idx].dial_code}
+                                                                </p>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
+                                        </Dropdown>
+                                        <Form.Group
+
+                                            className={`${style.input_container}`}
+                                            controlId="formBasicMobile"
+                                            onClick={() => {
+                                                setFocusedEmail(false);
+                                                setFocusedMobile(true);
+                                            }}
+                                        >
+                                            <Form.Label
+                                                className={`${viewingMobile ? style.input_label_animate : pn} p-0 m-0`}
+                                            >
+                                                Mobile number
+                                            </Form.Label>
+                                            {focusedMobile && (
+                                                <Form.Control
+                                                tabIndex={0}
+                                                    className={`p-0 m-0`}
+                                                    style={{
+                                                        backgroundColor: 'transparent',
+                                                        border: 'none',
+                                                        outline: 'none',
+                                                        fontSize: '16px',
+                                                        fontWeight: 'bold',
+                                                        color: 'black',
+                                                    }}
+                                                    type="tel"
+                                                    placeholder="555-555-5555"
+                                                    value={mobile}
+                                                    onChange={(e) => {
+                                                        setMobile(e.target.value);
+                                                        setCharLength(mobile.length);
+                                                    }}
+                                                />
+                                            )}
+                                            {viewingMobile && !focusedMobile && (
+                                                <Form.Control
+                                                    tabIndex={0}
+                                                    className={`p-0 m-0`}
+                                                    style={{
+                                                        backgroundColor: 'transparent',
+                                                        border: 'none',
+                                                        outline: 'none',
+                                                        fontSize: '16px',
+                                                        fontWeight: 'bold',
+                                                        color: 'black',
+                                                    }}
+                                                    type="tel"
+                                                    value={mobile}
+                                                    placeholder="555-555-5555"
+                                                    onChange={(e) => {
+                                                        setMobile(e.target.value);
+                                                    }}
+                                                />
+                                            )}
+                                        </Form.Group>
+                                    </Form.Group>
+
+                                    <div
+                                        className={style.contact_btn}
+                                        onClick={() => {
+                                            setSubmit(true);
+                                            onHide();
+                                            console.log(email, `${countryCode}-${mobile}`);
+                                            setEmail('');
+                                            setMobile('');
+                                            setCountryCode('+1');
+                                        }}
+                                    >
+                                        <p className="m-0" style={{ color: 'white', padding: '15px 40px' }}>
+                                            Join Waitlist
+                                        </p>
+                                    </div>
+                                </Form>
+                            </div>
+                        </div>
+                        <div className={`${style.contact_image}`} style={{ backgroundColor: '#f9f9f9' }}>
+                            <Image src="/landing2.svg" alt="" height={600} width={600} />
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+            <Modal
+                className="d-flex m-0 p-0"
+                show={submit}
+                onHide={() => setSubmit(false)}
+                backdrop="static"
+                centered
+                dialogClassName="custom-modal"
+                bsClass="my-modal"
+            >
+                <Modal.Body bsPrefix={style.contact_modal_container}>
+                    <div
+                        className={style.close_btn}
+                        style={{ cursor: 'pointer', position: 'absolute', right: '0px', top: '0px', margin: '20px' }}
+                        onClick={() => {
+                            setSubmit(false);
+                        }}
+                    >
+                        <Image src="/close.svg" height={40} width={40} />
+                    </div>
+                    <div
+                        className={`d-flex flex-column align-items-center justify-content-center`}
+                        style={{ height: '100%' }}
+                    >
+                        <div className={style.contact_image} style={{ height: '30%' }}>
+                            <Image src="/landing3a.svg" alt="" height={366} width={907.62} />
+                        </div>
+                        <div className="d-flex flex-column align-items-center" style={{ width: '75%' }}>
+                            <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>
+                                Let the truthfulness of politicians be seen!
+                            </p>
+                            <p style={{ fontSize: '16px', fontWeight: '200' }}>
+                                Awesome! You're going to be one of the first people to get access to Etha.
+                            </p>
+                        </div>
+                        <div className={style.contact_image} style={{ height: '30%' }}>
+                            <Image src="/landing3b.svg" alt="" height={358.88} width={859.92} />
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+        </>
     );
 };

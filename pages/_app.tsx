@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
             <ContactUsModal
                 onHide={() => {
-                    dispatch(setContactFormVisibility(false));
+                    dispatch(setContactFormVisibility(true));
                 }}
             />
             <LoadingModal
