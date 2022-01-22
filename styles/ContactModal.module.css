@@ -14,7 +14,6 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-
 }
 .contact_btn {
     background-color: #4824d6;
@@ -25,7 +24,6 @@
 }
 
 .contact_btn:hover {
-    
     animation: grow 500ms 2;
 }
 
@@ -58,7 +56,6 @@
     flex-direction: column;
     width: 100vw;
     height: 100vh;
-
 }
 .contact_modal_container {
     display: flex;
@@ -96,14 +93,12 @@
     padding: 15px 10px;
     cursor: pointer;
     z-index: 200;
-
 }
 
 .dropdown_active {
     display: flex;
     justify-content: space-between;
     width: 100%;
-
 }
 
 .dropdown_container:active {
@@ -122,7 +117,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 @keyframes pulse {
@@ -153,8 +147,6 @@
     color: #0000007c;
 }
 
-
-
 @media screen and (max-width: 767px) {
     .contact_container {
         display: flex;
@@ -170,7 +162,6 @@
 
         flex-direction: column;
         height: 100%;
-
     }
 
     .contact_btn {
@@ -185,7 +176,6 @@
     }
 
     .contact_btn:hover {
-        
         animation: pulse 500ms infinite;
     }
 
@@ -201,11 +191,6 @@
         }
     }
 
-    .close_btn {
-
-        
-    }
-
     .close_btn:hover {
         transform: scale(1.1);
     }
@@ -216,7 +201,6 @@
         flex-direction: column;
         padding: 30px;
         height: 40%;
-
     }
     .contact_modal_container {
         display: flex;
@@ -266,20 +250,18 @@
         height: 60px;
         cursor: pointer;
         z-index: 2;
-    
     }
-    
+
     .dropdown_active {
         display: flex;
         justify-content: space-between;
         width: 100%;
-    
     }
-    
+
     .dropdown_container:active {
         animation: pulse 100ms 1;
     }
-    
+
     .dropdown_menu {
         position: absolute;
         transform: translateY(90%) translateX(41%);
@@ -292,6 +274,5 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        
     }
 }
