@@ -34,6 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 }}
             />
             <LoadingModal
+                // show={true}
                 show={state.isLoading !== undefined ? state.isLoading : false}
                 onHide={() => {
                     dispatch(setLoaderVisibility(false));
@@ -59,7 +60,7 @@ function AppWrapper({ Component, router, pageProps }: AppProps) {
                     <meta name="og:description" content="Intelligent Political Discourse" key="ogDesc" />
                     <meta property="og:title" content="Etha - Future Of Politics" key="ogTitle" />
                     <meta property="og:url" content={`https://etha.one/`} key="ogUrl" />
-                    <meta property="og:image" content={`https://etha.one/logo_square.jpg`} key="ogImage" />
+                    <meta property="og:image" content={`https://etha.one/nav_logo.jpg`} key="ogImage" />
                 </Head>
                 <Provider store={store}>
                     <MyApp Component={Component} router={router} pageProps={pageProps} />
@@ -75,7 +76,7 @@ function AppWrapper({ Component, router, pageProps }: AppProps) {
                 <meta name="og:description" content="Intelligent Political Discourse" key="ogDesc" />
                 <meta property="og:title" content="Etha - Future Of Politics" key="ogTitle" />
                 <meta property="og:url" content={`https://etha.one/`} key="ogUrl" />
-                <meta property="og:image" content={`https://etha.one/logo_square.jpg`} key="ogImage" />
+                <meta property="og:image" content={`https://etha.one/nav_logo.jpg`} key="ogImage" />
             </Head>
             <Script id="googleAnalytics" async src={`https://www.googletagmanager.com/gtag/js?id=UA-190548501-1`} />
             <Script

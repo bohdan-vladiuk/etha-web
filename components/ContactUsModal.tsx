@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 
 import style from '../styles/ContactModal.module.css';
+import { ContactUsForm } from '../models';
 
 interface ConatctUsModalProps {
     onHide: () => void;
@@ -36,15 +37,14 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
     const state = useAppSelector((reduxState) => ({
         isContactForm: reduxState.screenReducer.isContactForm,
     }));
-    const [countryData, setCountryData] = useState<any[]>([])
+    const [countryData, setCountryData] = useState<any[]>([]);
 
     const [viewingMobile, setViewingMobile] = useState<boolean>(false);
     const [viewingEmail, setViewingEmail] = useState<boolean>(false);
 
     const cn = focusedEmail ? style.input_label_animate : style.input_label;
     const pn = focusedMobile ? style.input_label_animate : style.input_label;
-      
-    
+
     useEffect(() => {
         focusing();
         formatMobile(mobile);
@@ -52,10 +52,9 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
             if (e.keyCode === 13 || e.which === 13) {
                 e.preventDefault();
                 return false;
-            }  
+            }
         });
     });
-
     useEffect(() => {
         setEmail('');
         setMobile('');
@@ -84,6 +83,11 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
     function focusing() {
         email.length > 0 ? setViewingEmail(true) : setViewingEmail(false);
         mobile.length > 0 ? setViewingMobile(true) : setViewingMobile(false);
+    }
+
+    function validateEmail(testMail: string): boolean {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(testMail);
     }
 
     return (
@@ -132,7 +136,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                     Enter your email to sign up for early-access to the Etha app!
                                 </p>
 
-                                <Form className="d-flex flex-column w-100  m-0" >
+                                <Form className="d-flex flex-column w-100  m-0">
                                     <Form.Group
                                         className={`${style.input_container}`}
                                         onClick={() => {
@@ -228,7 +232,6 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                             )}
                                         </Dropdown>
                                         <Form.Group
-
                                             className={`${style.input_container}`}
                                             controlId="formBasicMobile"
                                             onClick={() => {
@@ -243,7 +246,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                             </Form.Label>
                                             {focusedMobile && (
                                                 <Form.Control
-                                                tabIndex={0}
+                                                    tabIndex={0}
                                                     className={`p-0 m-0`}
                                                     style={{
                                                         backgroundColor: 'transparent',
@@ -257,8 +260,13 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     placeholder="555-555-5555"
                                                     value={mobile}
                                                     onChange={(e) => {
-                                                        setMobile(e.target.value);
-                                                        setCharLength(mobile.length);
+                                                        if (
+                                                            mobile.length < 12 ||
+                                                            e.target.value.length < mobile.length
+                                                        ) {
+                                                            setMobile(e.target.value);
+                                                            setCharLength(mobile.length);
+                                                        }
                                                     }}
                                                 />
                                             )}
@@ -278,7 +286,13 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     value={mobile}
                                                     placeholder="555-555-5555"
                                                     onChange={(e) => {
-                                                        setMobile(e.target.value);
+                                                        if (
+                                                            mobile.length < 12 ||
+                                                            e.target.value.length < mobile.length
+                                                        ) {
+                                                            setMobile(e.target.value);
+                                                            setCharLength(mobile.length);
+                                                        }
                                                     }}
                                                 />
                                             )}
@@ -288,12 +302,24 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                     <div
                                         className={style.contact_btn}
                                         onClick={() => {
-                                            setSubmit(true);
-                                            onHide();
                                             console.log(email, `${countryCode}-${mobile}`);
-                                            setEmail('');
-                                            setMobile('');
-                                            setCountryCode('+1');
+                                            if (validateEmail(email) && mobile.length === 12) {
+                                                const contactUsForm: ContactUsForm = {
+                                                    name: 'waitlist',
+                                                    phone: `${countryCode}-${mobile}`,
+                                                    email: email,
+                                                    message: 'Sign Up for waitlist',
+                                                };
+                                                ContactUs(contactUsForm, () => {
+                                                    setEmail('');
+                                                    setMobile('');
+                                                    setCountryCode('+1');
+                                                });
+                                                onHide();
+                                                setSubmit(true);
+                                            } else {
+                                                alert('Please fill in the right details.');
+                                            }
                                         }}
                                     >
                                         <p className="m-0" style={{ color: 'white', padding: '15px 40px' }}>
