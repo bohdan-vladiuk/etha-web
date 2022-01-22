@@ -122,7 +122,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             focusing();
                         }}
                     >
-                        <Image src="/close.svg" height={40} width={40} />
+                        <Image src="/close.svg" height={40} width={40} alt="Close" />
                     </div>
                     <div className={style.contact_container}>
                         <div
@@ -201,6 +201,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     src="/dropdownArrow.svg"
                                                     height={10}
                                                     width={10}
+                                                    alt=""
                                                 />
                                             </div>
                                             {toggleDropdown && (
@@ -208,6 +209,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     {Object.keys(countryData).map((val, idx) => {
                                                         return (
                                                             <div
+                                                                key={val}
                                                                 className="d-flex justify-content-between align-items-center w-100"
                                                                 style={{
                                                                     borderBottom: '1px solid #0000000f',
@@ -352,7 +354,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             setSubmit(false);
                         }}
                     >
-                        <Image src="/close.svg" height={40} width={40} />
+                        <Image src="/close.svg" height={40} width={40} alt="Close" />
                     </div>
                     <div
                         className={`d-flex flex-column align-items-center justify-content-center`}
@@ -366,7 +368,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                 Let the truthfulness of politicians be seen!
                             </p>
                             <p style={{ fontSize: '16px', fontWeight: '200' }}>
-                                Awesome! You're going to be one of the first people to get access to Etha.
+                                Awesome! You&apos;re going to be one of the first people to get access to Etha.
                             </p>
                         </div>
                         <div className={style.contact_image} style={{ height: '30%' }}>

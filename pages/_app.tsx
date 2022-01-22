@@ -28,11 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <div className="main-container">
             {/* <NavBar /> */}
             <Component {...pageProps} />
-            <ContactUsModal
-                onHide={() => {
-                    dispatch(setContactFormVisibility(true));
-                }}
-            />
+
             <LoadingModal
                 // show={true}
                 show={state.isLoading !== undefined ? state.isLoading : false}
