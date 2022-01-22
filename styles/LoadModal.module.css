@@ -1,0 +1,11 @@
+.load_modal {
+    flex-direction: row;
+    width: 100vw;
+    justify-content: center;
+    background-color: transparent;
+    border: 0;
+}
+.load_image {
+    border-radius: 200px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
