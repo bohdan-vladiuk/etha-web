@@ -109,7 +109,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             cursor: 'pointer',
                             position: 'absolute',
                             right: '0px',
-                            top: '0px',
+                            top: '25px',
                             margin: '20px',
                         }}
                         onClick={() => {
@@ -349,7 +349,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                 <Modal.Body bsPrefix={style.contact_modal_container}>
                     <div
                         className={style.close_btn}
-                        style={{ cursor: 'pointer', position: 'absolute', right: '0px', top: '0px', margin: '20px' }}
+                        style={{ cursor: 'pointer', position: 'absolute', right: '0px', top: '25px', margin: '20px' }}
                         onClick={() => {
                             setSubmit(false);
                         }}
