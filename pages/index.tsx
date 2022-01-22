@@ -19,7 +19,6 @@ const Home: NextPage = () => {
                                 fontSize: '8.5vh',
                                 fontWeight: 'bold',
                                 lineHeight: '8vh',
-                                textAlign: 'justify',
                                 wordBreak: 'normal',
                             }}
                         >
