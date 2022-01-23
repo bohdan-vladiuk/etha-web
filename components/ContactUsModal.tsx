@@ -116,7 +116,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             cursor: 'pointer',
                             position: 'absolute',
                             right: '0px',
-                            top: '0px',
+                            top: '25px',
                             margin: '20px',
                         }}
                         onClick={() => {
