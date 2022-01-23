@@ -36,7 +36,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
     }));
     const [countryData, setCountryData] = useState<any[]>([]);
     const [countryFlagData, setCountryFlagData] = useState<any[]>([]);
-    const [countryFlag, setCountryFlag] = useState('\uD83C\uDDFA\uD83C\uDDF2');
+    const [countryFlag, setCountryFlag] = useState('\ud83c\uddfa\ud83c\uddf8');
 
     const [viewingMobile, setViewingMobile] = useState<boolean>(false);
     const [viewingEmail, setViewingEmail] = useState<boolean>(false);
@@ -71,9 +71,11 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
         )
             .then((response) => response.json())
             .then((data) => {
+                var list: any[] = [];
                 for (var idx in data) {
-                    countryData.push([data[idx].code, data[idx].dial_code]);
+                    list.push([data[idx].code, data[idx].dial_code]);
                 }
+                setCountryData(list);
             });
     }, []);
 
@@ -280,61 +282,59 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                 />
                                             )}
                                         </Form.Group>
-                                        
                                     </Form.Group>
                                     <Form.Group>
-                                            {toggleDropdown && (
-                                                <div className={`${style.dropdown_menu} mt-2`}>
-                                                    {countryData.sort().map((val, idx) => {
-                                                        return (
-                                                            <div
-                                                                key={val}
-                                                                className="d-flex justify-content-between align-items-center w-100 py-2"
-                                                                style={{
-                                                                    borderBottom: '1px solid #0000000f',
-                                                                    width: '80%',
-                                                                }}
-                                                                onClick={() => {
-                                                                    setCountryCode(val[1]);
-                                                                    setCountryFlag(
-                                                                        val[0] in countryFlagData
-                                                                            ? countryFlagData[val[0]].emoji
-                                                                            : '\uD83C\uDDE7\uD83C\uDDF6',
-                                                                    );
-                                                                    setToggle(false);
-                                                                }}
-                                                            >
-                                                                <p
-                                                                    className="d-flex  m-0 "
-                                                                    style={{ width: '33%', fontWeight: 'bold' }}
-                                                                >
-                                                                    {val[0]}
-                                                                </p>
-                                                                <div
-                                                                    className="d-flex justify-content-center m-0 pl-0"
-                                                                    style={{ width: '33%', fontWeight: 'bold' }}
-                                                                >
-                                                                    {val[0] in countryFlagData
+                                        {toggleDropdown && (
+                                            <div className={`${style.dropdown_menu} mt-2`}>
+                                                {countryData.sort().map((val, idx) => {
+                                                    return (
+                                                        <div
+                                                            key={val}
+                                                            className="d-flex justify-content-between align-items-center w-100 py-2"
+                                                            style={{
+                                                                borderBottom: '1px solid #0000000f',
+                                                                width: '80%',
+                                                            }}
+                                                            onClick={() => {
+                                                                setCountryCode(val[1]);
+                                                                setCountryFlag(
+                                                                    val[0] in countryFlagData
                                                                         ? countryFlagData[val[0]].emoji
-                                                                        : '\uD83C\uDDE7\uD83C\uDDF6'}
-                                                                </div>
-                                                                <p
-                                                                    className="d-flex justify-content-end m-0 "
-                                                                    style={{ width: '33%', fontWeight: 'bold' }}
-                                                                >
-                                                                    {val[1]}
-                                                                </p>
+                                                                        : '\uD83C\uDDE7\uD83C\uDDF6',
+                                                                );
+                                                                setToggle(false);
+                                                            }}
+                                                        >
+                                                            <p
+                                                                className="d-flex  m-0 "
+                                                                style={{ width: '33%', fontWeight: 'bold' }}
+                                                            >
+                                                                {val[0]}
+                                                            </p>
+                                                            <div
+                                                                className="d-flex justify-content-center m-0 pl-0"
+                                                                style={{ width: '33%', fontWeight: 'bold' }}
+                                                            >
+                                                                {val[0] in countryFlagData
+                                                                    ? countryFlagData[val[0]].emoji
+                                                                    : '\uD83C\uDDE7\uD83C\uDDF6'}
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            )}
-                                        </Form.Group>
+                                                            <p
+                                                                className="d-flex justify-content-end m-0 "
+                                                                style={{ width: '33%', fontWeight: 'bold' }}
+                                                            >
+                                                                {val[1]}
+                                                            </p>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+                                    </Form.Group>
 
                                     <div
                                         className={style.contact_btn}
                                         onClick={() => {
-                                            console.log(email, `${countryCode}-${mobile}`);
                                             if (validateEmail(email) && mobile.length === 12) {
                                                 const contactUsForm: ContactUsForm = {
                                                     name: 'waitlist',
