@@ -1,8 +1,11 @@
 html,
 body {
     height: 100% !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     font-family: 'Satoshi', sans-serif;
+    scroll-behavior: smooth;
 }
 
 a {
@@ -14,30 +17,28 @@ a {
     box-sizing: border-box;
 }
 
-
 .modal .form-group {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
-.modal .modal-dialog { 
-  margin: 0px;
-  width: 100vw;
-  border-radius: 0px;
+.modal .modal-dialog {
+    margin: 0px;
+    width: 100vw;
+    border-radius: 0px;
 }
 
-.modal .form-control::placeholder{
-  color:rgba(0, 0, 0, 0.11)
+.modal .form-control::placeholder {
+    color: rgba(0, 0, 0, 0.11);
 }
 
 input:focus,
-select:focus, .form-control:focus,
+select:focus,
+.form-control:focus,
 textarea:focus,
 button:focus {
-  outline: none !important;
-  box-shadow: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
-
-
 
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
@@ -57,5 +58,5 @@ input[type='number']::-webkit-outer-spin-button {
     min-width: 100%;
     min-height: 90%;
     border-radius: 0px;
-    margin: 0px
+    margin: 0px;
 }
