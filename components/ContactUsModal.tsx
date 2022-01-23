@@ -19,9 +19,6 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
     const [mobile, setMobile] = useState('');
 
     const [countryCode, setCountryCode] = useState('+1');
-    const [countryFlag, setCountryFlag] = useState(
-        'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg',
-    );
 
     const [charLength, setCharLength] = useState(0);
 
@@ -38,6 +35,8 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
         isContactForm: reduxState.screenReducer.isContactForm,
     }));
     const [countryData, setCountryData] = useState<any[]>([]);
+    const [countryFlagData, setCountryFlagData] = useState<any[]>([]);
+    const [countryFlag, setCountryFlag] = useState('\ud83c\uddfa\ud83c\uddf8');
 
     const [viewingMobile, setViewingMobile] = useState<boolean>(false);
     const [viewingEmail, setViewingEmail] = useState<boolean>(false);
@@ -61,15 +60,23 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
         setFocusedEmail(false);
         setFocusedMobile(false);
 
-        // fetch('https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/index.json')
-        //     .then((response) => response.json())
-        //     .then((data) => setCountryFlagData(data));
+        fetch('https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/by-code.json')
+            .then((response) => response.json())
+            .then((data) => {
+                setCountryFlagData(data);
+            });
 
         fetch(
             'https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json',
         )
             .then((response) => response.json())
-            .then((data) => setCountryData(data));
+            .then((data) => {
+                var list: any[] = [];
+                for (var idx in data) {
+                    list.push([data[idx].code, data[idx].dial_code]);
+                }
+                setCountryData(list);
+            });
     }, []);
 
     function formatMobile(p: string) {
@@ -109,7 +116,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             cursor: 'pointer',
                             position: 'absolute',
                             right: '0px',
-                            top: '25px',
+                            top: '0px',
                             margin: '20px',
                         }}
                         onClick={() => {
@@ -117,6 +124,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             setEmail('');
                             setMobile('');
                             setCountryCode('+1');
+                            setCountryFlag('\uD83C\uDDFA\uD83C\uDDF2');
                             setFocusedEmail(false);
                             setFocusedMobile(false);
                             focusing();
@@ -189,13 +197,16 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                     <Form.Group className="d-flex mb-2 mt-3">
                                         <Dropdown
                                             className={`${style.dropdown_container} mr-2`}
-                                            style={{ width: '20%' }}
-                                            onClick={() => setToggle(!toggleDropdown)}
+                                            style={{ width: '30%' }}
+                                            onClick={() => {
+                                                setToggle(!toggleDropdown);
+                                            }}
                                         >
                                             <div className={`${style.dropdown_active}`}>
                                                 <p className="p-0 m-0" style={{ fontSize: '14px', fontWeight: 'bold' }}>
                                                     {countryCode}
                                                 </p>
+                                                {countryFlag}
                                                 <Image
                                                     className="p-0 m-0"
                                                     src="/dropdownArrow.svg"
@@ -204,34 +215,6 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     alt=""
                                                 />
                                             </div>
-                                            {toggleDropdown && (
-                                                <div className={`${style.dropdown_menu}`}>
-                                                    {Object.keys(countryData).map((val, idx) => {
-                                                        return (
-                                                            <div
-                                                                key={val}
-                                                                className="d-flex justify-content-between align-items-center w-100"
-                                                                style={{
-                                                                    borderBottom: '1px solid #0000000f',
-                                                                    width: '80%',
-                                                                }}
-                                                                onClick={() => {
-                                                                    setCountryCode(countryData[idx].dial_code);
-                                                                    setToggle(false);
-                                                                }}
-                                                            >
-                                                                {console.log()}
-                                                                <p className="m-0 py-2" style={{ fontWeight: 'bold' }}>
-                                                                    {countryData[idx].code}
-                                                                </p>
-                                                                <p className="m-0 py-2" style={{ fontWeight: 'bold' }}>
-                                                                    {countryData[idx].dial_code}
-                                                                </p>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            )}
                                         </Dropdown>
                                         <Form.Group
                                             className={`${style.input_container}`}
@@ -300,11 +283,58 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                             )}
                                         </Form.Group>
                                     </Form.Group>
+                                    <Form.Group>
+                                        {toggleDropdown && (
+                                            <div className={`${style.dropdown_menu} mt-2`}>
+                                                {countryData.sort().map((val, idx) => {
+                                                    return (
+                                                        <div
+                                                            key={val}
+                                                            className="d-flex justify-content-between align-items-center w-100 py-2"
+                                                            style={{
+                                                                borderBottom: '1px solid #0000000f',
+                                                                width: '80%',
+                                                            }}
+                                                            onClick={() => {
+                                                                setCountryCode(val[1]);
+                                                                setCountryFlag(
+                                                                    val[0] in countryFlagData
+                                                                        ? countryFlagData[val[0]].emoji
+                                                                        : '\uD83C\uDDE7\uD83C\uDDF6',
+                                                                );
+                                                                setToggle(false);
+                                                            }}
+                                                        >
+                                                            <p
+                                                                className="d-flex  m-0 "
+                                                                style={{ width: '33%', fontWeight: 'bold' }}
+                                                            >
+                                                                {val[0]}
+                                                            </p>
+                                                            <div
+                                                                className="d-flex justify-content-center m-0 pl-0"
+                                                                style={{ width: '33%', fontWeight: 'bold' }}
+                                                            >
+                                                                {val[0] in countryFlagData
+                                                                    ? countryFlagData[val[0]].emoji
+                                                                    : '\uD83C\uDDE7\uD83C\uDDF6'}
+                                                            </div>
+                                                            <p
+                                                                className="d-flex justify-content-end m-0 "
+                                                                style={{ width: '33%', fontWeight: 'bold' }}
+                                                            >
+                                                                {val[1]}
+                                                            </p>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+                                    </Form.Group>
 
                                     <div
                                         className={style.contact_btn}
                                         onClick={() => {
-                                            console.log(email, `${countryCode}-${mobile}`);
                                             if (validateEmail(email) && mobile.length === 12) {
                                                 const contactUsForm: ContactUsForm = {
                                                     name: 'waitlist',
@@ -316,6 +346,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     setEmail('');
                                                     setMobile('');
                                                     setCountryCode('+1');
+                                                    setCountryFlag('\uD83C\uDDFA\uD83C\uDDF2');
                                                 });
                                                 onHide();
                                                 setSubmit(true);
