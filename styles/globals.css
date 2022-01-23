@@ -22,9 +22,11 @@ a {
 }
 
 .modal .modal-dialog {
+  position: fixed;
     margin: 0px;
-    width: 100vw;
-    border-radius: 0px;
+    width: 100%;
+    height: 100%;
+
 }
 
 .modal .form-control::placeholder {
