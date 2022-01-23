@@ -2,6 +2,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import Image from 'next/image';
+import styles from '../styles/LoadModal.module.css';
 
 interface LoadingModalProps {
     show: boolean;
@@ -11,14 +12,8 @@ interface LoadingModalProps {
 export const LoadingModal: React.FC<LoadingModalProps> = (props: LoadingModalProps) => {
     const { show, onHide } = props;
     return (
-        <Modal
-            contentClassName="load-modal"
-            show={show}
-            onHide={onHide}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-        >
-            <Image className="load-image" alt="" height={80} width={80} src="/test_load.gif" />
+        <Modal contentClassName={styles.load_modal} show={show} onHide={onHide} centered>
+            <Image className={styles.load_image} alt="" height={80} width={80} src="/loading.gif" />
         </Modal>
     );
 };
