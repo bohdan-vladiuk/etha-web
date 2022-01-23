@@ -37,6 +37,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
         isContactForm: reduxState.screenReducer.isContactForm,
     }));
     const [countryData, setCountryData] = useState<any[]>([])
+    const [countryFlagData, setCountryFlagData] = useState<any[]>([])
 
     const [viewingMobile, setViewingMobile] = useState<boolean>(false);
     const [viewingEmail, setViewingEmail] = useState<boolean>(false);
@@ -54,6 +55,8 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                 return false;
             }  
         });
+        
+
     });
 
     useEffect(() => {
@@ -62,9 +65,11 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
         setFocusedEmail(false);
         setFocusedMobile(false);
 
-        // fetch('https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/index.json')
-        //     .then((response) => response.json())
-        //     .then((data) => setCountryFlagData(data));
+        fetch('https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/index.json')
+            .then((response) => response.json())
+            .then((data) => setCountryFlagData(data))
+            // {countryFlagData[idx].emoji}
+
 
         fetch(
             'https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json',
@@ -186,7 +191,10 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                         <Dropdown
                                             className={`${style.dropdown_container} mr-2`}
                                             style={{ width: '20%' }}
-                                            onClick={() => setToggle(!toggleDropdown)}
+                                            onClick={() => {
+                                                setToggle(!toggleDropdown)
+                                                
+                                            }}
                                         >
                                             <div className={`${style.dropdown_active}`}>
                                                 <p className="p-0 m-0" style={{ fontSize: '14px', fontWeight: 'bold' }}>
@@ -202,6 +210,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                             {toggleDropdown && (
                                                 <div className={`${style.dropdown_menu}`}>
                                                     {Object.keys(countryData).map((val, idx) => {
+                                                        
                                                         return (
                                                             <div
                                                                 className="d-flex justify-content-between align-items-center w-100"
@@ -214,10 +223,13 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                                     setToggle(false);
                                                                 }}
                                                             >
-                                                                {console.log()}
+                                                                
                                                                 <p className="m-0 py-2" style={{ fontWeight: 'bold' }}>
                                                                     {countryData[idx].code}
                                                                 </p>
+                                                                <div className="m-0 py-2" style={{ fontWeight: 'bold' }}>
+                                                                    
+                                                                </div>
                                                                 <p className="m-0 py-2" style={{ fontWeight: 'bold' }}>
                                                                     {countryData[idx].dial_code}
                                                                 </p>
