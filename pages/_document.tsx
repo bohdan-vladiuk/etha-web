@@ -11,7 +11,16 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <meta charSet="utf-8" />
-
+                    <meta name="title" content="Etha - Future Of Politics" />
+                    <meta
+                        name="description"
+                        content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
+                    />
+                    <meta name="keywords" content="etha" />
+                    <meta name="robots" content="index, follow" />
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                    <meta name="language" content="English" />
+                    <meta name="revisit-after" content="7 days" />
                     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
                     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
                     <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
@@ -37,6 +46,29 @@ class MyDocument extends Document {
                         src="https://kit.fontawesome.com/51999c6eef.js"
                         crossOrigin="anonymous"
                     />
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                                !function(f,b,e,v,n,t,s)
+                                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                                n.queue=[];t=b.createElement(e);t.async=!0;
+                                t.src=v;s=b.getElementsByTagName(e)[0];
+                                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                                'https://connect.facebook.net/en_US/fbevents.js');
+                                fbq('init', '5184389098258416');
+                                fbq('track', 'PageView');`,
+                        }}
+                    />
+                    <noscript>
+                        <img
+                            height="1"
+                            width="1"
+                            style={{ display: 'none' }}
+                            src="https://www.facebook.com/tr?id=5184389098258416&ev=PageView&noscript=1"
+                        />
+                    </noscript>
                     <script
                         dangerouslySetInnerHTML={{
                             __html: `
