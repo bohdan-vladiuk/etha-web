@@ -12,6 +12,7 @@ class MyDocument extends Document {
                 <Head>
                     <meta charSet="utf-8" />
                     <meta name="title" content="Etha - Future Of Politics" />
+                    <meta name="facebook-domain-verification" content="pyl087216m4w5flw5d2398hhl5y8wv" />
                     <meta
                         name="description"
                         content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
