@@ -11,7 +11,16 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <meta charSet="utf-8" />
-
+                    <meta name="title" content="Etha - Future Of Politics" />
+                    <meta
+                        name="description"
+                        content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
+                    />
+                    <meta name="keywords" content="etha" />
+                    <meta name="robots" content="index, follow" />
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                    <meta name="language" content="English" />
+                    <meta name="revisit-after" content="7 days" />
                     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
                     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
                     <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />

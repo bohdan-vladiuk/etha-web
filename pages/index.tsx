@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <>
             <div className={styles.container}>
                 <div className={styles.landing_container}>
-                    <div className={`${styles.logo}`}>
+                    {/* <div className={`${styles.logo}`}>
                         <Image
                             onClick={() => {
                                 history.push('/');
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
                             width={25}
                             src="/logo.svg"
                         />
-                    </div>
+                    </div> */}
                     <div className={`${styles.landing_details} d-flex justify-content-center`}>
                         <div style={{ width: '75%', paddingBottom: '20px' }}>
                             <p
