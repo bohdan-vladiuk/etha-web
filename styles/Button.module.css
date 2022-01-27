@@ -1,0 +1,13 @@
+.landing_btn {
+    background-color: #4824d6;
+    width: fit-content;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 200ms ease-out;
+    animation-duration: 2ms;
+}
+
+.landing_btn:hover {
+    transform: scale(1.1);
+}
