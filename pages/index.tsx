@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
@@ -11,13 +10,17 @@ import { useRouter } from 'next/router';
 import { CustomButton } from '../components/Button.component';
 import { CustomInput } from '../components/Input';
 import { Footer } from '../components/Footer';
+import { cp } from 'fs/promises';
 
 const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
-
     
+    const [opacity, setOpacity] = useState(0.0);
+
+    const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
+
     const pageTextData = {
         pageOne: [
             'Stay up to date with breaking news, top national and local newspapers',
@@ -37,11 +40,29 @@ const Home: NextPage = () => {
         ],
     };
 
+    useEffect(() => {
+        const win: Window = window;
+        const onScroll: EventListener = (event: Event) => {
+            if (win.scrollY >= win.innerHeight){
+                setOpacity((opacity) => opacity > 1 ? 1 :  opacity + 0.2)
+                setShowJoinButton(true)
+            }else{
+                setOpacity((opacity) => opacity <= 0 ? 0 : opacity - 0.2)
+                opacity === 0 && setShowJoinButton(false)
+            }
+                
+                
+        };
+
+        win.addEventListener('scroll', onScroll);
+
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [opacity]);
+
     return (
         <>
-            <div className={styles.container} onMouseDown={() => ''}>
+            <div className={styles.container}>
                 <NavBar />
-
                 <Page
                     header="The Future is here"
                     image="landing1"
@@ -66,183 +87,46 @@ const Home: NextPage = () => {
                     bg="#f9f7ff"
                 />
                 <Page header="A safe place for free expression." image="Page3" details={pageTextData.pageThree} />
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        height: '100vh',
-                        padding: '0 10vh',
-                        width: '100%',
-                    }}
-                >
-                    <div
-                        style={{
-                            position: 'absolute',
-                            right: '0',
-
-                            height: '100%',
-                            width: '75%',
-
-                            zIndex: 1,
-                            padding: '80px 0',
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                backgroundColor: '#F9F7FF',
-                                height: '100%',
-                                borderRadius: '30px',
-                            }}
-                        />
+                <div className={styles.page_container}>
+                    <div className={styles.page_background_container}>
+                        <div className={styles.page_background} />
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            height: '100%',
-                            width: '80%',
-                            zIndex: 10,
-                        }}
-                    >
+                    <div className={styles.page_image}>
                         <Image className="p-0 m-0" src={`/PostGroup.svg`} alt="" height={631} width={631} />
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'flex-start',
-                            height: '100%',
-                            width: '100%',
-                            zIndex: 10,
-                            fontSize: '5vh',
-                            lineHeight: '6vh',
-                            fontWeight: '700',
-                            padding: '0 20px',
-                        }}
-                    >
-                        <p>With an innovative fact-checking process for an extra layer of accountablity</p>
+                    <div className={styles.page_font}>
+                        <p className="p-0 m-0">
+                            With an innovative fact-checking process for an extra layer of accountablity
+                        </p>
                     </div>
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        height: '100vh',
-                        width: '100%',
-                    }}
-                >
-                    <div
-                        style={{
-                            position: 'absolute',
-                            height: '100%',
-                            width: '100%',
-                            zIndex: 1,
-                            padding: '40px 160px 18%',
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                backgroundColor: '#F9F7FF',
-                                height: '100%',
-                                borderRadius: '30px',
-                            }}
-                        />
+                <div className={styles.container_not_reversed}>
+                    <div className={styles.page_background2_container}>
+                        <div className={styles.page_background2} />
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'flex-end',
-                            height: '50%',
-                            width: '55%',
-                            zIndex: 10,
-                            fontSize: '5vh',
-                            fontWeight: '700',
-                        }}
-                    >
+                    <div className={styles.page_font} style={{ marginTop: '10%' }}>
                         <p>Daily coverage. Delivered straight to you.</p>
-                        <p style={{ fontSize: '14px', fontWeight: '300' }}>
+                        <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
                             We fact check, cross reference and keep you up to date with your favorite stories so you can
                             focus on investing in yourself, staying informed, and getting involved.
                         </p>
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            height: '100%',
-                            width: '60%',
-                            zIndex: 10,
-                        }}
-                    >
+                    <div className={styles.page_image2}>
                         <Image className="p-0 m-0" src={`/iPhone3.svg`} alt="" height={531} width={1125} />
                     </div>
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
 
-                        width: '100%',
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            height: '50%',
-                            width: '55%',
-                            zIndex: 10,
-                            fontSize: '5vh',
-                            padding: '0 0 60px',
-                            fontWeight: '700',
-                        }}
-                    >
-                        <p>Using facts to bring an end to polarization.</p>
-                        <p style={{ fontSize: '14px', fontWeight: '300' }}>
-                            Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
-                            changes that by focusing on the facts to keep you educated and focus on the things that
-                            matter to you.
-                        </p>
-                    </div>
+                <div className={styles.page_font2}>
+                    <p>Using facts to bring an end to polarization.</p>
+                    <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
+                        Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
+                        changes that by focusing on the facts to keep you educated and focus on the things that matter
+                        to you.
+                    </p>
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        height: '100vh',
-                        width: '100%',
-                        backgroundColor: '#152649',
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            textAlign: 'center',
-                            height: '100%',
-                            width: '55%',
-                            margin: '80px 0',
-                            zIndex: 10,
-                            fontSize: '5vh',
-                            lineHeight: '5vh',
-                            color: '#ffffff',
-                            fontWeight: '700',
-                        }}
-                    >
+
+                <div className="d-flex flex-column align-items-center" style={{ backgroundColor: '#152649' }}>
+                    <div className={styles.page_font3}>
                         <p>Join our community and get early access to a better way to get your information</p>
                     </div>
                     <div
@@ -270,25 +154,21 @@ const Home: NextPage = () => {
                     }}
                 >
                     <div
+                        className="d-lg-flex p-4 m-2"
                         style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'center',
                             height: '50%',
-                            width: '70%',
                             zIndex: 10,
-                            fontSize: '5vh',
-                            lineHeight: '5vh',
-                            padding: '60px',
+                            fontSize: '2.3rem',
+                            lineHeight: '2rem',
                             backgroundColor: '#F9F7FF',
                             borderRadius: '30px',
                             fontWeight: '700',
                             transform: 'translateY(-100px)',
                         }}
                     >
-                        <div style={{ padding: '40px', width: '100%' }}>
+                        <div style={{ padding: '10px', width: '100%' }}>
                             <p>Subscribe to our newsletter today!</p>
-                            <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1rem' }}>
+                            <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
                                 Sign up to receive free daily briefings and newsletters, curated by Etha
                             </p>
                         </div>
@@ -297,7 +177,7 @@ const Home: NextPage = () => {
                                 backgroundColor: '#ffffff',
                                 width: '100%',
                                 padding: '40px',
-                                borderRadius: '10px',
+                                borderRadius: 'inherit',
                                 boxShadow: '0px 3px 24px rgba(234, 234, 234, 0.25)',
                             }}
                         >
@@ -315,8 +195,25 @@ const Home: NextPage = () => {
                         </div>
                     </div>
                 </div>
-                <Footer />
+                <div className="d-none d-lg-flex justify-content-center">
+                    <Footer />
+                </div>
+                {showJoinButton && (
+                    <div
+                        className="d-lg-none m-0 px-5 py-2 d-flex align-items-center fixed-bottom"
+                        style={{ backgroundColor: '#fff', opacity: `${opacity}` }}
+                    >
+                        <CustomButton
+                            placeHolder="Join waitlist"
+                            width='100%'
+                            click={() => {
+                                setShowJoinPage(true);
+                            }}
+                        />
+                    </div>
+                )}
             </div>
+
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
     );

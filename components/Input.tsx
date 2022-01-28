@@ -9,7 +9,7 @@ interface InputProps {
     type: string;
     click?: () => void;
     placeHolder: string | '';
-    val: (e: any) => void;
+    val?: (e: any) => void;
 }
 
 export const CustomInput: React.FC<InputProps> = (props: InputProps) => {
@@ -19,7 +19,7 @@ export const CustomInput: React.FC<InputProps> = (props: InputProps) => {
 
     function handleChange(e: any) {
         setValue(e.target.value);
-        val(e.target.value);
+        val !== undefined && val(e.target.value);
     }
 
     useEffect(() => {
@@ -32,7 +32,12 @@ export const CustomInput: React.FC<InputProps> = (props: InputProps) => {
         <Form.Group
             className={`${style.input_container}`}
             onClick={() => setViewing(true)}
-            controlId="formBasicEmail"
+            controlId={`formBasic${type}`}
+            onMouseLeave={() => {
+                if ( value.length === 0 ) {
+                    setViewing(false);
+                }
+            }}
         >
             <Form.Label className={`${viewing ? style.input_label_animate : cn} p-0 m-0`}>{label}</Form.Label>
             {viewing && (
