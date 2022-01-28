@@ -25,9 +25,29 @@ const ignorePathnames = [
 
 export const NavBar: React.FC = () => {
     const dispatch = useAppDispatch();
+    const history = useRouter();
+    
     return (
         <>
-            <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
+            <div className={`${styles.home_nav_container}`}>
+                <div
+                    className="p-0 m-0 d-flex align-items-center"
+                    onClick={() => {
+                        history.push('/');
+                    }}
+                    style={{ cursor: 'pointer' }}
+                >
+                    <Image className="p-0 m-0 d-flex align-items-center" height={25} width={38.94} src="/logo.svg" />
+                </div>
+
+                <a className={`${styles.nav_link} m-0 p-0 mx-3`} href="/">
+                    About us
+                </a>
+                <a className={`${styles.nav_link} p-0 m-0`} href="/">
+                    Contact us
+                </a>
+            </div>
+            {/* <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
                 <Navbar.Brand className="d-sm-flex d-md-none" href="/landing">
                     <Image className="pl-3" src="/nav_logo.png" alt="" height={25} width={120} />
                 </Navbar.Brand>
@@ -49,7 +69,7 @@ export const NavBar: React.FC = () => {
                         Contact Us
                     </Nav.Link>
                 </Nav>
-            </Navbar>
+            </Navbar> */}
         </>
     );
 };
