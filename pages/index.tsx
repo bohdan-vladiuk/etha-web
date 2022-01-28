@@ -9,9 +9,15 @@ import { Page } from '../components/PageComponent';
 import { ContactUsModal } from '../components/ContactUsModal';
 import { useRouter } from 'next/router';
 import { CustomButton } from '../components/Button.component';
+import { CustomInput } from '../components/Input';
+import { Footer } from '../components/Footer';
 
 const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
+    const [fullname, setFullname] = useState('');
+    const [email, setEmail] = useState('');
+
+    
     const pageTextData = {
         pageOne: [
             'Stay up to date with breaking news, top national and local newspapers',
@@ -33,7 +39,7 @@ const Home: NextPage = () => {
 
     return (
         <>
-            <div className={styles.container}>
+            <div className={styles.container} onMouseDown={() => ''}>
                 <NavBar />
 
                 <Page
@@ -64,25 +70,33 @@ const Home: NextPage = () => {
                     style={{
                         display: 'flex',
                         flexDirection: 'row',
-                        alignItems: "center",
+                        alignItems: 'center',
                         height: '100vh',
-                        width: '100%'
-
+                        padding: '0 10vh',
+                        width: '100%',
                     }}
                 >
                     <div
                         style={{
                             position: 'absolute',
                             right: '0',
-                            
+
                             height: '100%',
                             width: '75%',
-                            
+
                             zIndex: 1,
-                            padding: "40px 0"
+                            padding: '80px 0',
                         }}
                     >
-                        <div style={{display: "flex", alignItems: "center", backgroundColor: '#F9F7FF', height: "100%", borderRadius: '50px',}}/>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                backgroundColor: '#F9F7FF',
+                                height: '100%',
+                                borderRadius: '30px',
+                            }}
+                        />
                     </div>
                     <div
                         style={{
@@ -91,9 +105,8 @@ const Home: NextPage = () => {
                             alignItems: 'center',
                             justifyContent: 'center',
                             height: '100%',
-                            width: '100%',
+                            width: '80%',
                             zIndex: 10,
-
                         }}
                     >
                         <Image className="p-0 m-0" src={`/PostGroup.svg`} alt="" height={631} width={631} />
@@ -108,13 +121,201 @@ const Home: NextPage = () => {
                             zIndex: 10,
                             fontSize: '5vh',
                             lineHeight: '6vh',
-                            fontWeight: '600',
-
+                            fontWeight: '700',
+                            padding: '0 20px',
                         }}
                     >
                         <p>With an innovative fact-checking process for an extra layer of accountablity</p>
                     </div>
                 </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        height: '100vh',
+                        width: '100%',
+                    }}
+                >
+                    <div
+                        style={{
+                            position: 'absolute',
+                            height: '100%',
+                            width: '100%',
+                            zIndex: 1,
+                            padding: '40px 160px 18%',
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                backgroundColor: '#F9F7FF',
+                                height: '100%',
+                                borderRadius: '30px',
+                            }}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'flex-end',
+                            height: '50%',
+                            width: '55%',
+                            zIndex: 10,
+                            fontSize: '5vh',
+                            fontWeight: '700',
+                        }}
+                    >
+                        <p>Daily coverage. Delivered straight to you.</p>
+                        <p style={{ fontSize: '14px', fontWeight: '300' }}>
+                            We fact check, cross reference and keep you up to date with your favorite stories so you can
+                            focus on investing in yourself, staying informed, and getting involved.
+                        </p>
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '100%',
+                            width: '60%',
+                            zIndex: 10,
+                        }}
+                    >
+                        <Image className="p-0 m-0" src={`/iPhone3.svg`} alt="" height={531} width={1125} />
+                    </div>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+
+                        width: '100%',
+                    }}
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            height: '50%',
+                            width: '55%',
+                            zIndex: 10,
+                            fontSize: '5vh',
+                            padding: '0 0 60px',
+                            fontWeight: '700',
+                        }}
+                    >
+                        <p>Using facts to bring an end to polarization.</p>
+                        <p style={{ fontSize: '14px', fontWeight: '300' }}>
+                            Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
+                            changes that by focusing on the facts to keep you educated and focus on the things that
+                            matter to you.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        height: '100vh',
+                        width: '100%',
+                        backgroundColor: '#152649',
+                    }}
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                            height: '100%',
+                            width: '55%',
+                            margin: '80px 0',
+                            zIndex: 10,
+                            fontSize: '5vh',
+                            lineHeight: '5vh',
+                            color: '#ffffff',
+                            fontWeight: '700',
+                        }}
+                    >
+                        <p>Join our community and get early access to a better way to get your information</p>
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            height: '100%',
+                            width: '100%',
+                            zIndex: 10,
+                        }}
+                    >
+                        <Image className="p-0 m-0" src={`/landing_map.svg`} alt="" height={531} width={1125} />
+                    </div>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '100%',
+                        width: '100%',
+                        zIndex: 10,
+                    }}
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            height: '50%',
+                            width: '70%',
+                            zIndex: 10,
+                            fontSize: '5vh',
+                            lineHeight: '5vh',
+                            padding: '60px',
+                            backgroundColor: '#F9F7FF',
+                            borderRadius: '30px',
+                            fontWeight: '700',
+                            transform: 'translateY(-100px)',
+                        }}
+                    >
+                        <div style={{ padding: '40px', width: '100%' }}>
+                            <p>Subscribe to our newsletter today!</p>
+                            <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1rem' }}>
+                                Sign up to receive free daily briefings and newsletters, curated by Etha
+                            </p>
+                        </div>
+                        <div
+                            style={{
+                                backgroundColor: '#ffffff',
+                                width: '100%',
+                                padding: '40px',
+                                borderRadius: '10px',
+                                boxShadow: '0px 3px 24px rgba(234, 234, 234, 0.25)',
+                            }}
+                        >
+                            <CustomInput label="Fullname" type="text" placeHolder="" val={(e) => setFullname(e)} />
+                            <CustomInput label="Email address" type="email" placeHolder="" val={(e) => setEmail(e)} />
+                            <CustomButton
+                                placeHolder="Subscribe to Newsletter"
+                                width="100%"
+                                click={() => {
+                                    alert(`${fullname} ${email}`);
+                                    setFullname('');
+                                    setEmail('');
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <Footer />
             </div>
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>

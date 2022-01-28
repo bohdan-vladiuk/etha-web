@@ -13,7 +13,7 @@
     align-items: flex-end;
     justify-content: center;
     height: 80%;
-    width: 100%;
+    width: 70%;
     border-radius: 50px;
 }
 
@@ -25,7 +25,7 @@
 .page_content_container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 70%;
     justify-content: center;
 }
 
@@ -69,7 +69,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        padding: 0 40px;
+
         justify-content: center;
     }
 

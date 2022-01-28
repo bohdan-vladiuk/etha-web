@@ -128,9 +128,8 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                     </div>
                                 );
                             })}
-
-                            {button && <CustomButton placeHolder={button.placeHolder} click={button.click} />}
                         </div>
+                        {button && <CustomButton placeHolder={button.placeHolder} click={button.click} />}
                     </div>
                 </div>
             )}

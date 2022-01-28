@@ -6,6 +6,12 @@
     cursor: pointer;
     transition: 200ms ease-out;
     animation-duration: 2ms;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px 30px
 }
 
 .landing_btn:hover {

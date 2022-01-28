@@ -7,13 +7,14 @@ import styles from '../styles/Button.module.css';
 interface ButtonProps {
     placeHolder: string;
     click?: () => void;
+    width?: string;
 }
 
 export const CustomButton: React.FC<ButtonProps> = (props: ButtonProps) => {
-    const { placeHolder, click } = props;
+    const { placeHolder, click, width } = props;
     return (
-        <div className={styles.landing_btn} onClick={click}>
-            <p className="m-0" style={{ color: 'white', padding: '15px 40px' }}>
+        <div className={styles.landing_btn} onClick={click} style={{width: `${width && width }`}}>
+            <p className="m-0" style={{ color: 'white' }}>
                 {placeHolder}
             </p>
         </div>
