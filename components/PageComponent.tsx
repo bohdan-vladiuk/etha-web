@@ -1,5 +1,5 @@
 // Dependencies
-import React from 'react';
+import React, { useEffect} from 'react';
 
 import Image from 'next/image';
 import styles from '../styles/Page.module.css';
@@ -20,7 +20,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
     const fontsize = button ? '5rem' : '3rem';
     const fontweight = button ? 'bold' : '600';
     const lineheight = button ? '5rem' : '3rem';
-    
+
     return (
         <>
             {!reversed ? (
