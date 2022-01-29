@@ -121,6 +121,7 @@
 .input_label {
     position: relative;
     font-size: 16px;
+    font-weight: 500;
     transition: 200ms ease-out;
     transform: translateY(0px);
     color: #0000003d;
@@ -129,9 +130,10 @@
 .input_label_animate {
     position: absolute;
     font-size: 10px;
+    font-weight: 300;
     transition: 100ms ease-out;
     transform: translateY(-20px);
-    color: #0000007c;
+    color: #000000c2;
 }
 
 @media screen and (max-width: 767px) {

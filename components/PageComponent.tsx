@@ -1,5 +1,5 @@
 // Dependencies
-import React from 'react';
+import React, { useEffect} from 'react';
 
 import Image from 'next/image';
 import styles from '../styles/Page.module.css';
@@ -17,9 +17,9 @@ interface PageProps {
 
 export const Page: React.FC<PageProps> = (props: PageProps) => {
     const { image, header, details, reversed, checked, bg, button } = props;
-    const fontsize = button ? '8.5vh' : '5.5vh';
+    const fontsize = button ? '5rem' : '3rem';
     const fontweight = button ? 'bold' : '600';
-    const lineheight = button ? '9.5vh' : '6.5vh';
+    const lineheight = button ? '5rem' : '3rem';
 
     return (
         <>
@@ -55,8 +55,8 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                             className="p-0 m-0"
                                             style={{
                                                 width: '90%',
-                                                fontSize: `${button ? '16px' : '12px'}`,
-                                                fontWeight: `${button ? '200' : '300'}`,
+                                                fontSize: `${button ? '1rem' : '1rem'}`,
+                                                fontWeight: `${button ? '300' : '300'}`,
                                             }}
                                         >
                                             {value}
@@ -65,7 +65,11 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                 );
                             })}
 
-                            {button && <CustomButton placeHolder={button.placeHolder} click={button.click} />}
+                            {button && (
+                                <div className='p-0 mt-4'>
+                                    <CustomButton placeHolder={button.placeHolder} click={button.click} />
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div
@@ -119,7 +123,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                             className="p-0 m-0"
                                             style={{
                                                 width: '90%',
-                                                fontSize: `${button ? '16px' : '12px'}`,
+                                                fontSize: `${button ? '1.2rem' : '1rem'}`,
                                                 fontWeight: `${button ? '200' : '300'}`,
                                             }}
                                         >
