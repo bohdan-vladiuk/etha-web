@@ -116,7 +116,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             cursor: 'pointer',
                             position: 'absolute',
                             right: '0px',
-                            top: '0px',
+                            top: '25px',
                             margin: '20px',
                         }}
                         onClick={() => {
@@ -137,9 +137,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             className={`${style.contact_details} d-flex justify-content-md-center justify-content-start`}
                         >
                             <div style={{ width: '75%', margin: 'auto 0' }}>
-                                <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>
-                                    Be the first to get the truth
-                                </p>
+                                <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>Join Waitlist</p>
                                 <p style={{ fontSize: '16px', fontWeight: '200' }}>
                                     Enter your email to sign up for early-access to the Etha app!
                                 </p>
@@ -396,10 +394,10 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                         </div>
                         <div className="d-flex flex-column align-items-center" style={{ width: '75%' }}>
                             <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>
-                                Let the truthfulness of politicians be seen!
+                                Let the information revolution begin!
                             </p>
                             <p style={{ fontSize: '16px', fontWeight: '200' }}>
-                                Awesome! You&apos;re going to be one of the first people to get access to Etha.
+                                Stay tuned for an exclusive code to acceess to Etha.
                             </p>
                         </div>
                         <div className={style.contact_image} style={{ height: '30%' }}>

@@ -126,6 +126,15 @@
     align-items: center;
 }
 
+.logo {
+    font-weight: 'bold';
+    position: absolute;
+    color: '#3e3e3e';
+    top: 10px;
+    left: 0;
+    z-index: 20;
+}
+
 .footer a {
     display: flex;
     justify-content: center;

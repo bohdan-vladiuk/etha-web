@@ -13,6 +13,7 @@ import { Footer } from '../components/Footer';
 import { cp } from 'fs/promises';
 
 const Home: NextPage = () => {
+    const history = useRouter();
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
@@ -193,6 +194,9 @@ const Home: NextPage = () => {
                                 }}
                             />
                         </div>
+                    </div>
+                    <div className={styles.landing_image}>
+                        <Image src="/landing1.svg" alt="" height={600} width={600} />
                     </div>
                 </div>
                 <div className="d-none d-lg-flex justify-content-center">
