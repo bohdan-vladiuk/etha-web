@@ -39,7 +39,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                             </p>
                             {details.map((value, index) => {
                                 return (
-                                    <div className={`${styles.page_one_right_list}`}>
+                                    <div key={index} className={`${styles.page_one_right_list}`}>
                                         {checked && (
                                             <div className="p-0 m-0" style={{ width: '30px' }}>
                                                 <Image
@@ -107,7 +107,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                             </p>
                             {details.map((value, index) => {
                                 return (
-                                    <div className={`${styles.page_one_right_list}`}>
+                                    <div key={index} className={`${styles.page_one_right_list}`}>
                                         {checked && (
                                             <div className="p-0 m-0" style={{ width: '30px' }}>
                                                 <Image
