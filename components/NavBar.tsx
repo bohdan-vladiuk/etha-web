@@ -41,11 +41,23 @@ export const NavBar: React.FC = () => {
                     <Image className="p-0 m-0 d-flex align-items-center" height={25} width={38.94} src="/logo.svg" />
                 </div>
 
-                <div className={`${styles.nav_link} m-0 p-0 mx-3`}>
-                    <Link href="/">About us</Link>
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-3`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        history.push('/');
+                    }}
+                >
+                    About us
                 </div>
-                <div className={`${styles.nav_link} m-0 p-0 mx-3`}>
-                    <Link href="/">Contact us</Link>
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-3`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        history.push('/');
+                    }}
+                >
+                    Contact us
                 </div>
             </div>
             {/* <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
