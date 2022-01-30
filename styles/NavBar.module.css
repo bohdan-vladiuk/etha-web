@@ -1,0 +1,40 @@
+.home_nav_container {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    padding: 3vh 0;
+    margin: 0 80px;
+}
+
+.nav_link {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    height: fit-content;
+    white-space: nowrap;
+    text-decoration: none;
+    color: black;
+}
+
+@media screen and (max-width: 1000px) {
+    .home_nav_container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+        padding: 3vh 0;
+        margin: 0 80px;
+    }
+
+    .nav_link {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        height: fit-content;
+        white-space: nowrap;
+        text-decoration: none;
+        color: black;
+    }
+}

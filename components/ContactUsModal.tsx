@@ -1,8 +1,8 @@
 // Dependencies
 import React, { useState, useEffect } from 'react';
 
-import { ContactUs } from '../middleware';
-import { Modal, Dropdown, DropdownButton, Form } from 'react-bootstrap';
+import { AddToWaitlist, ContactUs } from '../middleware';
+import { Modal, Dropdown, Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 
@@ -142,7 +142,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                     Enter your email to sign up for early-access to the Etha app!
                                 </p>
 
-                                <Form className="d-flex flex-column w-100  m-0">
+                                <Form className="d-flex flex-column w-100 m-0">
                                     <Form.Group
                                         className={`${style.input_container}`}
                                         onClick={() => {
@@ -340,7 +340,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     email: email,
                                                     message: 'Sign Up for waitlist',
                                                 };
-                                                ContactUs(contactUsForm, () => {
+                                                AddToWaitlist(contactUsForm, () => {
                                                     setEmail('');
                                                     setMobile('');
                                                     setCountryCode('+1');
