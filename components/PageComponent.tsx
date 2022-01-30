@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import Image from 'next/image';
 import styles from '../styles/Page.module.css';
@@ -66,7 +66,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                             })}
 
                             {button && (
-                                <div className='p-0 mt-4'>
+                                <div className="p-0 mt-4">
                                     <CustomButton placeHolder={button.placeHolder} click={button.click} />
                                 </div>
                             )}
