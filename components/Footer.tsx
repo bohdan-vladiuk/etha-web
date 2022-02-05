@@ -21,7 +21,7 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
             ['System Status', '/'],
         ],
         Company: [
-            ['About us', '/'],
+            ['About us', '/about-us'],
             ['Careers', '/'],
         ],
         Follow: [

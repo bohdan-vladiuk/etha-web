@@ -98,19 +98,19 @@ const Home: NextPage = () => {
                         <div className={styles.page_background} />
                     </div>
                     <div className={styles.page_image}>
-                        <Image className="p-0 m-0" src={`/PostGroup.svg`} alt="" height={631} width={631} />
+                        <Image className="p-0 m-0" src={`/PostGroup.jpg`} alt="" height={531} width={531} />
                     </div>
                     <div className={styles.page_font}>
-                        <p className="p-0 m-0">
+                        <p className="p-0 m-0 px-2">
                             With an innovative fact-checking process for an extra layer of accountablity
                         </p>
                     </div>
                 </div>
-                <div className={`${styles.container_not_reversed} mt-5`}>
+                <div className={`${styles.container_not_reversed}`}>
                     <div className={styles.page_background2_container}>
                         <div className={styles.page_background2} />
                     </div>
-                    <div className={styles.page_font} style={{ marginTop: '10%' }}>
+                    <div className={styles.page_font} style={{}}>
                         <p>Daily coverage. Delivered straight to you.</p>
                         <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
                             We fact check, cross reference and keep you up to date with your favorite stories so you can
