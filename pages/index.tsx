@@ -187,8 +187,20 @@ const Home: NextPage = () => {
                                 boxShadow: '0px 3px 24px rgba(234, 234, 234, 0.25)',
                             }}
                         >
-                            <CustomInput label="Fullname" type="text" placeHolder="" val={(e) => setFullname(e)} />
-                            <CustomInput label="Email address" type="email" placeHolder="" val={(e) => setEmail(e)} />
+                            <CustomInput
+                                label="Fullname"
+                                type="text"
+                                placeHolder=""
+                                val={(e) => setFullname(e)}
+                                value={fullname}
+                            />
+                            <CustomInput
+                                label="Email address"
+                                type="email"
+                                placeHolder=""
+                                val={(e) => setEmail(e)}
+                                value={email}
+                            />
                             <CustomButton
                                 placeHolder="Subscribe to Newsletter"
                                 width="100%"
