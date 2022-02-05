@@ -53,8 +53,6 @@ const Home: NextPage = () => {
                 setOpacity((opacity) => (opacity <= 0 ? 0 : opacity - 0.2));
                 opacity === 0 && setShowJoinButton(false);
             }
-
-            console.log(opacity);
         };
 
         win.addEventListener('scroll', onScroll);
@@ -197,11 +195,12 @@ const Home: NextPage = () => {
                                 click={() => {
                                     if (validateEmail(email) && fullname.length > 0) {
                                         const subscribeToNewsLetter: SubscribeToNewsLetter = {
-                                            fullName: fullname,
+                                            name: fullname,
                                             email: email,
                                             message: 'Subscribe to news letter',
                                         };
                                         SubscribeNewsletter(subscribeToNewsLetter, () => {
+                                            alert('Submitted your request to subscribe to our newsletter');
                                             setFullname('');
                                             setEmail('');
                                         });

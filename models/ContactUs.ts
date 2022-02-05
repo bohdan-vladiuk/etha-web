@@ -6,7 +6,7 @@ export interface ContactUsForm {
 }
 
 export interface SubscribeToNewsLetter {
-    fullName: string;
+    name: string;
     email: string;
     message: string;
 }

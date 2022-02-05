@@ -5,8 +5,8 @@ import { Button, FormControl, Row } from 'react-bootstrap';
 // Components
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { ContactUs, UnsubscribeNewsletter } from '../middleware';
-import { ContactUsForm } from '../models';
+import { UnsubscribeNewsletter } from '../middleware';
+import { UnsubscribeToNewsLetter } from '../models';
 import { useDispatch } from 'react-redux';
 import { setLoaderVisibility } from '../redux';
 import { useRouter } from 'next/router';
@@ -72,13 +72,11 @@ export const Unsubscribe: NextPage = () => {
                         variant="secondary"
                         onClick={() => {
                             if (email.length > 0 && validateEmail(email)) {
-                                const contactUsForm: ContactUsForm = {
-                                    name: 'No Name',
+                                const unsubscribeNewsletter: UnsubscribeToNewsLetter = {
                                     email: email,
                                     message: 'Unsubscribe',
-                                    phone: '',
                                 };
-                                UnsubscribeNewsletter(contactUsForm, () => {
+                                UnsubscribeNewsletter(unsubscribeNewsletter, () => {
                                     alert('Submitted your request to unsubscribe from our newsletter');
                                     setEmail('');
                                     history.push('/');
