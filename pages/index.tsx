@@ -106,7 +106,7 @@ const Home: NextPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className={styles.container_not_reversed}>
+                <div className={`${styles.container_not_reversed} mt-5`}>
                     <div className={styles.page_background2_container}>
                         <div className={styles.page_background2} />
                     </div>
@@ -118,11 +118,11 @@ const Home: NextPage = () => {
                         </p>
                     </div>
                     <div className={styles.page_image2}>
-                        <Image className="p-0 m-0" src={`/iPhone3.svg`} alt="" height={531} width={1125} />
+                        <Image className="p-0 m-0" src={`/iPhone4.svg`} alt="" height={531} width={1125} />
                     </div>
                 </div>
 
-                <div className={styles.page_font2}>
+                <div className={`${styles.page_font2} mt-5`}>
                     <p>Using facts to bring an end to polarization.</p>
                     <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
                         Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
