@@ -1,4 +1,4 @@
-import { ContactUsForm } from '../models/ContactUs';
+import { ContactUsForm, SubscribeToNewsLetter } from '../models/ContactUs';
 import { setLoaderVisibility } from '../redux';
 import { AppDispatch } from '../redux/store';
 import { CONTACT_US_SUBMIT, WAITLIST_SUBMIT } from '../services/API';
