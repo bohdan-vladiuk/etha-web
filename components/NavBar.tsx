@@ -45,7 +45,7 @@ export const NavBar: React.FC = () => {
                     className={`${styles.nav_link} m-0 p-0 mx-3`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
-                        history.push('/');
+                        history.push('/about-us');
                     }}
                 >
                     About us

@@ -5,19 +5,21 @@ import styles from '../styles/Home.module.css';
 
 import { NavBar } from '../components/NavBar';
 import { Page } from '../components/PageComponent';
+import { SubscribeToNewsLetter } from '../models/ContactUs';
 import { ContactUsModal } from '../components/ContactUsModal';
 import { useRouter } from 'next/router';
 import { CustomButton } from '../components/Button.component';
 import { CustomInput } from '../components/Input';
 import { Footer } from '../components/Footer';
 import { cp } from 'fs/promises';
+import { SubscribeNewsletter } from '../middleware';
 
 const Home: NextPage = () => {
     const history = useRouter();
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
-    
+
     const [opacity, setOpacity] = useState(0.0);
 
     const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
@@ -44,21 +46,24 @@ const Home: NextPage = () => {
     useEffect(() => {
         const win: Window = window;
         const onScroll: EventListener = (event: Event) => {
-            if (win.scrollY >= win.innerHeight){
-                setOpacity((opacity) => opacity > 1 ? 1 :  opacity + 0.2)
-                setShowJoinButton(true)
-            }else{
-                setOpacity((opacity) => opacity <= 0 ? 0 : opacity - 0.2)
-                opacity === 0 && setShowJoinButton(false)
+            if (win.scrollY >= win.innerHeight) {
+                setOpacity((opacity) => (opacity > 1 ? 1 : opacity + 0.2));
+                setShowJoinButton(true);
+            } else {
+                setOpacity((opacity) => (opacity <= 0 ? 0 : opacity - 0.2));
+                opacity === 0 && setShowJoinButton(false);
             }
-                
-                
         };
 
         win.addEventListener('scroll', onScroll);
 
         return () => window.removeEventListener('scroll', onScroll);
     }, [opacity]);
+
+    function validateEmail(testMail: string): boolean {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(testMail);
+    }
 
     return (
         <>
@@ -68,7 +73,7 @@ const Home: NextPage = () => {
                     header="The Future is here"
                     image="landing1"
                     details={[
-                        'Introducing Etha - your favorite resource for the stories that really matter, fact backed information and true freedom of expression.',
+                        'Introducing Etha - your favoriate resource for the stories that really matter, fact backed information and true freedom of expression.',
                     ]}
                     button={{ placeHolder: 'Join waitlist', click: () => setShowJoinPage(true) }}
                 />
@@ -93,19 +98,19 @@ const Home: NextPage = () => {
                         <div className={styles.page_background} />
                     </div>
                     <div className={styles.page_image}>
-                        <Image className="p-0 m-0" src={`/PostGroup.svg`} alt="" height={631} width={631} />
+                        <Image className="p-0 m-0" src={`/PostGroup.jpg`} alt="" height={531} width={531} />
                     </div>
                     <div className={styles.page_font}>
-                        <p className="p-0 m-0">
+                        <p className="p-0 m-0 px-2">
                             With an innovative fact-checking process for an extra layer of accountablity
                         </p>
                     </div>
                 </div>
-                <div className={styles.container_not_reversed}>
+                <div className={`${styles.container_not_reversed}`}>
                     <div className={styles.page_background2_container}>
                         <div className={styles.page_background2} />
                     </div>
-                    <div className={styles.page_font} style={{ marginTop: '10%' }}>
+                    <div className={styles.page_font} style={{}}>
                         <p>Daily coverage. Delivered straight to you.</p>
                         <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
                             We fact check, cross reference and keep you up to date with your favorite stories so you can
@@ -113,11 +118,11 @@ const Home: NextPage = () => {
                         </p>
                     </div>
                     <div className={styles.page_image2}>
-                        <Image className="p-0 m-0" src={`/iPhone3.svg`} alt="" height={531} width={1125} />
+                        <Image className="p-0 m-0" src={`/iPhone4.svg`} alt="" height={531} width={1125} />
                     </div>
                 </div>
 
-                <div className={styles.page_font2}>
+                <div className={`${styles.page_font2} mt-5`}>
                     <p>Using facts to bring an end to polarization.</p>
                     <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
                         Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
@@ -182,21 +187,41 @@ const Home: NextPage = () => {
                                 boxShadow: '0px 3px 24px rgba(234, 234, 234, 0.25)',
                             }}
                         >
-                            <CustomInput label="Fullname" type="text" placeHolder="" val={(e) => setFullname(e)} />
-                            <CustomInput label="Email address" type="email" placeHolder="" val={(e) => setEmail(e)} />
+                            <CustomInput
+                                label="Fullname"
+                                type="text"
+                                placeHolder=""
+                                val={(e) => setFullname(e)}
+                                value={fullname}
+                            />
+                            <CustomInput
+                                label="Email address"
+                                type="email"
+                                placeHolder=""
+                                val={(e) => setEmail(e)}
+                                value={email}
+                            />
                             <CustomButton
                                 placeHolder="Subscribe to Newsletter"
                                 width="100%"
                                 click={() => {
-                                    alert(`${fullname} ${email}`);
-                                    setFullname('');
-                                    setEmail('');
+                                    if (validateEmail(email) && fullname.length > 0) {
+                                        const subscribeToNewsLetter: SubscribeToNewsLetter = {
+                                            name: fullname,
+                                            email: email,
+                                            message: 'Subscribe to news letter',
+                                        };
+                                        SubscribeNewsletter(subscribeToNewsLetter, () => {
+                                            alert('Submitted your request to subscribe to our newsletter');
+                                            setFullname('');
+                                            setEmail('');
+                                        });
+                                    } else {
+                                        alert(`Enter the correct values`);
+                                    }
                                 }}
                             />
                         </div>
-                    </div>
-                    <div className={styles.landing_image}>
-                        <Image src="/landing1.svg" alt="" height={600} width={600} />
                     </div>
                 </div>
                 <div className="d-none d-lg-flex justify-content-center">
@@ -209,7 +234,7 @@ const Home: NextPage = () => {
                     >
                         <CustomButton
                             placeHolder="Join waitlist"
-                            width='100%'
+                            width="100%"
                             click={() => {
                                 setShowJoinPage(true);
                             }}

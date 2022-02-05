@@ -10,9 +10,9 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
     const data = {
         Resources: [
             ['Blog', '/'],
-            ['Privacy Policy', '/'],
+            ['Privacy Policy', '/privacy-policy'],
             ['Cookie Policy', '/'],
-            ['Terms and Conditions', '/'],
+            ['Terms and Conditions', '/terms-of-service'],
         ],
         Help: [
             ['Community', '/'],
@@ -21,14 +21,14 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
             ['System Status', '/'],
         ],
         Company: [
-            ['About us', '/'],
+            ['About us', '/about-us'],
             ['Careers', '/'],
         ],
         Follow: [
-            ['Instagram', '/'],
-            ['Twitter', '/'],
-            ['Facebook', '/'],
-            ['LinkedIn', '/'],
+            ['Instagram', 'https://www.instagram.com/ethaofficialapp'],
+            ['Twitter', 'https://twitter.com/getEtha'],
+            ['Facebook', 'https://www.facebook.com/EthaOfficialApp'],
+            ['LinkedIn', 'https://www.linkedin.com/company/ethaofficialapp'],
         ],
     };
     return (

@@ -7,25 +7,19 @@ import style from '../styles/ContactModal.module.css';
 interface InputProps {
     label: string;
     type: string;
+    value: string;
     click?: () => void;
     placeHolder: string | '';
     val?: (e: any) => void;
 }
 
 export const CustomInput: React.FC<InputProps> = (props: InputProps) => {
-    const { click, label, type, placeHolder, val } = props;
+    const { click, label, type, placeHolder, val, value } = props;
     const [viewing, setViewing] = useState(false);
-    const [value, setValue] = useState('');
 
     function handleChange(e: any) {
-        setValue(e.target.value);
         val !== undefined && val(e.target.value);
     }
-
-    useEffect(() => {
-        setValue('')
-        setViewing(false)
-    }, [])
 
     const cn = viewing ? style.input_label_animate : style.input_label;
     return (
@@ -34,7 +28,7 @@ export const CustomInput: React.FC<InputProps> = (props: InputProps) => {
             onClick={() => setViewing(true)}
             controlId={`formBasic${type}`}
             onMouseLeave={() => {
-                if ( value.length === 0 ) {
+                if (value.length === 0) {
                     setViewing(false);
                 }
             }}
@@ -58,7 +52,7 @@ export const CustomInput: React.FC<InputProps> = (props: InputProps) => {
                     placeholder={placeHolder}
                     onChange={handleChange}
                     onMouseLeave={() => {
-                        if ( value.length === 0 ) {
+                        if (value.length === 0) {
                             setViewing(false);
                         }
                     }}
