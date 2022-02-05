@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import Image from 'next/image';
 import styles from '../styles/Page.module.css';
@@ -39,7 +39,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                             </p>
                             {details.map((value, index) => {
                                 return (
-                                    <div className={`${styles.page_one_right_list}`}>
+                                    <div key={index} className={`${styles.page_one_right_list}`}>
                                         {checked && (
                                             <div className="p-0 m-0" style={{ width: '30px' }}>
                                                 <Image
@@ -66,7 +66,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                             })}
 
                             {button && (
-                                <div className='p-0 mt-4'>
+                                <div className="p-0 mt-4">
                                     <CustomButton placeHolder={button.placeHolder} click={button.click} />
                                 </div>
                             )}
@@ -107,7 +107,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                             </p>
                             {details.map((value, index) => {
                                 return (
-                                    <div className={`${styles.page_one_right_list}`}>
+                                    <div key={index} className={`${styles.page_one_right_list}`}>
                                         {checked && (
                                             <div className="p-0 m-0" style={{ width: '30px' }}>
                                                 <Image

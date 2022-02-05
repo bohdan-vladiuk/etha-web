@@ -1,7 +1,7 @@
 // Dependencies
 import React, { useState, useEffect } from 'react';
 
-import { ContactUs } from '../middleware';
+import { AddToWaitlist, ContactUs } from '../middleware';
 import { Modal, Dropdown, Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../redux/store';
@@ -340,7 +340,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                     email: email,
                                                     message: 'Sign Up for waitlist',
                                                 };
-                                                ContactUs(contactUsForm, () => {
+                                                AddToWaitlist(contactUsForm, () => {
                                                     setEmail('');
                                                     setMobile('');
                                                     setCountryCode('+1');

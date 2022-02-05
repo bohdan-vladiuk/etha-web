@@ -9,6 +9,7 @@ import { setContactFormVisibility } from '../redux';
 // CSS
 import { useRouter } from 'next/router';
 import styles from '../styles/NavBar.module.css';
+import Link from 'next/link';
 
 const ignorePathnames = [
     '/landing',
@@ -26,7 +27,7 @@ const ignorePathnames = [
 export const NavBar: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useRouter();
-    
+
     return (
         <>
             <div className={`${styles.home_nav_container}`}>
@@ -40,12 +41,24 @@ export const NavBar: React.FC = () => {
                     <Image className="p-0 m-0 d-flex align-items-center" height={25} width={38.94} src="/logo.svg" />
                 </div>
 
-                <a className={`${styles.nav_link} m-0 p-0 mx-3`} href="/">
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-3`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        history.push('/');
+                    }}
+                >
                     About us
-                </a>
-                <a className={`${styles.nav_link} p-0 m-0`} href="/">
+                </div>
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-3`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        history.push('/');
+                    }}
+                >
                     Contact us
-                </a>
+                </div>
             </div>
             {/* <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
                 <Navbar.Brand className="d-sm-flex d-md-none" href="/landing">

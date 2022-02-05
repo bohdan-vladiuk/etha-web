@@ -43,11 +43,12 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
                 </div>
                 {Object.entries(data).map((title, idx) => {
                     return (
-                        <div className="d-flex flex-column">
+                        <div key={idx} className="d-flex flex-column">
                             <p style={{ fontSize: '1rem', fontWeight: 'bold' }}>{title[0]}</p>
-                            {title[1].map((details) => {
+                            {title[1].map((details, index) => {
                                 return (
                                     <a
+                                        key={index}
                                         style={{
                                             fontSize: '0.7rem',
                                             textDecoration: 'none',

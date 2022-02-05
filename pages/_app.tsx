@@ -52,13 +52,13 @@ function AppWrapper({ Component, router, pageProps }: AppProps) {
         return (
             <>
                 <Head>
-                    <title>Etha - Future Of Politics</title>
+                    <title>Etha - Future of Information</title>
                     <meta
                         name="og:description"
                         content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
                         key="ogDesc"
                     />
-                    <meta property="og:title" content="Etha - Future Of Politics" key="ogTitle" />
+                    <meta property="og:title" content="Etha - Future of Information" key="ogTitle" />
                     <meta property="og:url" content={`https://etha.one/`} key="ogUrl" />
                     <meta property="og:image" content={`https://etha.one/nav_logo.jpg`} key="ogImage" />
                 </Head>
@@ -72,13 +72,13 @@ function AppWrapper({ Component, router, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Etha - Future Of Politics</title>
+                <title>Etha - Future of Information</title>
                 <meta
                     name="og:description"
                     content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
                     key="ogDesc"
                 />
-                <meta property="og:title" content="Etha - Future Of Politics" key="ogTitle" />
+                <meta property="og:title" content="Etha - Future of Information" key="ogTitle" />
                 <meta property="og:url" content={`https://etha.one/`} key="ogUrl" />
                 <meta property="og:image" content={`https://etha.one/nav_logo.jpg`} key="ogImage" />
             </Head>
