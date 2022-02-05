@@ -17,7 +17,7 @@ const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
-    
+
     const [opacity, setOpacity] = useState(0.0);
 
     const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
@@ -44,15 +44,13 @@ const Home: NextPage = () => {
     useEffect(() => {
         const win: Window = window;
         const onScroll: EventListener = (event: Event) => {
-            if (win.scrollY >= win.innerHeight){
-                setOpacity((opacity) => opacity > 1 ? 1 :  opacity + 0.2)
-                setShowJoinButton(true)
-            }else{
-                setOpacity((opacity) => opacity <= 0 ? 0 : opacity - 0.2)
-                opacity === 0 && setShowJoinButton(false)
+            if (win.scrollY >= win.innerHeight) {
+                setOpacity((opacity) => (opacity > 1 ? 1 : opacity + 0.2));
+                setShowJoinButton(true);
+            } else {
+                setOpacity((opacity) => (opacity <= 0 ? 0 : opacity - 0.2));
+                opacity === 0 && setShowJoinButton(false);
             }
-                
-                
         };
 
         win.addEventListener('scroll', onScroll);
@@ -68,7 +66,7 @@ const Home: NextPage = () => {
                     header="The Future is here"
                     image="landing1"
                     details={[
-                        'Introducing Etha - your favorite resource for the stories that really matter, fact backed information and true freedom of expression.',
+                        'Introducing Etha - your favoriate resource for the stories that really matter, fact backed information and true freedom of expression.',
                     ]}
                     button={{ placeHolder: 'Join waitlist', click: () => setShowJoinPage(true) }}
                 />
@@ -209,7 +207,7 @@ const Home: NextPage = () => {
                     >
                         <CustomButton
                             placeHolder="Join waitlist"
-                            width='100%'
+                            width="100%"
                             click={() => {
                                 setShowJoinPage(true);
                             }}
