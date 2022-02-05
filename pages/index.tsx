@@ -5,12 +5,14 @@ import styles from '../styles/Home.module.css';
 
 import { NavBar } from '../components/NavBar';
 import { Page } from '../components/PageComponent';
+import { SubscribeToNewsLetter } from '../models/ContactUs';
 import { ContactUsModal } from '../components/ContactUsModal';
 import { useRouter } from 'next/router';
 import { CustomButton } from '../components/Button.component';
 import { CustomInput } from '../components/Input';
 import { Footer } from '../components/Footer';
 import { cp } from 'fs/promises';
+import { SubscribeNewsletter } from '../middleware';
 
 const Home: NextPage = () => {
     const history = useRouter();
@@ -51,12 +53,19 @@ const Home: NextPage = () => {
                 setOpacity((opacity) => (opacity <= 0 ? 0 : opacity - 0.2));
                 opacity === 0 && setShowJoinButton(false);
             }
+
+            console.log(opacity);
         };
 
         win.addEventListener('scroll', onScroll);
 
         return () => window.removeEventListener('scroll', onScroll);
     }, [opacity]);
+
+    function validateEmail(testMail: string): boolean {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(testMail);
+    }
 
     return (
         <>
@@ -186,15 +195,22 @@ const Home: NextPage = () => {
                                 placeHolder="Subscribe to Newsletter"
                                 width="100%"
                                 click={() => {
-                                    alert(`${fullname} ${email}`);
-                                    setFullname('');
-                                    setEmail('');
+                                    if (validateEmail(email) && fullname.length > 0) {
+                                        const subscribeToNewsLetter: SubscribeToNewsLetter = {
+                                            fullName: fullname,
+                                            email: email,
+                                            message: 'Subscribe to news letter',
+                                        };
+                                        SubscribeNewsletter(subscribeToNewsLetter, () => {
+                                            setFullname('');
+                                            setEmail('');
+                                        });
+                                    } else {
+                                        alert(`Enter the correct values`);
+                                    }
                                 }}
                             />
                         </div>
-                    </div>
-                    <div className={styles.landing_image}>
-                        <Image src="/landing1.svg" alt="" height={600} width={600} />
                     </div>
                 </div>
                 <div className="d-none d-lg-flex justify-content-center">

@@ -1,4 +1,4 @@
-import { ContactUsForm } from '../models/ContactUs';
+import { ContactUsForm, SubscribeToNewsLetter, UnsubscribeToNewsLetter } from '../models/ContactUs';
 import { setLoaderVisibility } from '../redux';
 import { AppDispatch } from '../redux/store';
 import { CONTACT_US_SUBMIT, SUBSCRIBE_NEWSLETTER, UNSUBSCRIBE_NEWSLETTER, WAITLIST_SUBMIT } from '../services/API';
@@ -19,8 +19,11 @@ export async function ContactUs(contactUsForm: ContactUsForm, cleanFunction: () 
         },
     );
 }
-export async function SubscribeNewsletter(contactUsForm: ContactUsForm, cleanFunction: () => void): Promise<void> {
-    api.post(SUBSCRIBE_NEWSLETTER, contactUsForm).then(
+export async function SubscribeNewsletter(
+    subscribeToNewsLetter: SubscribeToNewsLetter,
+    cleanFunction: () => void,
+): Promise<void> {
+    api.post(SUBSCRIBE_NEWSLETTER, subscribeToNewsLetter).then(
         (response) => {
             if (response.data !== undefined && response.data.id !== '') {
                 cleanFunction();
@@ -34,8 +37,11 @@ export async function SubscribeNewsletter(contactUsForm: ContactUsForm, cleanFun
         },
     );
 }
-export async function UnsubscribeNewsletter(contactUsForm: ContactUsForm, cleanFunction: () => void): Promise<void> {
-    api.post(UNSUBSCRIBE_NEWSLETTER, contactUsForm).then(
+export async function UnsubscribeNewsletter(
+    unsubscribeToNewsLetter: UnsubscribeToNewsLetter,
+    cleanFunction: () => void,
+): Promise<void> {
+    api.post(UNSUBSCRIBE_NEWSLETTER, unsubscribeToNewsLetter).then(
         (response) => {
             if (response.data !== undefined && response.data.id !== '') {
                 cleanFunction();
