@@ -98,7 +98,7 @@ const Home: NextPage = () => {
                         <div className={styles.page_background} />
                     </div>
                     <div className={styles.page_image}>
-                        <Image className="p-0 m-0" src={`/PostGroup.jpg`} alt="" height={531} width={531} />
+                        <Image className="p-0 m-0" src={`/PostGroup.svg`} alt="" height={531} width={531} />
                     </div>
                     <div className={styles.page_font}>
                         <p className="p-0 m-0 px-2">
@@ -129,6 +129,9 @@ const Home: NextPage = () => {
                         changes that by focusing on the facts to keep you educated and focus on the things that matter
                         to you.
                     </p>
+                </div>
+                <div className={`d-flex w-100 justify-content-center m-0`}>
+                    <Image className="p-0 m-0" src={`/PostGroup2.svg`} alt="" height={631} width={1025} />
                 </div>
 
                 <div className="d-flex flex-column align-items-center" style={{ backgroundColor: '#152649' }}>
