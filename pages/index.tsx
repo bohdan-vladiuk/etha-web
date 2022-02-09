@@ -130,6 +130,9 @@ const Home: NextPage = () => {
                         to you.
                     </p>
                 </div>
+                <div className={`d-flex w-100 justify-content-center m-0`}>
+                    <Image className="p-0 m-0" src={`/PostGroup2.jpg`} alt="" height={631} width={1025} />
+                </div>
 
                 <div className="d-flex flex-column align-items-center" style={{ backgroundColor: '#152649' }}>
                     <div className={styles.page_font3}>
