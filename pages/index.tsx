@@ -73,7 +73,7 @@ const Home: NextPage = () => {
                     header="The Future is here"
                     image="landing1"
                     details={[
-                        'Introducing Etha - your favourite resource for the stories that really matter, fact backed information and true freedom of expression.',
+                        'Introducing Etha - your favorite resource for the stories that really matter, fact backed information and true freedom of expression.',
                     ]}
                     button={{ placeHolder: 'Join waitlist', click: () => setShowJoinPage(true) }}
                 />
