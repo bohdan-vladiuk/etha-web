@@ -73,7 +73,7 @@ const Home: NextPage = () => {
                     header="The Future is here"
                     image="landing1"
                     details={[
-                        'Introducing Etha - your favoriate resource for the stories that really matter, fact backed information and true freedom of expression.',
+                        'Introducing Etha - your favourite resource for the stories that really matter, fact backed information and true freedom of expression.',
                     ]}
                     button={{ placeHolder: 'Join waitlist', click: () => setShowJoinPage(true) }}
                 />
@@ -129,6 +129,9 @@ const Home: NextPage = () => {
                         changes that by focusing on the facts to keep you educated and focus on the things that matter
                         to you.
                     </p>
+                </div>
+                <div className={`d-flex w-100 justify-content-center m-0`}>
+                    <Image className="p-0 m-0" src={`/PostGroup2.jpg`} alt="" height={631} width={1025} />
                 </div>
 
                 <div className="d-flex flex-column align-items-center" style={{ backgroundColor: '#152649' }}>
