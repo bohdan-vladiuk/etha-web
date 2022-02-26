@@ -6,3 +6,4 @@ export const SUBSCRIBE_NEWSLETTER = `${baseUrl}/contact-us/subscribe`;
 export const UNSUBSCRIBE_NEWSLETTER = `${baseUrl}/contact-us/unsubscribe`;
 export const GET_POST_TAG = `${baseUrl}/post/tag`;
 export const FETCH_USER_TAG = `${baseUrl}/user/tag`;
+export const VERIFY_EMAIL = `${baseUrl}/user/verify-email`;
