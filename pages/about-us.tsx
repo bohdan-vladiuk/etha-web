@@ -9,9 +9,9 @@ import { NextPage } from 'next';
 export const AboutUs: NextPage = () => {
     const history = useRouter();
     return (
-        <div>
+        <>
             <div
-                className="d-flex p-4"
+                className="d-flex w-100 p-4"
                 style={{
                     minHeight: '200px',
                     justifyContent: 'center',
@@ -161,7 +161,7 @@ export const AboutUs: NextPage = () => {
             </Container>
             <Container
                 className="d-flex m-auto   "
-                style={{ width: '80%', justifyContent: 'center', alignItems: 'center' }}
+                style={{ width: '80%', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
             >
                 {teamCardSmall.map((details: SmallCardDetails, index: number) => {
                     return (
@@ -175,7 +175,7 @@ export const AboutUs: NextPage = () => {
                     );
                 })}
             </Container>
-        </div>
+        </>
     );
 };
 export default AboutUs;

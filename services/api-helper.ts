@@ -2,8 +2,8 @@ import axios from 'axios';
 
 //TODO MAKE changes before deployment
 
-const REACT_APP_API_URL_DEV = `https://dev.etha.one/api`;
-// const REACT_APP_API_URL_DEV = `http://localhost:8080`;
+// const REACT_APP_API_URL_DEV = `https://dev.etha.one/api`;
+const REACT_APP_API_URL_DEV = `http://localhost:8080`;
 const REACT_APP_API_URL_PROD = `https://prod.etha.one/api`;
 
 const REACT_APP_URL_DEV = `http://localhost:3000`;
