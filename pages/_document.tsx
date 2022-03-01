@@ -41,6 +41,10 @@ class MyDocument extends Document {
                     <meta name="theme-color" content="#ffffff" />
 
                     <meta name="twitter:card" content="summary_large_image" />
+
+                    <meta name="msvalidate.01" content="FD277DA85E7B450C3FB9CDFBF22FF2CA" />
+                    <meta name="yandex-verification" content="ff1cde9a4ca6bb62" />
+
                     <script
                         async
                         id="fontAwesome"
