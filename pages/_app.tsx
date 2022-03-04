@@ -3,7 +3,8 @@ import type { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
-
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 import { useEffect } from 'react';
 import Head from 'next/head';
 import store, { persistor, useAppDispatch, useAppSelector } from '../redux/store';
@@ -43,9 +44,22 @@ function MyApp({ Component, pageProps }: AppProps) {
 function AppWrapper({ Component, router, pageProps }: AppProps) {
     useEffect(() => {
         //Production
-        if (process.env.NODE_ENV === 'production') {
-            const trackingId = 'UA-190548501-1'; // Replace with your Google Analytics tracking ID
-            ReactGA.initialize(trackingId);
+        if (process.env.REACT_APP_DEPLOY_ENV === 'prod') {
+            const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID; // Replace with your Google Analytics tracking ID
+            ReactGA.initialize(trackingId || '');
+            const firebaseConfig = {
+                apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+                authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+                projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+                storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+                messagingSenderId: process.env.REACT_APP_FIREBASE_MESS_SENDER_ID,
+                appId: process.env.REACT_APP_FIREBASE_APP_ID,
+                measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
         }
     }, []);
     if (typeof window === 'undefined') {

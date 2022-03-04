@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styles from '../styles/Page.module.css';
 import { CustomButton } from './Button.component';
+import CountDown from './ComingSoon/Timer';
 
 interface PageProps {
     image: string;
@@ -13,6 +14,7 @@ interface PageProps {
     checked?: boolean;
     bg?: string;
     button?: { placeHolder: string; click: () => void };
+    countdown?: boolean;
 }
 
 export const Page: React.FC<PageProps> = (props: PageProps) => {
@@ -136,6 +138,13 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                         {button && <CustomButton placeHolder={button.placeHolder} click={button.click} />}
                     </div>
                 </div>
+            )}
+            {props.countdown ? (
+                <div className="d-flex w-100" style={{ justifyContent: 'center', backgroundColor: '#B2B2F1' }}>
+                    <CountDown />
+                </div>
+            ) : (
+                <></>
             )}
         </>
     );
