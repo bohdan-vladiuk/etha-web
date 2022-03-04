@@ -124,7 +124,9 @@ const Home: NextPage = () => {
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
-
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            width: '100%',
                             zIndex: 10,
                             fontSize: '2rem',
                             lineHeight: '2rem',
@@ -132,7 +134,7 @@ const Home: NextPage = () => {
                         }}
                     >
                         <p>Daily coverage. Delivered straight to you.</p>
-                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '70%' }}>
+                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '50%' }}>
                             We fact check, cross reference and keep you up to date with your favorite stories so you can
                             focus on investing in yourself, staying informed, and getting involved.
                         </p>
@@ -145,7 +147,9 @@ const Home: NextPage = () => {
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
-
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            width: '100%',
                             zIndex: 10,
                             fontSize: '2rem',
                             lineHeight: '2rem',
@@ -153,7 +157,7 @@ const Home: NextPage = () => {
                         }}
                     >
                         <p>Using facts to bring an end to polarization.</p>
-                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '70%' }}>
+                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '50%' }}>
                             Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
                             changes that by focusing on the facts to keep you educated and focus on the things that
                             matter to you.
