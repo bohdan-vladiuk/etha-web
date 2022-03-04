@@ -28,6 +28,8 @@ export const NavBar: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useRouter();
 
+    const navTitles = ['About us', 'Publishers', 'Brand', 'Business', 'Careers', 'Contact'];
+
     return (
         <>
             <div className={`${styles.home_nav_container}`}>
@@ -38,27 +40,27 @@ export const NavBar: React.FC = () => {
                     }}
                     style={{ cursor: 'pointer' }}
                 >
-                    <Image className="p-0 m-0 d-flex align-items-center" height={25} width={38.94} src="/logo.svg" />
+                    <Image
+                        className="p-0 m-0 d-flex align-items-center mr-3"
+                        height={25}
+                        width={38.94}
+                        src="/logo.svg"
+                    />
                 </div>
-
-                <div
-                    className={`${styles.nav_link} m-0 p-0 mx-3`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                        history.push('/about-us');
-                    }}
-                >
-                    About us
-                </div>
-                <div
-                    className={`${styles.nav_link} m-0 p-0 mx-3`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                        history.push('/');
-                    }}
-                >
-                    Contact us
-                </div>
+                {navTitles.map((val, idx) => {
+                    return (
+                        <div
+                            key={`${val}-${idx}`}
+                            className={`${styles.nav_link} m-0 p-0 mx-4`}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                history.push(`/${val.toLowerCase().split(' ')[0]}`);
+                            }}
+                        >
+                            {val}
+                        </div>
+                    );
+                })}
             </div>
             {/* <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
                 <Navbar.Brand className="d-sm-flex d-md-none" href="/landing">
