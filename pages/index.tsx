@@ -13,6 +13,8 @@ import { CustomInput } from '../components/Input';
 import { Footer } from '../components/Footer';
 import { cp } from 'fs/promises';
 import { SubscribeNewsletter } from '../middleware';
+import CountDown from '../components/ComingSoon/Timer';
+import { ComingSoon } from '../components/ComingSoon';
 
 const Home: NextPage = () => {
     const history = useRouter();
@@ -77,6 +79,7 @@ const Home: NextPage = () => {
                     ]}
                     button={{ placeHolder: 'Join waitlist', click: () => setShowJoinPage(true) }}
                 />
+                <ComingSoon />
                 <Page
                     header="An innovative way to get your information"
                     image="iPhone1"
