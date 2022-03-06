@@ -12,7 +12,7 @@ export const ComingSoon: React.FC = () => {
                 color: 'white',
             }}
         >
-            <h1 style={{ color: 'white' }}>Will be covering Russia-Ukraine Soon</h1>
+            <h1 style={{ color: 'white' }}>We will now be covering Russia-Ukraine.</h1>
             <CountDown />
         </div>
     );

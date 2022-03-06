@@ -48,6 +48,9 @@ class CountDown extends Component {
 
     render() {
         const { days, seconds, hours, minutes } = this.state;
+        if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+            return <></>;
+        }
         return (
             <div id="countdown">
                 <div className="row">
