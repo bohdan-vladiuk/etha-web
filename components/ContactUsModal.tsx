@@ -139,7 +139,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             <div style={{ width: '75%', margin: 'auto 0' }}>
                                 <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>Join Waitlist</p>
                                 <p style={{ fontSize: '16px', fontWeight: '200' }}>
-                                    Enter your email to sign up for early-access to the Etha app!
+                                    Enter your email to sign up for early-acess to the Etha app!
                                 </p>
 
                                 <Form className="d-flex flex-column w-100 m-0">
