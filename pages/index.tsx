@@ -77,7 +77,8 @@ const Home: NextPage = () => {
                     details={[
                         'Introducing Etha - your favorite resource for the stories that really matter, fact backed information and true freedom of expression.',
                     ]}
-                    button={{ placeHolder: 'Join waitlist', click: () => setShowJoinPage(true) }}
+                    storeButton={() => ''}
+                    titleSize
                 />
                 <ComingSoon />
                 <Page
@@ -86,22 +87,27 @@ const Home: NextPage = () => {
                     details={pageTextData.pageOne}
                     checked
                     reversed
-                    bg="#CACAF375"
+                    bg="#bdbdf575"
                 />
                 <Page
                     header="Healthy conversations without bias"
                     image="iPhone2"
                     details={pageTextData.pageTwo}
                     checked
-                    bg="#f9f7ff"
+                    bg="#bdbdf575"
                 />
-                <Page header="A safe place for free expression." image="Page3" details={pageTextData.pageThree} />
+                <Page
+                    header="A safe place for free expression."
+                    image="Page3"
+                    details={pageTextData.pageThree}
+                    button={{ placeHolder: 'The Briefings', click: () => '' }}
+                />
                 <div className={styles.page_container}>
                     <div className={styles.page_background_container}>
                         <div className={styles.page_background} />
                     </div>
                     <div className={styles.page_image}>
-                        <Image className="p-0 m-0" src={`/PostGroup.jpg`} alt="" height={531} width={531} />
+                        <Image className="p-0 m-0" src={`/PostGroup.jpg`} alt="" height={766} width={705} />
                     </div>
                     <div className={styles.page_font}>
                         <p className="p-0 m-0 px-2">
@@ -109,13 +115,26 @@ const Home: NextPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className={`${styles.container_not_reversed}`}>
-                    <div className={styles.page_background2_container}>
+                <div className={`${styles.page3_container}`}>
+                    {/* <div className={styles.page_background2_container}>
                         <div className={styles.page_background2} />
-                    </div>
-                    <div className={styles.page_font} style={{}}>
+                    </div> */}
+                    <div
+                        className={``}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            width: '100%',
+                            zIndex: 10,
+                            fontSize: '2rem',
+                            lineHeight: '2rem',
+                            fontWeight: 700,
+                        }}
+                    >
                         <p>Daily coverage. Delivered straight to you.</p>
-                        <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
+                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '50%' }}>
                             We fact check, cross reference and keep you up to date with your favorite stories so you can
                             focus on investing in yourself, staying informed, and getting involved.
                         </p>
@@ -123,17 +142,30 @@ const Home: NextPage = () => {
                     <div className={styles.page_image2}>
                         <Image className="p-0 m-0" src={`/iPhone4.svg`} alt="" height={531} width={1125} />
                     </div>
+                    <div
+                        className={``}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            width: '100%',
+                            zIndex: 10,
+                            fontSize: '2rem',
+                            lineHeight: '2rem',
+                            fontWeight: 700,
+                        }}
+                    >
+                        <p>Using facts to bring an end to polarization.</p>
+                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '50%' }}>
+                            Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
+                            changes that by focusing on the facts to keep you educated and focus on the things that
+                            matter to you.
+                        </p>
+                    </div>
                 </div>
 
-                <div className={`${styles.page_font2} mt-5`}>
-                    <p>Using facts to bring an end to polarization.</p>
-                    <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
-                        Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
-                        changes that by focusing on the facts to keep you educated and focus on the things that matter
-                        to you.
-                    </p>
-                </div>
-                <div className={`d-flex w-100 justify-content-center m-0`}>
+                <div className={`d-flex w-100 justify-content-center my-5`}>
                     <Image className="p-0 m-0" src={`/PostGroup2.jpg`} alt="" height={631} width={1025} />
                 </div>
 
@@ -166,21 +198,30 @@ const Home: NextPage = () => {
                     }}
                 >
                     <div
-                        className="d-lg-flex p-4 m-2"
+                        className="d-lg-flex m-2"
                         style={{
                             height: '50%',
                             zIndex: 10,
-                            fontSize: '2.3rem',
+                            padding: '80px',
+                            fontSize: '2rem',
                             lineHeight: '2rem',
-                            backgroundColor: '#F9F7FF',
+                            backgroundColor: '#e4e4f7',
                             borderRadius: '30px',
-                            fontWeight: '700',
+                            fontWeight: '600',
                             transform: 'translateY(-100px)',
                         }}
                     >
-                        <div style={{ padding: '10px', width: '100%' }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '80%',
+                            }}
+                        >
                             <p>Subscribe to our newsletter today!</p>
-                            <p style={{ fontSize: '1rem', fontWeight: '300', lineHeight: '1.2rem' }}>
+                            <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem' }}>
                                 Sign up to receive free daily briefings and newsletters, curated by Etha
                             </p>
                         </div>
@@ -188,8 +229,8 @@ const Home: NextPage = () => {
                             style={{
                                 backgroundColor: '#ffffff',
                                 width: '100%',
-                                padding: '40px',
-                                borderRadius: 'inherit',
+                                padding: '60px',
+                                borderRadius: '20px',
                                 boxShadow: '0px 3px 24px rgba(234, 234, 234, 0.25)',
                             }}
                         >
@@ -239,7 +280,7 @@ const Home: NextPage = () => {
                         style={{ backgroundColor: '#fff', opacity: `${opacity}` }}
                     >
                         <CustomButton
-                            placeHolder="Join waitlist"
+                            placeHolder="Give Feedback"
                             width="100%"
                             click={() => {
                                 setShowJoinPage(true);
@@ -248,7 +289,6 @@ const Home: NextPage = () => {
                     </div>
                 )}
             </div>
-
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
     );

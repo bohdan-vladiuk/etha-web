@@ -10,6 +10,7 @@ import { setContactFormVisibility } from '../redux';
 import { useRouter } from 'next/router';
 import styles from '../styles/NavBar.module.css';
 import Link from 'next/link';
+import { ContactUsModal } from './ContactUsModal';
 
 const ignorePathnames = [
     '/landing',
@@ -27,6 +28,9 @@ const ignorePathnames = [
 export const NavBar: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useRouter();
+    const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
+    // 'About us', 'Publishers', 'Brand', 'Business', 'Careers',
+    const navTitles = ['Feedback'];
 
     return (
         <>
@@ -38,27 +42,37 @@ export const NavBar: React.FC = () => {
                     }}
                     style={{ cursor: 'pointer' }}
                 >
-                    <Image className="p-0 m-0 d-flex align-items-center" height={25} width={38.94} src="/logo.svg" />
-                </div>
-
-                <div
-                    className={`${styles.nav_link} m-0 p-0 mx-3`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                        history.push('/about-us');
-                    }}
-                >
-                    About us
+                    <Image
+                        className="p-0 m-0 d-flex align-items-center mr-3"
+                        height={25}
+                        width={38.94}
+                        src="/logo.svg"
+                    />
                 </div>
                 <div
-                    className={`${styles.nav_link} m-0 p-0 mx-3`}
+                    className={`${styles.nav_link} m-0 p-0 mx-4`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
-                        history.push('/');
+                        history.push(`/about-us`);
                     }}
                 >
-                    Contact us
+                    About Us
                 </div>
+                {navTitles.map((val, idx) => {
+                    return (
+                        <div
+                            key={`${val}-${idx}`}
+                            className={`${styles.nav_link} m-0 p-0 mx-4`}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                setShowJoinPage(true);
+                                //history.push(`/${val.toLowerCase().split(' ')[0]}`);
+                            }}
+                        >
+                            {val}
+                        </div>
+                    );
+                })}
             </div>
             {/* <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
                 <Navbar.Brand className="d-sm-flex d-md-none" href="/landing">
@@ -83,6 +97,7 @@ export const NavBar: React.FC = () => {
                     </Nav.Link>
                 </Nav>
             </Navbar> */}
+            <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
     );
 };
