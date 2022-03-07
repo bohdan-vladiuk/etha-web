@@ -75,11 +75,17 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                 </div>
                             )}
                             {storeButton && (
-                                <div className="d-flex p-0 mt-4 mr-4">
+                                <div className="d-flex p-0 mt-4 mr-4" style={{ cursor: 'pointer' }}>
                                     <Image
                                         className="p-0 py-0 pr-2"
                                         src={`/google_store.svg`}
                                         alt=""
+                                        onClick={() =>
+                                            window.open(
+                                                'https://play.google.com/store/apps/details?id=one.etha.app',
+                                                '_blank',
+                                            )
+                                        }
                                         height={78}
                                         width={150}
                                     />
@@ -87,6 +93,9 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                         className="p-0 py-0 px-2"
                                         src={`/apple_store.svg`}
                                         alt=""
+                                        onClick={() =>
+                                            window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
+                                        }
                                         height={78}
                                         width={150}
                                     />

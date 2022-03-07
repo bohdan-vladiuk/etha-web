@@ -107,7 +107,7 @@ const Home: NextPage = () => {
                         <div className={styles.page_background} />
                     </div>
                     <div className={styles.page_image}>
-                        <Image className="p-0 m-0" src={`/PostGroup.svg`} alt="" height={766} width={705} />
+                        <Image className="p-0 m-0" src={`/PostGroup.jpg`} alt="" height={766} width={705} />
                     </div>
                     <div className={styles.page_font}>
                         <p className="p-0 m-0 px-2">
@@ -166,7 +166,7 @@ const Home: NextPage = () => {
                 </div>
 
                 <div className={`d-flex w-100 justify-content-center my-5`}>
-                    <Image className="p-0 m-0" src={`/PostGroup2.svg`} alt="" height={631} width={1025} />
+                    <Image className="p-0 m-0" src={`/PostGroup2.jpg`} alt="" height={631} width={1025} />
                 </div>
 
                 <div className="d-flex flex-column align-items-center" style={{ backgroundColor: '#152649' }}>
@@ -280,7 +280,7 @@ const Home: NextPage = () => {
                         style={{ backgroundColor: '#fff', opacity: `${opacity}` }}
                     >
                         <CustomButton
-                            placeHolder="Join waitlist"
+                            placeHolder="Give Feedback"
                             width="100%"
                             click={() => {
                                 setShowJoinPage(true);
@@ -289,7 +289,6 @@ const Home: NextPage = () => {
                     </div>
                 )}
             </div>
-
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
     );

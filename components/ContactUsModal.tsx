@@ -17,6 +17,7 @@ interface ConatctUsModalProps {
 export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsModalProps) => {
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
+    const [message, setMessage] = useState('');
 
     const [countryCode, setCountryCode] = useState('+1');
 
@@ -27,6 +28,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
 
     const [focusedEmail, setFocusedEmail] = useState<boolean>(false);
     const [focusedMobile, setFocusedMobile] = useState<boolean>(false);
+    const [focusedMessage, setFocusedMessage] = useState<boolean>(false);
 
     const [toggleDropdown, setToggle] = useState<boolean>(false);
 
@@ -40,9 +42,11 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
 
     const [viewingMobile, setViewingMobile] = useState<boolean>(false);
     const [viewingEmail, setViewingEmail] = useState<boolean>(false);
+    const [viewingMessage, setViewingMessage] = useState<boolean>(false);
 
     const cn = focusedEmail ? style.input_label_animate : style.input_label;
     const pn = focusedMobile ? style.input_label_animate : style.input_label;
+    const mn = focusedMessage ? style.input_label_animate : style.input_label;
 
     useEffect(() => {
         focusing();
@@ -59,7 +63,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
         setMobile('');
         setFocusedEmail(false);
         setFocusedMobile(false);
-
+        setFocusedMessage(false);
         fetch('https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/by-code.json')
             .then((response) => response.json())
             .then((data) => {
@@ -90,6 +94,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
     function focusing() {
         email.length > 0 ? setViewingEmail(true) : setViewingEmail(false);
         mobile.length > 0 ? setViewingMobile(true) : setViewingMobile(false);
+        message.length > 0 ? setViewingMessage(true) : setViewingMessage(false);
     }
 
     function validateEmail(testMail: string): boolean {
@@ -127,6 +132,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             setCountryFlag('\uD83C\uDDFA\uD83C\uDDF2');
                             setFocusedEmail(false);
                             setFocusedMobile(false);
+                            setFocusedMessage(false);
                             focusing();
                         }}
                     >
@@ -137,9 +143,11 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             className={`${style.contact_details} d-flex justify-content-md-center justify-content-start`}
                         >
                             <div style={{ width: '75%', margin: 'auto 0' }}>
-                                <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>Join Waitlist</p>
+                                <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>
+                                    Give us Feedback
+                                </p>
                                 <p style={{ fontSize: '16px', fontWeight: '200' }}>
-                                    Enter your email to sign up for early-acess to the Etha app!
+                                    Tell us how you feel about the Etha app!
                                 </p>
 
                                 <Form className="d-flex flex-column w-100 m-0">
@@ -148,6 +156,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                         onClick={() => {
                                             setFocusedEmail(true);
                                             setFocusedMobile(false);
+                                            setFocusedMessage(false);
                                         }}
                                         controlId="formBasicEmail"
                                     >
@@ -220,6 +229,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                             onClick={() => {
                                                 setFocusedEmail(false);
                                                 setFocusedMobile(true);
+                                                setFocusedMessage(false);
                                             }}
                                         >
                                             <Form.Label
@@ -283,7 +293,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                     </Form.Group>
                                     <Form.Group>
                                         {toggleDropdown && (
-                                            <div className={`${style.dropdown_menu} mt-2`}>
+                                            <div className={`${style.dropdown_menu} `}>
                                                 {countryData.sort().map((val, idx) => {
                                                     return (
                                                         <div
@@ -329,18 +339,68 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                             </div>
                                         )}
                                     </Form.Group>
-
+                                    <Form.Group
+                                        className={`${style.input_container}`}
+                                        onClick={() => {
+                                            setFocusedEmail(false);
+                                            setFocusedMobile(false);
+                                            setFocusedMessage(true);
+                                        }}
+                                        controlId="formBasicEmail"
+                                    >
+                                        <Form.Label
+                                            className={`${viewingMessage ? style.input_label_animate : mn} p-0 m-0`}
+                                        >
+                                            Message
+                                        </Form.Label>
+                                        {focusedMessage && (
+                                            <Form.Control
+                                                tabIndex={0}
+                                                className={`p-0 m-0`}
+                                                style={{
+                                                    backgroundColor: 'transparent',
+                                                    border: 'none',
+                                                    outline: 'none',
+                                                    fontSize: '16px',
+                                                    fontWeight: 'bold',
+                                                    color: 'black',
+                                                    maxLines: 3,
+                                                }}
+                                                type="textarea"
+                                                value={message}
+                                                placeholder="Tell us something that helps us...."
+                                                onChange={(e) => setMessage(e.target.value)}
+                                            />
+                                        )}
+                                        {viewingMessage && !focusedMessage && (
+                                            <Form.Control
+                                                className={`p-0 m-0`}
+                                                style={{
+                                                    backgroundColor: 'transparent',
+                                                    border: 'none',
+                                                    outline: 'none',
+                                                    fontSize: '16px',
+                                                    fontWeight: 'bold',
+                                                    color: 'black',
+                                                }}
+                                                type="textarea"
+                                                value={message}
+                                                placeholder="Tell us something that helps us...."
+                                                onChange={(e) => setMessage(e.target.value)}
+                                            />
+                                        )}
+                                    </Form.Group>
                                     <div
                                         className={style.contact_btn}
                                         onClick={() => {
-                                            if (validateEmail(email) && mobile.length === 12) {
+                                            if (validateEmail(email) || mobile.length >= 10) {
                                                 const contactUsForm: ContactUsForm = {
-                                                    name: 'waitlist',
+                                                    name: 'feedback',
                                                     phone: `${countryCode}-${mobile}`,
                                                     email: email,
-                                                    message: 'Sign Up for waitlist',
+                                                    message: message,
                                                 };
-                                                AddToWaitlist(contactUsForm, () => {
+                                                ContactUs(contactUsForm, () => {
                                                     setEmail('');
                                                     setMobile('');
                                                     setCountryCode('+1');
@@ -349,12 +409,12 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                                 onHide();
                                                 setSubmit(true);
                                             } else {
-                                                alert('Please fill in the right details.');
+                                                alert('Please provide a valid emailId or mobile number');
                                             }
                                         }}
                                     >
                                         <p className="m-0" style={{ color: 'white', padding: '15px 40px' }}>
-                                            Join Waitlist
+                                            Submit
                                         </p>
                                     </div>
                                 </Form>
@@ -397,7 +457,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                                 Let the information revolution begin!
                             </p>
                             <p style={{ fontSize: '16px', fontWeight: '200' }}>
-                                Stay tuned for an exclusive code to acceess to Etha.
+                                Stay tuned for an exclusive content from acceess to Etha.
                             </p>
                         </div>
                         <div className={style.contact_image} style={{ height: '30%' }}>

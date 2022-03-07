@@ -10,6 +10,7 @@ import { setContactFormVisibility } from '../redux';
 import { useRouter } from 'next/router';
 import styles from '../styles/NavBar.module.css';
 import Link from 'next/link';
+import { ContactUsModal } from './ContactUsModal';
 
 const ignorePathnames = [
     '/landing',
@@ -27,8 +28,9 @@ const ignorePathnames = [
 export const NavBar: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useRouter();
-
-    const navTitles = ['About us', 'Publishers', 'Brand', 'Business', 'Careers', 'Contact'];
+    const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
+    // 'About us', 'Publishers', 'Brand', 'Business', 'Careers',
+    const navTitles = ['Feedback'];
 
     return (
         <>
@@ -47,6 +49,15 @@ export const NavBar: React.FC = () => {
                         src="/logo.svg"
                     />
                 </div>
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-4`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        history.push(`/about-us`);
+                    }}
+                >
+                    About Us
+                </div>
                 {navTitles.map((val, idx) => {
                     return (
                         <div
@@ -54,7 +65,8 @@ export const NavBar: React.FC = () => {
                             className={`${styles.nav_link} m-0 p-0 mx-4`}
                             style={{ cursor: 'pointer' }}
                             onClick={() => {
-                                history.push(`/${val.toLowerCase().split(' ')[0]}`);
+                                setShowJoinPage(true);
+                                //history.push(`/${val.toLowerCase().split(' ')[0]}`);
                             }}
                         >
                             {val}
@@ -85,6 +97,7 @@ export const NavBar: React.FC = () => {
                     </Nav.Link>
                 </Nav>
             </Navbar> */}
+            <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
     );
 };
