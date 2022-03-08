@@ -14,14 +14,16 @@ interface PageProps {
     checked?: boolean;
     bg?: string;
     button?: { placeHolder: string; click: () => void };
+    storeButton?: () => void;
     countdown?: boolean;
+    titleSize?: boolean;
 }
 
 export const Page: React.FC<PageProps> = (props: PageProps) => {
-    const { image, header, details, reversed, checked, bg, button } = props;
-    const fontsize = button ? '5rem' : '3rem';
-    const fontweight = button ? 'bold' : '600';
-    const lineheight = button ? '5rem' : '3rem';
+    const { image, header, details, reversed, checked, bg, button, storeButton, titleSize } = props;
+    const fontsize = titleSize ? '5rem' : '3rem';
+    const fontweight = titleSize ? 'bold' : '600';
+    const lineheight = titleSize ? '5rem' : '3rem';
 
     return (
         <>
@@ -57,8 +59,8 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                             className="p-0 m-0"
                                             style={{
                                                 width: '90%',
-                                                fontSize: `${button ? '1rem' : '1rem'}`,
-                                                fontWeight: `${button ? '300' : '300'}`,
+                                                fontSize: `0.8rem`,
+                                                fontWeight: `300`,
                                             }}
                                         >
                                             {value}
@@ -68,8 +70,35 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                             })}
 
                             {button && (
-                                <div className="p-0 mt-4">
+                                <div className="p-0 mt-5">
                                     <CustomButton placeHolder={button.placeHolder} click={button.click} />
+                                </div>
+                            )}
+                            {storeButton && (
+                                <div className="d-flex p-0 mt-4 mr-4" style={{ cursor: 'pointer' }}>
+                                    <Image
+                                        className="p-0 py-0 pr-2"
+                                        src={`/google_store.svg`}
+                                        alt=""
+                                        onClick={() =>
+                                            window.open(
+                                                'https://play.google.com/store/apps/details?id=one.etha.app',
+                                                '_blank',
+                                            )
+                                        }
+                                        height={78}
+                                        width={150}
+                                    />
+                                    <Image
+                                        className="p-0 py-0 px-2"
+                                        src={`/apple_store.svg`}
+                                        alt=""
+                                        onClick={() =>
+                                            window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
+                                        }
+                                        height={78}
+                                        width={150}
+                                    />
                                 </div>
                             )}
                         </div>
@@ -125,8 +154,8 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                             className="p-0 m-0"
                                             style={{
                                                 width: '90%',
-                                                fontSize: `${button ? '1.2rem' : '1rem'}`,
-                                                fontWeight: `${button ? '200' : '300'}`,
+                                                fontSize: `0.8rem`,
+                                                fontWeight: `300`,
                                             }}
                                         >
                                             {value}
