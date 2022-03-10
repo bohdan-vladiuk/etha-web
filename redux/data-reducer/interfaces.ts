@@ -25,6 +25,10 @@ export interface SetCommentAction {
     page: number;
     commentData: any;
 }
+export interface DeleteCommentAction {
+    type: string;
+    commentId: string;
+}
 
 export interface SetUserActiivityAction {
     type: string;

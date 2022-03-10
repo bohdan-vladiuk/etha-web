@@ -1,11 +1,11 @@
 // Dependencies
 import React from 'react';
-import { Col, Row, Container, Image, ProgressBar, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import _ from 'lodash';
-import { verifyEmail } from '../middleware/User';
+import { VerifyEmail } from '../middleware/User';
 
 export const EmailVerification: NextPage = () => {
     const history = useRouter();
@@ -15,7 +15,7 @@ export const EmailVerification: NextPage = () => {
 
     useEffect(() => {
         if (!_.isEmpty(id) && !_.isEmpty(secret) && !_.isEmpty(accept))
-            verifyEmail(
+            VerifyEmail(
                 Number(id),
                 secret,
                 Boolean(accept),

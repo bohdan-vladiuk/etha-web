@@ -20,6 +20,17 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
                 userData: action.usersList,
             };
         }
+        case types.DELETE_COMMENT: {
+            const commentData = state.commentData;
+            commentData.content.splice(
+                commentData.content.findIndex((o: any) => o.id === action.commentId),
+                1,
+            );
+            return {
+                ...state,
+                commentData: commentData,
+            };
+        }
         case types.SET_POSTS: {
             switch (action.postType) {
                 case 'new':
@@ -36,7 +47,6 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
                             newPosts: action.postData,
                         };
                     }
-                    break;
                 case 'hot':
                     if (action.page === 0) {
                         return {
@@ -51,8 +61,6 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
                             hotPosts: action.postData,
                         };
                     }
-                    break;
-
                 case 'search':
                     if (action.page === 0) {
                         return {
@@ -67,7 +75,6 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
                             searchPosts: action.postData,
                         };
                     }
-                    break;
                 case 'public-figure':
                     if (action.page === 0) {
                         return {
@@ -87,6 +94,7 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
                 ...state,
             };
         }
+
         case types.SET_COMMENTS: {
             if (action.page === 0) {
                 return {
@@ -102,6 +110,7 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
                 };
             }
         }
+
         case types.SET_USER_ACTIVITY_DATA: {
             if (action.page === 0) {
                 return {

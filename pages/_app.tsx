@@ -10,8 +10,7 @@ import Head from 'next/head';
 import store, { persistor, useAppDispatch, useAppSelector } from '../redux/store';
 import Script from 'next/script';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ContactUsModal } from '../components/ContactUsModal';
-import { setContactFormVisibility, setLoaderVisibility, setSignInModalVisibility } from '../redux';
+import { setLoaderVisibility } from '../redux';
 import { LoadingModal } from '../components/LoadingModal';
 import { NavBar } from '../components/NavBar';
 

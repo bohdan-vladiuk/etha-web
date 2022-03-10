@@ -6,9 +6,21 @@ export interface User {
     email?: string;
     imageUrl?: string;
     tag?: string;
-    slug?: string;
+    dob?: string;
+    phone?: string;
+    emailVerified?: boolean;
     title?: string;
     bio?: string;
     password?: string;
+    role?: string;
     voteCount?: VoteCount;
+}
+
+export interface ImageUploadRequest {
+    image: File;
+}
+
+export interface ImageUploadResponse {
+    success: boolean;
+    path: string;
 }

@@ -2,7 +2,7 @@ import { SET_CONTACT_FORM } from '.';
 import { ScreenAction } from './interfaces';
 import { SET_LOADER, SET_MODAL, SET_SIGNIN_WELCOME, SET_SIGNUP_WELCOME, SET_POST } from './types';
 
-export const setSignInModalVisibility = (modalVisibility: boolean): ScreenAction => ({
+export const setModalVisibility = (modalVisibility: boolean): ScreenAction => ({
     type: SET_MODAL,
     isSignInModalShow: modalVisibility,
 });

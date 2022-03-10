@@ -5,3 +5,5 @@ export const USER_DETAILS = 'USER_DETAILS';
 export const USER_LIST = 'USER_LIST';
 export const USER_ACTIVITY_LIST = 'USER_ACTIVITY_LIST';
 export const SET_TOKEN = 'SET_TOKEN';
+export const SET_FIRST_LOAD = 'SET_FIRST_LOAD';
+export const SET_HASHTAGS = 'SET_HASHTAGS';

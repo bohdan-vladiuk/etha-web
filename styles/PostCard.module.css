@@ -1,0 +1,13 @@
+.post_card_background {
+    background-color: #ffffff;
+    min-width: 230px;
+    width: 100%;
+    border-width: 0px 0px 2px 0px;
+    border-radius: 0px 0px 0px 60px;
+    border-style: solid;
+    border-color: #cccccc;
+    box-shadow: 2px 2px #dedede;
+}
+
+.filter_green {
+}
