@@ -71,6 +71,7 @@ export const UserActivityEntry: React.FC<UserActivityEntryProps> = (props: UserA
                     margin: '5px',
                     textAlign: 'start',
                     justifyContent: 'center',
+                    cursor: 'pointer',
                 }}
                 onClick={() => history.push('/post/' + props.activity.post.tag)}
             >
@@ -102,7 +103,7 @@ export const UserActivityEntry: React.FC<UserActivityEntryProps> = (props: UserA
                             alt=""
                             height={30}
                             width={30}
-                            style={{ filter: getActivityFilter(), zIndex: 10 }}
+                            style={{ filter: getActivityFilter() }}
                         />
                     </div>
                 </div>

@@ -39,3 +39,33 @@
         color: black;
     }
 }
+
+.navBar_large {
+    display: flex;
+    background: #fff;
+    padding: 10px 0;
+    margin: auto;
+    align-items: center;
+    box-shadow: #00000030 2px 2px;
+    z-index: 20;
+    max-height: 78px;
+    position: fixed;
+    top: env(safe-area-inset-top);
+    width: 100%;
+}
+
+.search_bar {
+    height: 54px;
+    max-width: 784px !important;
+    min-width: 200px !important;
+    /* padding: 5px 15px !important; */
+    /* border-style: solid !important; */
+    font-size: 15px !important;
+    outline: unset;
+}
+
+.search_header_container {
+    z-index: 20;
+    position: fixed;
+    top: env(safe-area-inset-top);
+}

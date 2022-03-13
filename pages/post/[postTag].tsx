@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
-import { Button, Image, FormControl } from 'react-bootstrap';
+import { Button, Image, FormControl, Container, Row, Col } from 'react-bootstrap';
 
 import Head from 'next/head';
 import { Comment, CommentRequest, Post, PostVoteRequest, VoteCount } from '../../models';
@@ -14,6 +14,11 @@ import { setComments, setLoaderVisibility, setSharePost } from '../../redux';
 import { fetchCommentList, fetchPostDetailsByTag, postComment, postVote } from '../../middleware';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { CommentEntry } from '../../components/CommentEntry';
+import { AppNavBar } from '../../components/AppNavBar';
+import SidePanelLeft from '../../components/SidePanelLeft';
+import SidePanelRight from '../../components/SidePanelRight';
+import { CompareBar } from '../../components/CompareBar';
+import { AppFooter } from '../../components/AppFooter';
 
 interface Props {
     preFetchPost?: Post;
@@ -46,12 +51,9 @@ export const PostPanel: NextPage<Props> = (props) => {
     }, [dispatch, postTag]);
 
     useEffect(() => {
-        console.log(postTag);
-        console.log(_.isNumber(postTag));
         if (postTag === '') {
             history.push('/');
         } else if (postTag != undefined && _.isNumber(postTag.toString()) && !_.isEmpty(post)) {
-            console.log(post);
             history.replace(`/post/${post.tag}`);
         }
     }, [post]);
@@ -133,295 +135,263 @@ export const PostPanel: NextPage<Props> = (props) => {
                 <meta property="og:url" content={`https://etha.one/post/${post.id}`} key="ogUrl" />
                 <meta property="og:image" content={post.user?.imageUrl} key="ogImage" />
             </Head>
-            <div className={style.main_post_container}>
-                {!_.isEmpty(post) && !_.isEmpty(post.user) && post.user !== undefined && !_.isEmpty(post.voteCount) && (
-                    <div className={`${style.post_container} pt-4`}>
-                        <div style={{ backgroundColor: '#ffffff', borderRadius: '25px' }}>
-                            <div
-                                className="d-flex w-100 py-2"
-                                style={{
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                <Image
-                                    className="image-container"
-                                    src={post.user.imageUrl}
-                                    alt=""
-                                    style={{
-                                        width: '63px',
-                                        height: '63px',
-                                    }}
-                                    onClick={(event) => {
-                                        if (post.user) {
-                                            history.push(`/profile/${post.user.tag}`);
-                                        }
-                                        event.stopPropagation();
-                                    }}
-                                />
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flex: 1,
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-start',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <div
-                                        className="d-flex h-100 ml-3"
-                                        style={{
-                                            color: 'black',
-                                            height: '100%',
-                                            alignItems: 'center',
-                                            flexDirection: 'row',
-                                        }}
-                                        onClick={(event) => {
-                                            if (post.user) {
-                                                history.push(`/profile/${post.user.tag}`);
-                                            }
-                                            event.stopPropagation();
-                                        }}
-                                    >
-                                        <div className="w-100">
-                                            <div className="public-figure-title m-auto">{post.user.name}</div>
-                                            <div className="public-figure-bio m-auto">{post.user.title}</div>
+            <AppNavBar />
+            <Container
+                style={{
+                    paddingTop: '100px',
+                    width: '100%',
+                }}
+            >
+                <Row>
+                    <Col className=" d-none d-lg-flex" lg={3}>
+                        <SidePanelLeft />
+                    </Col>
+                    <Col lg={6} className="d-flex">
+                        <div className={style.main_post_container}>
+                            {!_.isEmpty(post) && !_.isEmpty(post.user) && post.user !== undefined && (
+                                <div className={`${style.post_container} pt-1`}>
+                                    <div style={{ backgroundColor: '#ffffff', borderRadius: '25px' }}>
+                                        <div
+                                            className="d-flex w-100 py-2"
+                                            style={{
+                                                cursor: 'pointer',
+                                            }}
+                                        >
+                                            <Image
+                                                className="image-container"
+                                                src={post.user.imageUrl}
+                                                alt=""
+                                                style={{
+                                                    width: '53px',
+                                                    height: '53px',
+                                                }}
+                                                onClick={(event) => {
+                                                    if (post.user) {
+                                                        history.push(`/profile/${post.user.tag}`);
+                                                    }
+                                                    event.stopPropagation();
+                                                }}
+                                            />
+
+                                            <div
+                                                className="d-flex h-100 ml-3"
+                                                style={{
+                                                    color: 'black',
+                                                    height: '100%',
+                                                    alignItems: 'center',
+                                                    flexDirection: 'row',
+                                                }}
+                                                onClick={(event) => {
+                                                    if (post.user) {
+                                                        history.push(`/profile/${post.user.tag}`);
+                                                    }
+                                                    event.stopPropagation();
+                                                }}
+                                            >
+                                                <div className="w-100">
+                                                    <div className="public-figure-title m-auto">{post.user.name}</div>
+                                                    <div className="public-figure-bio m-auto">{post.user.title}</div>
+                                                </div>
+                                            </div>
                                             <div
                                                 style={{
                                                     display: 'flex',
-                                                    flexDirection: 'row',
-                                                    justifyContent: 'center',
+                                                    flex: 1,
                                                     alignItems: 'center',
+                                                    justifyContent: 'flex-end',
+                                                    paddingRight: '20px',
                                                 }}
-                                            ></div>
+                                            >
+                                                <i
+                                                    className="fa fa-info-circle p-2"
+                                                    style={{ color: '#707070', cursor: 'pointer' }}
+                                                    onClick={(e) => {
+                                                        window.open(`${post.source}`, '_blank');
+                                                        e.stopPropagation();
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-end',
-                                    }}
-                                >
-                                    {/* <SharePopup postTag={props.post.id || ''} publicFigure={publicFigure} /> */}
-                                </div>
-                            </div>
-                            <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
-                                <div
-                                    className="my-1"
-                                    style={{ width: '90%', background: 'rgba(0,0,0,.1)', height: '0.1px' }}
-                                />
-                            </div>
-                            <p
-                                style={{
-                                    fontSize: '25px',
-                                    fontWeight: 400,
-                                    color: 'black',
-                                    textAlign: 'justify',
-                                    cursor: 'pointer',
-                                }}
-                                className="mt-2 px-3"
-                                onClick={(event) => {
-                                    history.push(`/post/${post.tag}`);
-                                }}
-                            >
-                                {'"' + post.text + '" '}
-                                <a
-                                    href={post.source}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    style={{ color: '#fff', fontSize: '14px' }}
-                                >
-                                    <Image width="15px" height="15px" className="" src="/info_icon.png" alt="" />
-                                </a>
-                            </p>
-
-                            <div className="card-bottom-container d-flex w-100 text-center m-0 p-0 pl-3">
-                                <Button
-                                    variant="lighter p-2 pr-3"
-                                    onClick={(event) => {
-                                        submitVote(true);
-                                        event.stopPropagation();
-                                    }}
-                                >
-                                    <Image
-                                        src="/icons/agree.png"
-                                        height="30px"
-                                        alt=""
-                                        style={
-                                            userVote === true
-                                                ? {
-                                                      filter: 'invert(21%) sepia(78%) saturate(4550%) hue-rotate(116deg) brightness(92%) contrast(101%)',
-                                                  }
-                                                : {
-                                                      filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                                  }
-                                        }
-                                    />
-                                </Button>
-                                <Button
-                                    variant="lighter p-2 px-3"
-                                    onClick={(event) => {
-                                        submitVote(false);
-                                        event.stopPropagation();
-                                    }}
-                                >
-                                    <Image
-                                        src="/icons/disagree.png"
-                                        height="30px"
-                                        alt=""
-                                        style={
-                                            userVote === false
-                                                ? {
-                                                      filter: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
-                                                  }
-                                                : {
-                                                      filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                                  }
-                                        }
-                                    />
-                                </Button>
-                                <a id="comment" href="#comment">
-                                    <Button variant="lighter p-2 px-3" onClick={(event) => {}}>
-                                        <Image
-                                            alt=""
-                                            src="/icons/comment.png"
-                                            height="30px"
+                                        <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
+                                            <div
+                                                className="my-1"
+                                                style={{
+                                                    width: '90%',
+                                                    background: 'rgba(0,0,0,.1)',
+                                                    height: '0.1px',
+                                                }}
+                                            />
+                                        </div>
+                                        <p
                                             style={{
-                                                filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                fontSize: '16x',
+                                                fontWeight: 400,
+                                                color: 'black',
+                                                textAlign: 'justify',
+                                                cursor: 'pointer',
                                             }}
-                                        />
-                                    </Button>
-                                </a>
-                                <Button
-                                    variant="lighter p-2 pl-3"
-                                    onClick={(event) => {
-                                        dispatch(setSharePost(post.tag || ''));
-                                        event.stopPropagation();
-                                    }}
-                                >
-                                    <Image
-                                        alt=""
-                                        src="/icons/share_o.png"
-                                        height="30px"
-                                        style={{
-                                            filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                        }}
-                                    />
-                                </Button>
-                            </div>
-                            <div className="d-flex w-100 py-2" style={{ justifyContent: 'center' }}>
-                                {post.voteCount !== undefined && (
-                                    <div
-                                        className="d-flex p-3"
-                                        style={{
-                                            alignItems: 'center',
-                                            border: '1px solid',
-                                            borderColor: '#aeaeae',
-                                            borderRadius: '0px 25px 0px 25px',
-                                        }}
-                                    >
-                                        <div
-                                            style={{
-                                                width: '100px',
-                                                alignItems: 'center',
-                                                textAlign: 'center',
-                                                justifyItems: 'center',
+                                            className="mt-2 px-3"
+                                            onClick={(event) => {
+                                                history.push(`/post/${post.tag}`);
                                             }}
                                         >
-                                            {post.voteCount !== undefined && post.voteCount !== null && (
-                                                <CircularProgressbar
-                                                    value={
-                                                        post.voteCount?.agree /
-                                                        (post.voteCount.agree + post.voteCount.disagree)
-                                                    }
-                                                    maxValue={1}
-                                                    strokeWidth={15}
-                                                    counterClockwise
-                                                    styles={buildStyles({
-                                                        textSize: '14px',
-                                                        strokeLinecap: 'round',
-                                                        textColor: 'black',
-                                                        pathColor: `#66D88D`,
-                                                        trailColor: `#F84545`,
-                                                        pathTransitionDuration: 2,
-                                                    })}
+                                            {'"' + post.text + '" '}
+                                            <a
+                                                href={post.source}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                style={{ color: '#fff', fontSize: '14px' }}
+                                            >
+                                                <Image
+                                                    width="15px"
+                                                    height="15px"
+                                                    className=""
+                                                    src="/info_icon.png"
+                                                    alt=""
                                                 />
+                                            </a>
+                                        </p>
+                                        {post.voteCount !== undefined && post.voteCount !== null && (
+                                            <CompareBar votingDetails={post.voteCount} />
+                                        )}
+                                        <div className="card-bottom-container d-flex w-100 text-center m-0 p-0 pl-3 pb-2">
+                                            <Button
+                                                variant="lighter p-2 pr-3"
+                                                onClick={(event) => {
+                                                    submitVote(true);
+                                                    event.stopPropagation();
+                                                }}
+                                            >
+                                                <Image
+                                                    src="/icons/agree.png"
+                                                    height="30px"
+                                                    alt=""
+                                                    style={
+                                                        userVote === true
+                                                            ? {
+                                                                  filter: 'invert(21%) sepia(78%) saturate(4550%) hue-rotate(116deg) brightness(92%) contrast(101%)',
+                                                              }
+                                                            : {
+                                                                  filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                              }
+                                                    }
+                                                />
+                                            </Button>
+                                            <Button
+                                                variant="lighter p-2 px-3"
+                                                onClick={(event) => {
+                                                    submitVote(false);
+                                                    event.stopPropagation();
+                                                }}
+                                            >
+                                                <Image
+                                                    src="/icons/disagree.png"
+                                                    height="30px"
+                                                    alt=""
+                                                    style={
+                                                        userVote === false
+                                                            ? {
+                                                                  filter: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
+                                                              }
+                                                            : {
+                                                                  filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                              }
+                                                    }
+                                                />
+                                            </Button>
+                                            <a id="comment" href="#comment">
+                                                <Button variant="lighter p-2 px-3" onClick={(event) => {}}>
+                                                    <Image
+                                                        alt=""
+                                                        src="/icons/comment.png"
+                                                        height="30px"
+                                                        style={{
+                                                            filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                        }}
+                                                    />
+                                                </Button>
+                                            </a>
+                                            <Button
+                                                variant="lighter p-2 pl-3"
+                                                onClick={(event) => {
+                                                    dispatch(setSharePost(post.tag || ''));
+                                                    event.stopPropagation();
+                                                }}
+                                            >
+                                                <Image
+                                                    alt=""
+                                                    src="/icons/share_o.png"
+                                                    height="30px"
+                                                    style={{
+                                                        filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                    }}
+                                                />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <div className="mt-3" style={{ backgroundColor: '#ffffff', borderRadius: '0px' }}>
+                                        <div className={style.comment_input_container_large}>
+                                            <FormControl
+                                                className={style.comment_input}
+                                                value={commentPost}
+                                                onKeyPress={handleKeyPress}
+                                                onChange={(event) => {
+                                                    setCommentPost(event.target.value);
+                                                }}
+                                                type="text"
+                                                placeholder="Post a comment"
+                                            />
+                                            <Button
+                                                variant="share-comment"
+                                                title="Comment"
+                                                type="submit"
+                                                onClick={handleCommentPost}
+                                            >
+                                                <i className="fas fa-paper-plane"></i>
+                                            </Button>
+                                        </div>
+
+                                        <div
+                                            className={`${style.comments_container} mt-3`}
+                                            style={{ paddingBottom: '20px' }}
+                                        >
+                                            <div className="comments">
+                                                {!_.isEmpty(state.commentData.content) ? (
+                                                    state.commentData.content.map((comment: Comment, index: number) => {
+                                                        return <CommentEntry key={index} comment={comment} />;
+                                                    })
+                                                ) : (
+                                                    <div
+                                                        className="d-flex w-100"
+                                                        style={{ justifyContent: 'center', textAlign: 'center' }}
+                                                    >
+                                                        <h4>No Comments Yet!! Be the first one to Comment.</h4>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            {!_.isEmpty(state.commentData) &&
+                                            Object.keys(state.commentData.content).length > 0 &&
+                                            state.commentData.totalPages - 1 > commentPage ? (
+                                                <div className={`${style.comments_container} p-0`}>
+                                                    <Button variant="link" type="button" onClick={fetchMoreComments}>
+                                                        &nbsp;&nbsp;Load More Comments
+                                                    </Button>
+                                                </div>
+                                            ) : (
+                                                <></>
                                             )}
                                         </div>
-                                        <div
-                                            className="px-4 py-2"
-                                            style={{
-                                                color: 'black',
-                                                textAlign: 'start',
-                                            }}
-                                        >
-                                            <h4 style={{ fontWeight: 'bolder' }}>
-                                                {(
-                                                    (post.voteCount?.agree * 100) /
-                                                    (post.voteCount.agree + post.voteCount.disagree)
-                                                ).toFixed(2)}
-                                                %
-                                            </h4>
-                                            <h6 style={{ fontWeight: 'bolder' }}>Approval Rating</h6>
-                                        </div>
                                     </div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="pt-2 mt-3" style={{ backgroundColor: '#ffffff', borderRadius: '25px' }}>
-                            <div className={style.comment_input_container_large}>
-                                <FormControl
-                                    className={style.comment_input}
-                                    value={commentPost}
-                                    onKeyPress={handleKeyPress}
-                                    onChange={(event) => {
-                                        setCommentPost(event.target.value);
-                                    }}
-                                    type="text"
-                                    placeholder="Post a comment"
-                                />
-                                <Button
-                                    variant="share-comment"
-                                    title="Comment"
-                                    type="submit"
-                                    onClick={handleCommentPost}
-                                >
-                                    <i className="fas fa-paper-plane"></i>
-                                </Button>
-                            </div>
-
-                            <div className={`${style.comments_container} mt-3`} style={{ paddingBottom: '20px' }}>
-                                <div className="comments">
-                                    {!_.isEmpty(state.commentData.content) ? (
-                                        state.commentData.content.map((comment: Comment, index: number) => {
-                                            return <CommentEntry key={index} comment={comment} />;
-                                        })
-                                    ) : (
-                                        <div
-                                            className="d-flex w-100"
-                                            style={{ justifyContent: 'center', textAlign: 'center' }}
-                                        >
-                                            <h4>No Comments Yet!! Be the first one to Comment.</h4>
-                                        </div>
-                                    )}
                                 </div>
-                                {!_.isEmpty(state.commentData) &&
-                                Object.keys(state.commentData.content).length > 0 &&
-                                state.commentData.totalPages - 1 > commentPage ? (
-                                    <div className={`${style.comments_container} p-0`}>
-                                        <Button variant="link" type="button" onClick={fetchMoreComments}>
-                                            &nbsp;&nbsp;Load More Comments
-                                        </Button>
-                                    </div>
-                                ) : (
-                                    <></>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
+                            )}
+                        </div>{' '}
+                    </Col>
+                    <Col className=" d-none d-lg-flex" lg={3}>
+                        <SidePanelRight />
+                    </Col>
+                </Row>
+                <AppFooter />
+            </Container>
         </>
     );
 };

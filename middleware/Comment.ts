@@ -1,10 +1,9 @@
 // Components
-import { GET_COMMENTS_LIST, GET_USER_COMMENT_COUNT, POST_COMMENTS } from '../services/API';
+import { DELETE_COMMENTS, GET_COMMENTS_LIST, GET_USER_COMMENT_COUNT, POST_COMMENTS } from '../services/API';
 import { CommentRequest } from '../models';
 import api from '../services/api-helper';
 import { setComments, setLoaderVisibility } from '../redux';
 import { AppDispatch } from '../redux/store';
-import ReactGA from 'react-ga';
 
 export async function fetchCommentList(
     postId: string,
@@ -60,13 +59,32 @@ export async function postComment(
     api.post(POST_COMMENTS, comment, config)
         .then(
             (response) => {
-                ReactGA.event({
-                    category: 'comment_submit_success',
-                    action: `Comment Submitted Succesfully`,
-                    dimension1: userId,
-                    dimension2: comment.id,
-                });
                 dispatch(setComments(0, response.data));
+            },
+            (err) => {
+                console.log('Error: ', err);
+            },
+        )
+        .finally(() => {
+            dispatch(setLoaderVisibility(false));
+        });
+}
+export async function deleteComment(
+    token: string,
+    commentId: string,
+    dispatch: AppDispatch,
+    cleanFunction: (success: boolean) => void,
+): Promise<void> {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    dispatch(setLoaderVisibility(true));
+    api.delete(DELETE_COMMENTS + `/${commentId}`, config)
+        .then(
+            (response) => {
+                if (response) {
+                    cleanFunction(response.data);
+                }
             },
             (err) => {
                 console.log('Error: ', err);

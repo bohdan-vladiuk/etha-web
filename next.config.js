@@ -2,6 +2,6 @@
 module.exports = {
     reactStrictMode: false,
     images: {
-        domains: ['resources.etha.one'],
+        domains: ['resources.etha.one', '*'],
     },
 };

@@ -153,7 +153,6 @@ export async function fetchPostDetailsByTag(
     const config = {
         headers: { Authorization: `Bearer ${token}` },
     };
-    console.log(`postTag: ${postTag}`);
     dispatch(setLoaderVisibility(true));
     api.get(GET_POST_TAG + `/${postTag}`, config)
         .then(
