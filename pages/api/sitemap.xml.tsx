@@ -2,8 +2,40 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { SitemapStream, streamToPromise, EnumChangefreq } from 'sitemap';
 import { createGzip } from 'zlib';
+import { FETCH_ALL_USER_TAGS, GET_ALL_POST_TAGS } from '../../services/API';
 import api from '../../services/api-helper';
+interface TagInterface {
+    tag: string;
+}
 
+async function getPostData(): Promise<TagInterface[]> {
+    let data: TagInterface[] = [];
+    await api.get(GET_ALL_POST_TAGS).then(
+        (response) => {
+            data = response.data;
+        },
+        (err) => {
+            data = [];
+            console.log('Error: ', err);
+        },
+    );
+
+    return data;
+}
+async function getUserData() {
+    let data: TagInterface[] = [];
+    await api.get(FETCH_ALL_USER_TAGS).then(
+        (response) => {
+            data = response.data;
+        },
+        (err) => {
+            data = [];
+            console.log('Error: ', err);
+        },
+    );
+
+    return data;
+}
 export default async function SitemapGenerator(req: NextApiRequest, res: NextApiResponse) {
     if (!res) return {};
     try {
@@ -20,6 +52,12 @@ export default async function SitemapGenerator(req: NextApiRequest, res: NextApi
         const pipeline = smStream.pipe(createGzip());
         // Add any static entries here
         smStream.write({ url: '/', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
+        smStream.write({ url: '/about-us', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
+        smStream.write({
+            url: '/press-release/etha-launch',
+            lastmod: process.env.siteUpdatedAt,
+            changefreq: EnumChangefreq.WEEKLY,
+        });
         // smStream.write({ url: '/landing', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
         // smStream.write({ url: '/about-us', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.MONTHLY });
         // smStream.write({
@@ -48,6 +86,26 @@ export default async function SitemapGenerator(req: NextApiRequest, res: NextApi
             lastmod: process.env.siteUpdatedAt,
             changefreq: EnumChangefreq.MONTHLY,
         });
+        smStream.write({ url: '/unsubscribe', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.MONTHLY });
+        const postData = await getPostData();
+        const userData = await getUserData();
+
+        postData.forEach((post) => {
+            smStream.write({
+                url: `/post/${post.tag}`,
+                lastmod: process.env.siteUpdatedAt,
+                changefreq: EnumChangefreq.DAILY,
+            });
+        });
+
+        userData.forEach((user) => {
+            smStream.write({
+                url: `/profile/${user.tag}`,
+                lastmod: process.env.siteUpdatedAt,
+                changefreq: EnumChangefreq.DAILY,
+            });
+        });
+
         smStream.end();
 
         // cache the response
