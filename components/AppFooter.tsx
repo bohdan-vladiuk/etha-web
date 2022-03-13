@@ -49,7 +49,7 @@ export const AppFooter: React.FC = () => {
     }, [pathname, setPageName, setPageStatic]);
     return (
         <>
-            <div className={`${styles.footer_container} py-4 d-sm-flex d-md-none`}>
+            <div className={`${styles.footer_container_small} py-4 d-sm-flex d-md-none`}>
                 <div
                     className="d-flex"
                     style={{
@@ -86,7 +86,6 @@ export const AppFooter: React.FC = () => {
                         }}
                         onClick={() => {
                             history.push('/trending');
-                            
                         }}
                     >
                         <i className="fas fa-chart-line" />
