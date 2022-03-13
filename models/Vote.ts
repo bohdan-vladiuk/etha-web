@@ -24,4 +24,6 @@ export interface VoteCount {
     postId: string;
     agree: number;
     disagree: number;
+    agreePercent: number;
+    disagreePercent: number;
 }

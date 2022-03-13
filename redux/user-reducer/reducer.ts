@@ -7,9 +7,17 @@ const initialState: IUserState = {
     token: '',
     name: '',
     email: '',
+    imageUrl: '',
+    tag: '',
+    title: '',
+    bio: '',
+    dob: '',
     agree: 0,
     disagree: 0,
+    role: '',
     commentCount: 0,
+    isFirstLoad: true,
+    hashtags: [],
 };
 
 function UserReducer(state = initialState, action: UserAction): IUserState {
@@ -21,21 +29,31 @@ function UserReducer(state = initialState, action: UserAction): IUserState {
                 token: action.token || '',
             };
         }
-        case types.SIGN_IN: {
-            return {
-                ...state,
-                signed_in: true,
-                user_id: action.id,
-            };
-        }
+
         case types.SIGN_OUT: {
             return {
-                ...state,
                 signed_in: false,
                 user_id: '',
                 token: '',
                 name: '',
                 email: '',
+                bio: '',
+                imageUrl: '',
+                role: '',
+                title: '',
+                dob: '',
+                emailVerified: false,
+                tag: '',
+                agree: 0,
+                disagree: 0,
+                commentCount: 0,
+                hashtags: [],
+            };
+        }
+        case types.SET_FIRST_LOAD: {
+            return {
+                ...state,
+                isFirstLoad: action.isFirstLoad,
             };
         }
         case types.SIGN_UP: {
@@ -50,13 +68,25 @@ function UserReducer(state = initialState, action: UserAction): IUserState {
                 ...state,
             };
         }
-
+        case types.SET_HASHTAGS: {
+            return {
+                ...state,
+                hashtags: action.hashtags,
+            };
+        }
         case types.USER_DETAILS: {
             return {
                 ...state,
                 user_id: action.id,
                 name: action.name,
                 email: action.email,
+                bio: action.bio,
+                imageUrl: action.imageUrl,
+                role: action.role,
+                title: action.title,
+                dob: action.dob,
+                emailVerified: action.emailVerified,
+                tag: action.tag,
                 agree: action.agree,
                 disagree: action.disagree,
                 commentCount: action.commentCount,

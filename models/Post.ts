@@ -11,3 +11,8 @@ export interface Post {
     voteCount?: VoteCount;
     userVote?: boolean;
 }
+
+export interface CreatePostRequest {
+    userId: string;
+    text: string;
+}

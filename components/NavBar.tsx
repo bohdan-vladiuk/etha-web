@@ -74,29 +74,7 @@ export const NavBar: React.FC = () => {
                     );
                 })}
             </div>
-            {/* <Navbar className="pt-4" style={{ zIndex: 10, background: '#F9F9F9' }}>
-                <Navbar.Brand className="d-sm-flex d-md-none" href="/landing">
-                    <Image className="pl-3" src="/nav_logo.png" alt="" height={25} width={120} />
-                </Navbar.Brand>
-                <Navbar.Brand className="d-none d-md-flex" href="/landing">
-                    <Image className="pl-5" src="/nav_logo.png" alt="" height={25} width={120} />
-                </Navbar.Brand>
-                <Navbar.Toggle />
-                <Nav className="ml-auto d-none d-md-flex pr-5">
-                    <Nav.Link href="/landing">Home</Nav.Link>
-                    <Nav.Link href="/press-release/etha-launch">Press Release</Nav.Link>
-                    <Nav.Link href="/discover">Discover Politics</Nav.Link>
-                    <Nav.Link href="/investments">Investments</Nav.Link>
-                    <Nav.Link href="/about-us">About Us</Nav.Link>
-                    <Nav.Link
-                        onClick={() => {
-                            dispatch(setContactFormVisibility(true));
-                        }}
-                    >
-                        Contact Us
-                    </Nav.Link>
-                </Nav>
-            </Navbar> */}
+
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
     );

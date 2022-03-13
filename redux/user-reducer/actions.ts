@@ -29,4 +29,21 @@ export const setUserDetails = (user: User): UserAction => ({
     id: user.id,
     name: user.name,
     email: user.email,
+    imageUrl: user.imageUrl,
+    role: user.role,
+    bio: user.bio,
+    emailVerified: user.emailVerified,
+    title: user.title,
+    tag: user.tag,
+    dob: user.dob,
+});
+
+export const setFirstLoadCompleted = (): UserAction => ({
+    type: types.SET_FIRST_LOAD,
+    isFirstLoad: false,
+});
+
+export const setHashtags = (userHashtags: string[]): UserAction => ({
+    type: types.SET_HASHTAGS,
+    hashtags: userHashtags,
 });

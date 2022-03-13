@@ -2,9 +2,11 @@
 import React, { useEffect } from 'react';
 
 import Image from 'next/image';
+import { Button } from 'react-bootstrap';
 import styles from '../styles/Page.module.css';
 import { CustomButton } from './Button.component';
 import CountDown from './ComingSoon/Timer';
+import { useRouter } from 'next/router';
 
 interface PageProps {
     image: string;
@@ -20,6 +22,7 @@ interface PageProps {
 }
 
 export const Page: React.FC<PageProps> = (props: PageProps) => {
+    const history = useRouter();
     const { image, header, details, reversed, checked, bg, button, storeButton, titleSize } = props;
     const fontsize = titleSize ? '5rem' : '3rem';
     const fontweight = titleSize ? 'bold' : '600';
@@ -75,30 +78,45 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                 </div>
                             )}
                             {storeButton && (
-                                <div className="d-flex p-0 mt-4 mr-4" style={{ cursor: 'pointer' }}>
-                                    <Image
-                                        className="p-0 py-0 pr-2"
-                                        src={`/google_store.svg`}
-                                        alt=""
-                                        onClick={() =>
-                                            window.open(
-                                                'https://play.google.com/store/apps/details?id=one.etha.app',
-                                                '_blank',
-                                            )
-                                        }
-                                        height={78}
-                                        width={150}
-                                    />
-                                    <Image
-                                        className="p-0 py-0 px-2"
-                                        src={`/apple_store.svg`}
-                                        alt=""
-                                        onClick={() =>
-                                            window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
-                                        }
-                                        height={78}
-                                        width={150}
-                                    />
+                                <div>
+                                    <div className="d-flex p-0 mt-4 mr-4" style={{ cursor: 'pointer' }}>
+                                        <Image
+                                            className="p-0 py-0 pr-2"
+                                            src={`/google_store.svg`}
+                                            alt=""
+                                            onClick={() =>
+                                                window.open(
+                                                    'https://play.google.com/store/apps/details?id=one.etha.app',
+                                                    '_blank',
+                                                )
+                                            }
+                                            height={78}
+                                            width={150}
+                                        />
+                                        <Image
+                                            className="p-0 py-0 px-2"
+                                            src={`/apple_store.svg`}
+                                            alt=""
+                                            onClick={() =>
+                                                window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
+                                            }
+                                            height={78}
+                                            width={150}
+                                        />
+                                    </div>
+                                    <div
+                                        className="d-flex p-0 mr-4"
+                                        style={{ cursor: 'pointer', justifyContent: 'center', width: '300px' }}
+                                    >
+                                        <Button
+                                            variant="primary m-0 p-0"
+                                            onClick={() => {
+                                                history.push('/home');
+                                            }}
+                                        >
+                                            Explore Now &gt;
+                                        </Button>
+                                    </div>
                                 </div>
                             )}
                         </div>
