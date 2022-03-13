@@ -33,9 +33,9 @@ const Home: NextPage = () => {
         });
     }, [state.userId]);
 
-    // useEffect(() => {
-    //     refresh();
-    // }, [state.signedIn, state.userId]);
+    useEffect(() => {
+        refresh();
+    }, [state.signedIn, state.userId]);
 
     useEffect(() => {
         fetchNewPosts(currentPage, state.token, dispatch);

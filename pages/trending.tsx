@@ -33,9 +33,9 @@ const Trending: NextPage = () => {
         });
     }, [state.userId]);
 
-    // useEffect(() => {
-    //     refresh();
-    // }, [state.signedIn, state.userId]);
+    useEffect(() => {
+        refresh();
+    }, [state.signedIn, state.userId]);
 
     useEffect(() => {
         fetchHotPosts(currentPage, state.token, dispatch);

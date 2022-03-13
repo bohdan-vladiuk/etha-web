@@ -109,6 +109,7 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                 style={{
                     paddingTop: '100px',
                     width: '100%',
+                    paddingBottom: '120px',
                 }}
             >
                 <Row>

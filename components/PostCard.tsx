@@ -168,6 +168,10 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                         <div
                             className="d-flex w-100 m-0 px-1 "
                             style={{ justifyContent: 'space-between', textAlign: 'center' }}
+                            onClick={(event) => {
+                                submitVote(true);
+                                event.stopPropagation();
+                            }}
                         >
                             <div style={{ width: '25%', cursor: 'pointer' }}>
                                 <HiOutlineThumbUp
@@ -181,14 +185,16 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                                   filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
                                               }
                                     }
-                                    onClick={(event) => {
-                                        submitVote(true);
-                                        event.stopPropagation();
-                                    }}
                                 />
                                 <p style={{ fontSize: '11px' }}>Agree</p>
                             </div>
-                            <div style={{ width: '25%', cursor: 'pointer' }}>
+                            <div
+                                style={{ width: '25%', cursor: 'pointer' }}
+                                onClick={(event) => {
+                                    submitVote(false);
+                                    event.stopPropagation();
+                                }}
+                            >
                                 <HiOutlineThumbDown
                                     size={iconSize}
                                     style={
@@ -200,33 +206,33 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                                   filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
                                               }
                                     }
-                                    onClick={(event) => {
-                                        submitVote(false);
-                                        event.stopPropagation();
-                                    }}
                                 />
                                 <p style={{ fontSize: '11px' }}>Disagree</p>
                             </div>
-                            <div style={{ width: '25%', cursor: 'pointer' }}>
+                            <div
+                                style={{ width: '25%', cursor: 'pointer' }}
+                                onClick={(event) => {
+                                    history.push(`/post/${post.tag}`);
+                                    event.stopPropagation();
+                                }}
+                            >
                                 <FiMessageSquare
                                     size={iconSize}
-                                    onClick={(event) => {
-                                        history.push(`/post/${post.tag}`);
-                                        event.stopPropagation();
-                                    }}
                                     style={{
                                         filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
                                     }}
                                 />
                                 <p style={{ fontSize: '11px' }}>Comment</p>
                             </div>
-                            <div style={{ width: '25%', cursor: 'pointer' }}>
+                            <div
+                                style={{ width: '25%', cursor: 'pointer' }}
+                                onClick={async (event) => {
+                                    event.stopPropagation();
+                                    dispatch(setSharePost(post.tag || ''));
+                                }}
+                            >
                                 <FiShare
                                     size={iconSize}
-                                    onClick={async (event) => {
-                                        event.stopPropagation();
-                                        dispatch(setSharePost(post.tag || ''));
-                                    }}
                                     style={{
                                         filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
                                     }}

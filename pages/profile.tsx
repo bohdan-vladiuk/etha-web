@@ -142,7 +142,7 @@ export const Profile: NextPage = () => {
                                                     history.push('/edit-profile');
                                                 }}
                                             >
-                                                <i className="fa fa-pencil-square-o"></i> Edit
+                                                <i className="fa fa-pencil-square-o"></i> &nbsp;Edit
                                             </Button>
                                         </Dropdown.Item>
                                         <Dropdown.Item as="button">
@@ -152,7 +152,7 @@ export const Profile: NextPage = () => {
                                                     setLogoutPopup(true);
                                                 }}
                                             >
-                                                <i className="fa fa-sign-out"></i> Log Out
+                                                <i className="fa fa-sign-out"></i>&nbsp; Log Out
                                             </Button>
                                         </Dropdown.Item>
                                         <Dropdown.Divider />
@@ -163,7 +163,8 @@ export const Profile: NextPage = () => {
                                                     setAboutUsPopup(true);
                                                 }}
                                             >
-                                                <i className="fa fa-info"></i> About
+                                                <i className="fa fa-info" />
+                                                &nbsp;&nbsp; About
                                             </Button>
                                         </Dropdown.Item>
                                     </DropdownButton>
