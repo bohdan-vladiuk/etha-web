@@ -24,14 +24,14 @@ export const OAuth2RedirectHandler: React.FC = () => {
                 dimension7: platform,
             });
             dispatch(setToken(token));
-            history.push('/');
+            history.push('/home');
         }
     }, [state.token, token]);
 
     useEffect(() => {
         if (error !== undefined && error.length > 0) {
             alert(error);
-            history.push('/');
+            history.push('/home');
         }
     }, [error]);
     return <>Trying to Sign In</>;

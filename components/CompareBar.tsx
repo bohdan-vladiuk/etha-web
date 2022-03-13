@@ -19,7 +19,7 @@ export const CompareBar: React.FC<CompareBarProps> = (props: CompareBarProps) =>
         setDisagreePercent(100 - Number(truePercent));
     }, [props.votingDetails]);
     return (
-        <div className=" w-100 text-center m-0 px-1" style={{ justifyContent: 'center' }}>
+        <div className=" w-100 text-center m-0 px-1 mb-3" style={{ justifyContent: 'center' }}>
             {props.votingDetails.agree + props.votingDetails.disagree > 0 && (
                 <>
                     <div
@@ -31,7 +31,7 @@ export const CompareBar: React.FC<CompareBarProps> = (props: CompareBarProps) =>
                         <p
                             className="m-0"
                             style={{
-                                zIndex: 1,
+                                zIndex: 0,
                                 color: 'green',
                                 fontSize: '18px',
                             }}
@@ -49,7 +49,7 @@ export const CompareBar: React.FC<CompareBarProps> = (props: CompareBarProps) =>
                         <p
                             className="m-0"
                             style={{
-                                zIndex: 1,
+                                zIndex: 0,
                                 color: 'red',
                                 fontSize: '18px',
                             }}

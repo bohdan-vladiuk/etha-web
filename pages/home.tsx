@@ -5,11 +5,15 @@ import ReactGA from 'react-ga';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Col, Spinner } from 'react-bootstrap';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { fetchNewPosts } from '../middleware';
 import { Post } from '../models';
 import { PostCard } from '../components/PostCard';
 import _ from 'lodash';
+import { AppNavBar } from '../components/AppNavBar';
+import SidePanelLeft from '../components/SidePanelLeft';
+import SidePanelRight from '../components/SidePanelRight';
+import { AppFooter } from '../components/AppFooter';
 
 const Home: NextPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -46,34 +50,53 @@ const Home: NextPage = () => {
     }
 
     return (
-        <div
-            className="d-flex"
-            style={{
-                paddingTop: '20px',
-                width: '100%',
-            }}
-        >
-            <InfiniteScroll
-                dataLength={!_.isEmpty(state.postData.content) ? Object.keys(state.postData.content).length : 0}
-                next={fetchMoreData}
-                hasMore={state.postData.totalPages > currentPage}
-                loader={
-                    <>
-                        <Spinner className="my-2" animation="border" role="status" variant="secondary" />
-                    </>
-                }
-                initialScrollY={0}
-                refreshFunction={refresh}
-                pullDownToRefreshThreshold={50}
-                pullDownToRefreshContent={<h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>}
-                releaseToRefreshContent={<h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>}
+        <>
+            <AppNavBar />
+            <Container
+                style={{
+                    paddingTop: '100px',
+                    width: '100%',
+                }}
             >
-                {!_.isEmpty(state.postData.content) &&
-                    state.postData.content.map((post: Post, index: number) => {
-                        return <PostCard key={index} post={post} fetchOnLoad={false} />;
-                    })}
-            </InfiniteScroll>
-        </div>
+                <Row>
+                    <Col className=" d-none d-lg-flex" lg={3}>
+                        <SidePanelLeft />
+                    </Col>
+                    <Col lg={6} className="d-flex">
+                        <InfiniteScroll
+                            dataLength={
+                                !_.isEmpty(state.postData.content) ? Object.keys(state.postData.content).length : 0
+                            }
+                            next={fetchMoreData}
+                            hasMore={state.postData.totalPages > currentPage}
+                            loader={
+                                <>
+                                    <Spinner className="my-2" animation="border" role="status" variant="secondary" />
+                                </>
+                            }
+                            initialScrollY={0}
+                            refreshFunction={refresh}
+                            pullDownToRefreshThreshold={50}
+                            pullDownToRefreshContent={
+                                <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+                            }
+                            releaseToRefreshContent={
+                                <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+                            }
+                        >
+                            {!_.isEmpty(state.postData.content) &&
+                                state.postData.content.map((post: Post, index: number) => {
+                                    return <PostCard key={index} post={post} fetchOnLoad={false} />;
+                                })}
+                        </InfiniteScroll>
+                    </Col>
+                    <Col className=" d-none d-lg-flex" lg={3}>
+                        <SidePanelRight />
+                    </Col>
+                </Row>
+                <AppFooter />
+            </Container>
+        </>
     );
 };
 

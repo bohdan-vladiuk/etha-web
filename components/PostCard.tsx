@@ -1,22 +1,16 @@
 // Dependencies
 import React, { useEffect, useState } from 'react';
-import { Button, Col } from 'react-bootstrap';
-import Image from 'next/image';
+import { Image } from 'react-bootstrap';
 import _ from 'lodash';
-import ReactGA from 'react-ga';
 
-// Components
-
-// CSS
-import { CompareSmiley } from './CompareSmiley';
-import { PostVoteRequest, Post, VoteCount } from '../models';
+import { HiOutlineThumbUp, HiOutlineThumbDown } from 'react-icons/hi';
+import { FiMessageSquare, FiShare } from 'react-icons/fi';
+import { PostVoteRequest, Post, VoteCount, User } from '../models';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { useRouter } from 'next/router';
-import { fetchPostDetails, postVote } from '../middleware';
+import { fetchPostDetails, fetchPostDetailsByTag, postVote } from '../middleware';
 import { setModalVisibility, setSharePost } from '../redux';
 import { CompareBar } from './CompareBar';
-import { ComparePie } from './ComparePie';
-import style from '../styles/PostCard.module.css';
+import { useRouter } from 'next/router';
 
 interface PostCardProps {
     post: Post;
@@ -27,15 +21,17 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
     const state = useAppSelector((reduxState) => ({
         userId: reduxState.userReducer.user_id,
         token: reduxState.userReducer.token,
-        usersList: reduxState.dataReducer.userData,
+        publicFigureList: reduxState.dataReducer.userData,
     }));
 
     const [isSeeMore, setSeeMore] = useState(false);
     const [post, setPostData] = useState<Post>(props.post);
+    const [user, setUserData] = useState<User>(props.post.user || {});
     const [userVote, setUserVote] = useState<boolean | undefined>(props.post.userVote);
     const dispatch = useAppDispatch();
     const history = useRouter();
-
+    const iconSize = '25';
+    const pathname = history.pathname;
     useEffect(() => {
         if (_.isEmpty(state.token)) {
             setUserVote(undefined);
@@ -54,6 +50,7 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                     setPostData(recvPost);
                     if (recvPost.userVote !== undefined) {
                         setUserVote(recvPost.userVote);
+                        setUserData(recvPost.user || {});
                     }
                 },
                 () => {
@@ -67,27 +64,11 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
         if (state.userId === undefined || state.userId === '') {
             dispatch(setModalVisibility(true));
         } else {
-            ReactGA.event({
-                category: 'vote_click_post_card',
-                action: `User Clicked Vote Button`,
-                dimension1: state.userId,
-                dimension2: post.id,
-                dimension7: voteValue ? 'true' : 'false',
-                dimension8: userVote !== undefined ? 'false' : 'true',
-            });
             const vote: PostVoteRequest = {
                 postId: post.id || '',
                 value: voteValue,
             };
             postVote(state.token, vote, dispatch, (voteCount: VoteCount) => {
-                ReactGA.event({
-                    category: 'vote_submit_success',
-                    action: `User Vote Submitted`,
-                    dimension1: state.userId,
-                    dimension2: post.id,
-                    dimension7: voteValue ? 'true' : 'false',
-                    dimension8: userVote !== undefined ? 'false' : 'true',
-                });
                 const tempPost = { ...post };
                 tempPost.voteCount = voteCount;
                 setPostData(tempPost);
@@ -98,19 +79,14 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
 
     return (
         <div
-            className={style.post_card_background}
+            className=" m-2"
             onClick={() => {
-                ReactGA.event({
-                    category: 'post_page_open_click',
-                    action: `User clicked on Post Card`,
-                    dimension1: state.userId,
-                    dimension2: post.id,
-                });
                 history.push(`/post/${post.tag}`);
             }}
+            style={{ boxShadow: '1px 1px #70707030', borderRadius: '10px' }}
         >
             <div
-                className="d-md-flex px-1"
+                className="px-1"
                 style={{
                     width: '100%',
                     alignItems: 'space-between',
@@ -118,392 +94,148 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                     textAlign: 'center',
                 }}
             >
-                <Col md={8} className="px-2 pb-1">
-                    {post.user !== undefined && post.voteCount !== undefined && (
-                        <>
-                            <div className="d-flex w-100 m-auto py-2">
-                                <div
-                                    className="d-none d-md-flex"
+                <div className="px-1 pt-3 text-left w-100">
+                    {user !== undefined && post.voteCount !== undefined && (
+                        <div
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            onClick={(event) => {
+                                if (user && !pathname.includes(`${user.tag}`)) {
+                                    history.push(`/profile/${user.tag}`);
+                                }
+                                event.stopPropagation();
+                            }}
+                        >
+                            <Image className="image-container mr-2" src={user.imageUrl} alt="" width={40} height={40} />
+                            <div>
+                                <p className="public-figure-title">{user.name}</p>
+                                <p className="public-figure-bio ">{user.title}</p>
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-end',
+                                    paddingRight: '20px',
+                                }}
+                            >
+                                <i
+                                    className="fa fa-info-circle p-2"
+                                    style={{ color: '#707070', cursor: 'pointer' }}
+                                    onClick={(e) => {
+                                        window.open(`${post.source}`, '_blank');
+                                        e.stopPropagation();
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <div className="d-flex text-left pl-3 mt-2 w-100">
+                    <p style={{ fontSize: '14px' }}>
+                        {isSeeMore ? (
+                            `${post.text}`
+                        ) : post.text !== undefined && post.text?.length <= 120 ? (
+                            <>{`${post.text}`}</>
+                        ) : (
+                            <>
+                                {`${post.text?.substr(0, 120)}...   `}
+                                <span
                                     style={{
-                                        height: '63px',
-                                        width: '63px',
+                                        fontSize: '14px',
+                                        fontWeight: 'bold',
                                         cursor: 'pointer',
                                     }}
-                                >
-                                    <Image
-                                        className="image-container "
-                                        src={post.user.imageUrl || ''}
-                                        alt=""
-                                        width={63}
-                                        height={63}
-                                        objectFit="cover"
-                                        onClick={(event) => {
-                                            if (post.user) {
-                                                ReactGA.event({
-                                                    category: 'politician_profile_click_page',
-                                                    action: `User clicked on Politician Page`,
-                                                    dimension1: state.userId,
-                                                    dimension2: post.id,
-                                                    dimension4: post.userId,
-                                                });
-                                                history.push(`/profile/${post.user.tag}`);
-                                            }
-                                            event.stopPropagation();
-                                        }}
-                                    />
-                                </div>
-                                <div className="d-sm-flex d-md-none mt-2">
-                                    <Image
-                                        className="image-container"
-                                        src={post.user.imageUrl || ''}
-                                        alt=""
-                                        width={50}
-                                        height={50}
-                                        onClick={(event) => {
-                                            if (post.user) {
-                                                ReactGA.event({
-                                                    category: 'politician_profile_click_page',
-                                                    action: `User clicked on Politician Page`,
-                                                    dimension1: state.userId,
-                                                    dimension2: post.id,
-                                                    dimension4: post.userId,
-                                                });
-                                                history.push(`/profile/${post.user.tag}`);
-                                            }
-                                            event.stopPropagation();
-                                        }}
-                                    />
-                                </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flex: 1,
-                                        width: '100%',
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-start',
-                                        alignItems: 'center',
+                                    onClick={(event) => {
+                                        setSeeMore(true);
+                                        event.stopPropagation();
                                     }}
                                 >
-                                    <div
-                                        className="d-flex w-100 h-100 ml-3 mt-2"
-                                        style={{
-                                            color: 'black',
-                                            height: '100%',
-                                            alignItems: 'center',
-                                            textAlign: 'start',
-                                            flexDirection: 'row',
-                                        }}
-                                    >
-                                        <div className="w-100">
-                                            <div
-                                                className="public-figure-title"
-                                                onClick={(event) => {
-                                                    if (post.user) {
-                                                        ReactGA.event({
-                                                            category: 'politician_profile_click_page',
-                                                            action: `User clicked on Politician Page`,
-                                                            dimension1: state.userId,
-                                                            dimension2: post.id,
-                                                            dimension4: post.userId,
-                                                        });
-                                                        history.push(`/profile/${post.user.tag}`);
-                                                    }
-                                                    event.stopPropagation();
-                                                }}
-                                            >
-                                                {post.user.name}
-                                            </div>
-                                            <div
-                                                className="public-figure-bio "
-                                                onClick={(event) => {
-                                                    if (post.user) {
-                                                        ReactGA.event({
-                                                            category: 'politician_profile_click_page',
-                                                            action: `User clicked on Politician Page`,
-                                                            dimension1: state.userId,
-                                                            dimension2: post.id,
-                                                            dimension4: post.userId,
-                                                        });
-                                                        history.push(`/profile/${post.user.tag}`);
-                                                    }
-                                                    event.stopPropagation();
-                                                }}
-                                            >
-                                                {post.user.title}
-                                            </div>
-                                            <p
-                                                className="d-none d-md-block mb-0 py-1"
-                                                style={{
-                                                    fontSize: '18px',
-                                                    color: 'black',
-                                                    textAlign: 'justify',
-                                                    cursor: 'pointer',
-                                                }}
-                                            >
-                                                {isSeeMore ? (
-                                                    `"${post.text}"`
-                                                ) : post.text !== undefined && post.text?.length <= 120 ? (
-                                                    <>{`"${post.text}"`}</>
-                                                ) : (
-                                                    <>
-                                                        {`"${post.text?.substr(0, 120)}...   `}
-                                                        <span
-                                                            style={{
-                                                                fontSize: '16px',
-                                                                fontWeight: 'bold',
-                                                                cursor: 'pointer',
-                                                            }}
-                                                            onClick={(event) => {
-                                                                setSeeMore(true);
-                                                                event.stopPropagation();
-                                                            }}
-                                                        >
-                                                            See More
-                                                        </span>
-                                                        {'   '}
-                                                    </>
-                                                )}
-
-                                                <a
-                                                    href={post.source}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    style={{ color: '#fff', fontSize: '14px' }}
-                                                    onClick={(event) => {
-                                                        event.stopPropagation();
-                                                    }}
-                                                >
-                                                    <Image
-                                                        width="15px"
-                                                        height="15px"
-                                                        className=""
-                                                        src="/info_icon.png"
-                                                        alt=""
-                                                    />
-                                                </a>
-                                            </p>
-
-                                            <div className="card-bottom-container  d-none d-md-flex w-100  m-0 p-0 pt-2">
-                                                <Button
-                                                    variant="lighter p-0 px-2"
-                                                    onClick={(event) => {
-                                                        submitVote(true);
-                                                        event.stopPropagation();
-                                                    }}
-                                                    style={
-                                                        userVote === true
-                                                            ? {
-                                                                  filter: 'invert(21%) sepia(78%) saturate(4550%) hue-rotate(116deg) brightness(92%) contrast(101%)',
-                                                              }
-                                                            : {
-                                                                  filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                                              }
-                                                    }
-                                                >
-                                                    <Image src="/icons/agree.png" height={25} width={25} alt="" />
-                                                </Button>
-                                                <Button
-                                                    variant="lighter p-0 px-2"
-                                                    onClick={(event) => {
-                                                        submitVote(false);
-                                                        event.stopPropagation();
-                                                    }}
-                                                    style={
-                                                        userVote === false
-                                                            ? {
-                                                                  filter: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
-                                                              }
-                                                            : {
-                                                                  filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                                              }
-                                                    }
-                                                >
-                                                    <Image src="/icons/disagree.png" height={25} width={25} alt="" />
-                                                </Button>
-                                                <Button
-                                                    variant="lighter p-0 px-2"
-                                                    onClick={(event) => {
-                                                        ReactGA.event({
-                                                            category: 'comment_click',
-                                                            action: `User clicked on the comment button`,
-                                                            dimension1: state.userId,
-                                                            dimension2: post.id,
-                                                        });
-                                                        history.push(`/post/${post.tag}`);
-                                                        event.stopPropagation();
-                                                    }}
-                                                    style={{
-                                                        filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                                    }}
-                                                >
-                                                    <Image src="/icons/comment.png" height={25} width={25} alt="" />
-                                                </Button>
-                                                <Button
-                                                    variant="lighter p-0 px-2"
-                                                    onClick={(event) => {
-                                                        ReactGA.event({
-                                                            category: 'share_pop_open_click',
-                                                            action: `User clicked on the share button`,
-                                                            dimension1: state.userId,
-                                                            dimension2: post.tag,
-                                                        });
-                                                        dispatch(setSharePost(post.tag || ''));
-                                                        event.stopPropagation();
-                                                    }}
-                                                    style={{
-                                                        filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                                    }}
-                                                >
-                                                    <Image src="/icons/share_o.png" height={25} width={25} alt="" />
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    )}
-                </Col>
-                <p
-                    className=" d-block d-md-none mb-0 px-3 py-1"
-                    style={{
-                        fontSize: '18px',
-                        color: 'black',
-                        textAlign: 'justify',
-                        cursor: 'pointer',
-                    }}
-                >
-                    {isSeeMore ? (
-                        `"${post.text}"`
-                    ) : post.text !== undefined && post.text?.length <= 120 ? (
-                        <>{`"${post.text}"`}</>
-                    ) : (
-                        <>
-                            {`"${post.text?.substr(0, 120)}...   `}
-                            <span
-                                style={{ fontSize: '16px', fontWeight: 'bold', cursor: 'pointer' }}
-                                onClick={(event) => {
-                                    setSeeMore(true);
-                                    event.stopPropagation();
-                                }}
-                            >
-                                See More
-                            </span>
-                            {'   '}
-                        </>
-                    )}
-
-                    <a
-                        href={post.source}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: '#fff', fontSize: '14px' }}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                        }}
-                    >
-                        <Image width="15px" height="15px" className="" src="/info_icon.png" alt="" />
-                    </a>
-                </p>
-
-                <Col className="m-0 p-0" md={4}>
+                                    See More
+                                </span>
+                            </>
+                        )}
+                    </p>
+                </div>
+                <div className="m-0 p-0">
                     <div
-                        className="d-flex pb-4 px-2 w-100 text-center"
+                        className="d-flex pb-1 px-2 w-100 text-center"
                         style={{ justifyContent: 'end', height: '100%', flexDirection: 'column' }}
                     >
-                        <div className="d-none d-md-flex">
-                            {post.voteCount !== undefined && post.voteCount !== null && (
-                                <ComparePie votingDetails={post.voteCount} />
-                            )}
-                        </div>
-                        <div className="d-sm-flex d-md-none">
-                            {post.voteCount !== undefined && post.voteCount !== null && (
-                                <CompareBar votingDetails={post.voteCount} />
-                            )}
-                        </div>
+                        {post.voteCount !== undefined && post.voteCount !== null && (
+                            <CompareBar votingDetails={post.voteCount} />
+                        )}
                         <div
-                            className=" d-flex d-md-none "
-                            style={{ width: '100%', background: 'rgba(0,0,0,.1)', height: '0.1px' }}
-                        />
-                        <div
-                            className="card-bottom-container d-flex d-md-none w-100  m-0 p-0 mt-3"
-                            style={{ justifyContent: 'space-evenly' }}
+                            className="d-flex w-100 m-0 px-1 "
+                            style={{ justifyContent: 'space-between', textAlign: 'center' }}
                         >
-                            <Button
-                                variant="lighter p-0 px-2"
-                                onClick={(event) => {
-                                    submitVote(true);
-                                    event.stopPropagation();
-                                }}
-                                style={
-                                    userVote === true
-                                        ? {
-                                              filter: 'invert(21%) sepia(78%) saturate(4550%) hue-rotate(116deg) brightness(92%) contrast(101%)',
-                                          }
-                                        : {
-                                              filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                          }
-                                }
-                            >
-                                <Image src="/icons/agree.png" height={25} width={25} alt="" />
-                            </Button>
-                            <Button
-                                variant="lighter p-0 px-2"
-                                onClick={(event) => {
-                                    submitVote(false);
-                                    event.stopPropagation();
-                                }}
-                                style={
-                                    userVote === false
-                                        ? {
-                                              filter: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
-                                          }
-                                        : {
-                                              filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                          }
-                                }
-                            >
-                                <Image src="/icons/disagree.png" height={25} width={25} alt="" />
-                            </Button>
-                            <Button
-                                variant="lighter p-0 px-2"
-                                onClick={(event) => {
-                                    ReactGA.event({
-                                        category: 'comment_click',
-                                        action: `User clicked on the comment button`,
-                                        dimension1: state.userId,
-                                        dimension2: post.id,
-                                    });
-                                    history.push(`/post/${post.tag}`);
-                                    event.stopPropagation();
-                                }}
-                                style={{
-                                    filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                }}
-                            >
-                                <Image src="/icons/comment.png" height={25} width={25} alt="" />
-                            </Button>
-                            <Button
-                                variant="lighter p-0 px-2"
-                                onClick={(event) => {
-                                    ReactGA.event({
-                                        category: 'share_pop_open_click',
-                                        action: `User clicked on the share button`,
-                                        dimension1: state.userId,
-                                        dimension2: post.tag,
-                                    });
-                                    dispatch(setSharePost(post.tag || ''));
-                                    event.stopPropagation();
-                                }}
-                                style={{
-                                    filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                }}
-                            >
-                                <Image src="/icons/share_o.png" height={25} width={25} alt="" />
-                            </Button>
+                            <div style={{ width: '25%', cursor: 'pointer' }}>
+                                <HiOutlineThumbUp
+                                    size={iconSize}
+                                    style={
+                                        userVote === true
+                                            ? {
+                                                  filter: 'invert(21%) sepia(78%) saturate(4550%) hue-rotate(116deg) brightness(92%) contrast(101%)',
+                                              }
+                                            : {
+                                                  filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                              }
+                                    }
+                                    onClick={(event) => {
+                                        submitVote(true);
+                                        event.stopPropagation();
+                                    }}
+                                />
+                                <p style={{ fontSize: '11px' }}>Agree</p>
+                            </div>
+                            <div style={{ width: '25%', cursor: 'pointer' }}>
+                                <HiOutlineThumbDown
+                                    size={iconSize}
+                                    style={
+                                        userVote === false
+                                            ? {
+                                                  filter: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
+                                              }
+                                            : {
+                                                  filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                              }
+                                    }
+                                    onClick={(event) => {
+                                        submitVote(false);
+                                        event.stopPropagation();
+                                    }}
+                                />
+                                <p style={{ fontSize: '11px' }}>Disagree</p>
+                            </div>
+                            <div style={{ width: '25%', cursor: 'pointer' }}>
+                                <FiMessageSquare
+                                    size={iconSize}
+                                    onClick={(event) => {
+                                        history.push(`/post/${post.tag}`);
+                                        event.stopPropagation();
+                                    }}
+                                    style={{
+                                        filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                    }}
+                                />
+                                <p style={{ fontSize: '11px' }}>Comment</p>
+                            </div>
+                            <div style={{ width: '25%', cursor: 'pointer' }}>
+                                <FiShare
+                                    size={iconSize}
+                                    onClick={async (event) => {
+                                        event.stopPropagation();
+                                        dispatch(setSharePost(post.tag || ''));
+                                    }}
+                                    style={{
+                                        filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                    }}
+                                />
+                                <p style={{ fontSize: '11px' }}>Share</p>
+                            </div>
                         </div>
                     </div>
-                </Col>
+                </div>
             </div>
         </div>
     );

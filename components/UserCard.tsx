@@ -23,12 +23,12 @@ export const UserCard: React.FC<IProps> = (props: IProps) => {
                 history.push(`/profile/${props.user.tag}`);
             }}
         >
-            <div className="d-flex w-100 m-auto py-2">
+            <div className="d-flex w-100 py-2" style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image
-                    className="image-container"
+                    className="image-container ml-2"
                     src={props.user.imageUrl}
                     alt=""
-                    style={{ width: '63px', height: '63px' }}
+                    style={{ width: '53px', height: '53px' }}
                 />
                 <div
                     style={{
@@ -41,7 +41,7 @@ export const UserCard: React.FC<IProps> = (props: IProps) => {
                     }}
                 >
                     <div
-                        className="d-flex w-100 h-100 ml-1 mt-2 pl-3"
+                        className="d-flex w-100 h-100 pl-3"
                         style={{
                             height: '100%',
                             alignItems: 'center',

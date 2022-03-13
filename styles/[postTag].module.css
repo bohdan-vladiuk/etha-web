@@ -8,7 +8,6 @@
 
 .post_container {
     /* border-color: black; */
-    background-color: #f3f5f7;
     border-radius: 20px;
     min-width: 230px;
     width: 100%;
@@ -22,8 +21,9 @@
 .comment_input_container_large {
     display: flex;
     flex-direction: row;
-    width: 90%;
-    height: 30px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     padding: 0px 5px;
     border-width: 2px;
     margin: 0 auto;
