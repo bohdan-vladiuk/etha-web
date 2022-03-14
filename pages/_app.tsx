@@ -18,6 +18,7 @@ import { ToastContainer } from 'react-toastify';
 import { ShareModal } from '../components/ShareModal';
 import { SignInModal } from '../components/SignInModal';
 import { AddUsernameModal } from '../components/AddUsernameModal';
+import { getUserDetailsWithToken } from '../middleware';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const dispatch = useAppDispatch();
@@ -30,7 +31,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         isLoading: reduxState.screenReducer.isLoading,
         isSignInModalVisible: reduxState.screenReducer.isSignInModalShow,
     }));
-
+    useEffect(() => {
+        getUserDetailsWithToken(state.token, dispatch);
+    }, [dispatch, state.token]);
     useEffect(() => {
         if (state.userId !== undefined && state.userId !== '') {
             if ((state.userName === undefined || state.userName === '') && !nameModalVisibility) {
