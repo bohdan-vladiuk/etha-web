@@ -1,16 +1,19 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Image from 'next/image';
 import { SocialIcons } from './SocialIcons';
 import { useAppDispatch } from '../redux/store';
 import { setContactFormVisibility } from '../redux';
 import style from '../styles/SidePanelLeft.module.css';
+import { ContactUsModal } from './ContactUsModal';
 
 export const SidePanelLeft: React.FC = () => {
     const history = useRouter();
     const dispatch = useAppDispatch();
     const pathname = history.pathname;
+    const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
+
     return (
         <div
             className="d-flex px-1"
@@ -157,6 +160,7 @@ export const SidePanelLeft: React.FC = () => {
                     </Button>
                 </div>
             </div>
+            <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </div>
     );
 };
