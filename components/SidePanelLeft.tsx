@@ -152,6 +152,7 @@ export const SidePanelLeft: React.FC = () => {
                         style={{ textAlign: 'start' }}
                         onClick={() => {
                             dispatch(setContactFormVisibility(true));
+                            setShowJoinPage(true);
                         }}
                     >
                         <p className="m-0 p-0" style={{ fontSize: '12px', fontWeight: 'bold' }}>
