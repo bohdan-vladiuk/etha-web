@@ -17,7 +17,7 @@ class MyDocument extends Document {
                         name="description"
                         content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
                     />
-                    <meta name="keywords" content="latest news,news today,usa news,russia news,ukraine news" />
+                    <meta name="keywords" content="etha,latest news,politician statement,usa news,russia ukraine" />
                     <meta name="robots" content="index, follow" />
                     <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
                     <meta name="language" content="English" />
