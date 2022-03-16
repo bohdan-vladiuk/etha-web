@@ -74,7 +74,7 @@ export const AppFooter: React.FC = () => {
                     >
                         <i className="fa fa-compass" />
                         <br />
-                        Discover
+                        News Reals
                     </div>
                     <div
                         style={{

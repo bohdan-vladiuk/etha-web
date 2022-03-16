@@ -62,7 +62,7 @@ export const SidePanelLeft: React.FC = () => {
                         color: `${pathname.includes('home') ? '#4824D6' : '#707070'}`,
                     }}
                 >
-                    <i className="fa fa-compass" /> Discover
+                    <i className="fa fa-compass" /> News Reals
                 </p>
             </Button>
 
