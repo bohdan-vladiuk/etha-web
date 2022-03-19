@@ -33,61 +33,61 @@ export const NavBar: React.FC = () => {
     // 'About us', 'Publishers', 'Brand', 'Business', 'Careers',
     const navTitles = ['Feedback'];
 
-    return (
-        <>
-            <div className={`${styles.home_nav_container}`}>
-                       <div className="p-0 m-0 d-flex align-items-center"
-                        onClick={() => {
-                            history.push('/');
-                        }}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        <Image
-                            className="p-0 m-0 d-flex align-items-center mr-3"
-                            height={25}
-                            width={38.94}
-                            src="/logo.svg"
-                        />
-                    </div>
-                    <div
-                        className={`${styles.nav_link} m-0 p-0 mx-4`}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                            history.push(`/about-us`);
-                        }}
-                    >
-                        About Us
-                    </div>
-                    {navTitles.map((val, idx) => {
-                        return (
-                            <div
-                                key={`${val}-${idx}`}
-                                className={`${styles.nav_link} m-0 p-0 mx-4`}
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => {
-                                    setShowJoinPage(true);
-                                    //history.push(`/${val.toLowerCase().split(' ')[0]}`);
-                                }}
-                            >
-                                {val}
-                            </div>
-                        );
-                    })}
-                    
-                    {/* Invest Button @ top right of page */}
-                        <Button variant='primary' 
-                            href="https://wefunder.com/etha.one"
-                            style={{
-                                    borderRadius:"5px",
-                                    height:"35px",
-                                    marginLeft:"auto",
-                                    display:"flex",
-                                    justifyContent:"center",
-                                    alignItems:"center"
-                                    }} 
-                                >Invest {'>'} 
-                            </Button>
-                 </div>
+return (
+    <>
+        <div className={`${styles.home_nav_container}`}>
+                    <div className="p-0 m-0 d-flex align-items-center"
+                    onClick={() => {
+                        history.push('/');
+                    }}
+                    style={{ cursor: 'pointer' }}
+                >
+                    <Image
+                        className="p-0 m-0 d-flex align-items-center mr-3"
+                        height={25}
+                        width={38.94}
+                        src="/logo.svg"
+                    />
+                </div>
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-4`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        history.push(`/about-us`);
+                    }}
+                >
+                    About Us
+                </div>
+                {navTitles.map((val, idx) => {
+                    return (
+                        <div
+                            key={`${val}-${idx}`}
+                            className={`${styles.nav_link} m-0 p-0 mx-4`}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                setShowJoinPage(true);
+                                //history.push(`/${val.toLowerCase().split(' ')[0]}`);
+                            }}
+                        >
+                            {val}
+                        </div>
+                    );
+                })}
+                
+                {/* Invest Button @ top right of page */}
+                    <Button variant='primary' 
+                        href="https://wefunder.com/etha.one"
+                        style={{
+                                borderRadius:"5px",
+                                height:"35px",
+                                marginLeft:"auto",
+                                display:"flex",
+                                justifyContent:"center",
+                                alignItems:"center"
+                                }} 
+                            >Invest {'>'} 
+                        </Button>
+                </div>
 
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
