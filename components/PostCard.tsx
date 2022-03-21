@@ -11,6 +11,7 @@ import { fetchPostDetails, fetchPostDetailsByTag, postVote } from '../middleware
 import { setModalVisibility, setSharePost } from '../redux';
 import { CompareBar } from './CompareBar';
 import { useRouter } from 'next/router';
+import { width } from '@mui/system';
 
 interface PostCardProps {
     post: Post;
@@ -210,7 +211,7 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                 <p style={{ fontSize: '11px' }}>Disagree</p>
                             </div>
                             <div
-                                style={{ width: '25%', cursor: 'pointer' }}
+                                style={{ width: '25%', cursor: 'pointer', position: 'relative' }}
                                 onClick={(event) => {
                                     history.push(`/post/${post.tag}`);
                                     event.stopPropagation();
@@ -222,6 +223,12 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                         filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
                                     }}
                                 />
+                                <p
+                                    style={{ position: 'absolute', fontSize: 12, fontWeight: 600, right: '62px', marginTop: '-31px',
+                                    backgroundColor: '#4924D6', color: '#fff', borderRadius: '100%', width: '12%', textAlign: 'center' }}
+                                >
+                                    {post.commentCount}
+                                </p>
                                 <p style={{ fontSize: '11px' }}>Comment</p>
                             </div>
                             <div
