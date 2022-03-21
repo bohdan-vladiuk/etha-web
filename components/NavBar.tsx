@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import styles from '../styles/NavBar.module.css';
 import Link from 'next/link';
 import { ContactUsModal } from './ContactUsModal';
+import { ButtonBase } from '@mui/material';
 
 const ignorePathnames = [
     '/landing',
@@ -32,11 +33,10 @@ export const NavBar: React.FC = () => {
     // 'About us', 'Publishers', 'Brand', 'Business', 'Careers',
     const navTitles = ['Feedback'];
 
-    return (
-        <>
-            <div className={`${styles.home_nav_container}`}>
-                <div
-                    className="p-0 m-0 d-flex align-items-center"
+return (
+    <>
+        <div className={`${styles.home_nav_container}`}>
+                    <div className="p-0 m-0 d-flex align-items-center"
                     onClick={() => {
                         history.push('/');
                     }}
@@ -73,7 +73,21 @@ export const NavBar: React.FC = () => {
                         </div>
                     );
                 })}
-            </div>
+                
+                {/* Invest Button @ top right of page */}
+                    <Button variant='primary' 
+                        href="https://wefunder.com/etha.one"
+                        style={{
+                                borderRadius:"5px",
+                                height:"35px",
+                                marginLeft:"auto",
+                                display:"flex",
+                                justifyContent:"center",
+                                alignItems:"center"
+                                }} 
+                            >Invest {'>'} 
+                        </Button>
+                </div>
 
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
