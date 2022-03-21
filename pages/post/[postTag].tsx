@@ -134,6 +134,18 @@ export const PostPanel: NextPage<Props> = (props) => {
                 <meta property="og:title" content={`${post.user?.name} says "${post.text}"`} key="ogTitle" />
                 <meta property="og:url" content={`https://etha.one/post/${post.id}`} key="ogUrl" />
                 <meta property="og:image" content={post.user?.imageUrl} key="ogImage" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Etha" />
+		        <meta property="og:site" content="etha.one" />
+                <meta name="twitter:site" content="@GetEtha" />
+                <meta name="twitter:creator" content="@GetEtha" />
+                <meta name="twitter:card" content="summary" />
+                <meta property="twitter:domain" content="etha.one" />
+                <meta property="twitter:url" content={`https://etha.one/post/${post.id}`} />
+                <meta name="twitter:title" content={`${post.user?.name} says "${post.text}"`} />
+                <meta name="twitter:description" content="Intelligent Political Discourse" />
+                <meta name="twitter:image" content={post.user?.imageUrl} />
+
             </Head>
             <AppNavBar />
             <Container

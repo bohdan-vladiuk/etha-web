@@ -103,6 +103,17 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                 <meta property="og:title" content={`${props.preFetchUser?.name}`} key="ogTitle" />
                 <meta property="og:url" content={`https://etha.one/profile/${props.preFetchUser?.tag}`} key="ogUrl" />
                 <meta property="og:image" content={`${props.preFetchUser?.imageUrl}`} key="ogImage" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Etha" />
+		        <meta property="og:site" content="etha.one" />
+                <meta name="twitter:site" content="@GetEtha" />
+                <meta name="twitter:creator" content="@GetEtha" />
+                <meta name="twitter:card" content="summary" />
+                <meta property="twitter:domain" content="etha.one" />
+                <meta property="twitter:url" content={`${props.preFetchUser?.name}`} />
+                <meta name="twitter:title" content={`${props.preFetchUser?.title}`} />
+                <meta name="twitter:description" content="Intelligent Political Discourse" />
+                <meta name="twitter:image" content={`${props.preFetchUser?.imageUrl}`} />
             </Head>{' '}
             <AppNavBar />
             <Container
