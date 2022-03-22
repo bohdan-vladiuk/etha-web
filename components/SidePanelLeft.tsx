@@ -160,6 +160,10 @@ export const SidePanelLeft: React.FC = () => {
                         </p>
                     </Button>
                 </div>
+                {/* Copyright */}
+                <div style={{ padding:'0 0.5rem 0 0.5rem',marginLeft:'2px',textAlign:'left',fontSize:'12px', color:'#423131'}}>
+                    {'\u00A9'} 2022 Etha | All Rights Reserved
+                </div>
             </div>
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </div>
