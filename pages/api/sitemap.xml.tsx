@@ -52,6 +52,8 @@ export default async function SitemapGenerator(req: NextApiRequest, res: NextApi
         const pipeline = smStream.pipe(createGzip());
         // Add any static entries here
         smStream.write({ url: '/', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
+        smStream.write({ url: '/home', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
+        smStream.write({ url: '/trending', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
         smStream.write({ url: '/about-us', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
         smStream.write({
             url: '/press-release/etha-launch',
