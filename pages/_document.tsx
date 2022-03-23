@@ -11,7 +11,7 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <meta charSet="utf-8" />
-                    <meta name="title" content="Etha - Future of Information" />
+                    <meta name="title" content=" Etha - Future of Information|Latest News|Free & Healthy Discourse" />
                     <meta name="facebook-domain-verification" content="pyl087216m4w5flw5d2398hhl5y8wv" />
                     <meta
                         name="description"
