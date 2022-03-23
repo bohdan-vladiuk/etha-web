@@ -11,13 +11,13 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <meta charSet="utf-8" />
-                    <meta name="title" content="Etha - Future of Information" />
+                    <meta name="title" content=" Etha - Future of Information|Latest News|Free & Healthy Discourse" />
                     <meta name="facebook-domain-verification" content="pyl087216m4w5flw5d2398hhl5y8wv" />
                     <meta
                         name="description"
                         content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
                     />
-                    <meta name="keywords" content="etha,latest news,politician statement,usa news,russia ukraine" />
+                    <meta name="keywords" content="etha,latest news,politician statement" />
                     <meta name="robots" content="index, follow" />
                     <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
                     <meta name="language" content="English" />

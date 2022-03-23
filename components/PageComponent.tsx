@@ -7,6 +7,7 @@ import styles from '../styles/Page.module.css';
 import { CustomButton } from './Button.component';
 import CountDown from './ComingSoon/Timer';
 import { useRouter } from 'next/router';
+import { ArrowForwardIos } from '@mui/icons-material';
 
 interface PageProps {
     image: string;
@@ -110,11 +111,17 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                     >
                                         <Button
                                             variant="primary m-0 p-0"
+                                            style={{
+                                                borderRadius: '10px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                            }}
                                             onClick={() => {
                                                 history.push('/home');
                                             }}
                                         >
-                                            Explore Now &gt;
+                                            Explore Now <ArrowForwardIos fontSize="small" />
                                         </Button>
                                     </div>
                                 </div>
