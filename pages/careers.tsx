@@ -103,7 +103,43 @@ const Careers: NextPage = () => {
     return (
         <>
             <div className={styles.container}>
-                <NavBar />
+                <div
+                    className="d-flex"
+                    style={{ position: 'sticky', top: '0', height: '60px', alignItems: 'center', paddingLeft: '30px' }}
+                >
+                    <div
+                        className="p-0 m-0 d-flex align-items-center"
+                        onClick={() => {
+                            history.push('/');
+                        }}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <Image
+                            className="p-0 m-0 d-flex align-items-center mr-3"
+                            height={25}
+                            width={38.94}
+                            src="/logo.svg"
+                        />
+                    </div>
+                    <div
+                        className={`${styles.nav_link} m-0 p-0 mx-4`}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                            history.push(`/careers`);
+                        }}
+                    >
+                        Careers
+                    </div>
+                    <div
+                        className={`${styles.nav_link} m-0 p-0 mx-4`}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                            history.push(`/about-us`);
+                        }}
+                    >
+                        About Us
+                    </div>
+                </div>{' '}
                 {/* <Page
                     header="The Future is here"
                     image="landing1"
@@ -151,8 +187,7 @@ const Careers: NextPage = () => {
                 {/* <div className={styles.page_background2_container}>
                         <div className={styles.page_background2} />
                     </div> */}
-
-                <div className={`d-flex w-100 justify-content-center `} style={{ marginTop: '80px' }}>
+                <div className={`d-flex w-100 justify-content-center `} style={{ marginTop: '0px' }}>
                     <Image className="p-0 m-0" src={`/careers/banner.jpg`} alt="" height={320} width={1125} />
                 </div>
                 <div
