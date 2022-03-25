@@ -55,6 +55,15 @@ export const NavBar: React.FC = () => {
                     className={`${styles.nav_link} m-0 p-0 mx-4`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
+                        history.push(`/careers`);
+                    }}
+                >
+                    Careers
+                </div>
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-4`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
                         history.push(`/about-us`);
                     }}
                 >
@@ -80,10 +89,9 @@ export const NavBar: React.FC = () => {
                 <Button
                     variant="primary"
                     href="https://wefunder.com/etha.one"
-                    
                     style={{
                         borderRadius: '10px',
-                        position: 'fixed',
+                        position: 'absolute',
                         right: '25px',
                         display: 'flex',
                         justifyContent: 'center',
