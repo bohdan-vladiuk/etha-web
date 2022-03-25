@@ -240,8 +240,8 @@ const Careers: NextPage = () => {
                         }}
                     >
                         Inclusion driven and diversity focused. We prioritize inclusion in order to focus on doing best
-                        work of our lives together. That’s why we continue to strengthen our long-standing commitment to
-                        efforts such as inclusive hiring and development and equitable pay for all.
+                        work of our lives together. That&lsquo;s why we continue to strengthen our long-standing
+                        commitment to efforts such as inclusive hiring and development and equitable pay for all.
                     </p>
                     <p
                         style={{
@@ -284,6 +284,7 @@ const Careers: NextPage = () => {
                         {careersData.map((career, idx) => {
                             return (
                                 <div
+                                    key={career.title}
                                     className="d-flex mx-4 my-2 p-2"
                                     style={{
                                         minWidth: '150px',
