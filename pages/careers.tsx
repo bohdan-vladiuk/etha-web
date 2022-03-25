@@ -153,7 +153,7 @@ const Careers: NextPage = () => {
                     </div> */}
 
                 <div className={`d-flex w-100 justify-content-center `} style={{ marginTop: '80px' }}>
-                    <Image className="p-0 m-0" src={`/careers/banner.jpg`} alt="" height={300} width={1025} />
+                    <Image className="p-0 m-0" src={`/careers/banner.jpg`} alt="" height={320} width={1125} />
                 </div>
                 <div
                     className={``}
@@ -167,7 +167,7 @@ const Careers: NextPage = () => {
                         fontWeight: 700,
                     }}
                 >
-                    <p style={{ fontSize: '65px', width: '80%' }}>
+                    <p style={{ fontSize: '65px', width: '75%', maxWidth: '1125px' }}>
                         What you work for should reflect what you stand for.
                     </p>
                     <p
@@ -175,7 +175,8 @@ const Careers: NextPage = () => {
                             fontSize: '20px',
                             fontWeight: '300',
                             lineHeight: '1.2rem',
-                            width: '80%',
+                            width: '75%',
+                            maxWidth: '1125px',
                             color: '#707070',
                         }}
                     >
@@ -185,18 +186,18 @@ const Careers: NextPage = () => {
                     </p>
                     <p
                         style={{
-                            fontSize: '20px',
+                            fontSize: '25px',
                             fontWeight: '300',
                             lineHeight: '1.2rem',
-                            width: '80%',
-                            color: '#707070',
+                            width: '75%',
+                            maxWidth: '1125px',
                         }}
                     >
                         Current Openings:
                     </p>
                 </div>
                 <div
-                    className={`my-5`}
+                    className={`mb-5`}
                     style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -215,6 +216,7 @@ const Careers: NextPage = () => {
                             alignItems: 'center',
                             flexWrap: 'wrap',
                             width: '80%',
+                            maxWidth: '1125px',
                             zIndex: 10,
                             fontWeight: 700,
                         }}
