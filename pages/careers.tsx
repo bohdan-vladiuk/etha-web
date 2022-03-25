@@ -105,7 +105,14 @@ const Careers: NextPage = () => {
             <div className={styles.container}>
                 <div
                     className="d-flex"
-                    style={{ position: 'sticky', top: '0', height: '60px', alignItems: 'center', paddingLeft: '30px' }}
+                    style={{
+                        top: '0',
+                        height: '60px',
+                        alignItems: 'center',
+                        paddingLeft: '30px',
+                        padding: '3vh 80px',
+                        backgroundColor: '#ffffff',
+                    }}
                 >
                     <div
                         className="p-0 m-0 d-flex align-items-center"
@@ -122,8 +129,17 @@ const Careers: NextPage = () => {
                         />
                     </div>
                     <div
-                        className={`${styles.nav_link} m-0 p-0 mx-4`}
-                        style={{ cursor: 'pointer' }}
+                        className={` m-0 p-0 mx-4`}
+                        style={{
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '12px',
+                            height: 'fit-content',
+                            whiteSpace: 'nowrap',
+                            textDecoration: 'none',
+                            color: 'black',
+                        }}
                         onClick={() => {
                             history.push(`/careers`);
                         }}
@@ -131,8 +147,17 @@ const Careers: NextPage = () => {
                         Careers
                     </div>
                     <div
-                        className={`${styles.nav_link} m-0 p-0 mx-4`}
-                        style={{ cursor: 'pointer' }}
+                        className={` m-0 p-0 mx-4`}
+                        style={{
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '12px',
+                            height: 'fit-content',
+                            whiteSpace: 'nowrap',
+                            textDecoration: 'none',
+                            color: 'black',
+                        }}
                         onClick={() => {
                             history.push(`/about-us`);
                         }}
@@ -209,7 +234,6 @@ const Careers: NextPage = () => {
                         style={{
                             fontSize: '20px',
                             fontWeight: '300',
-                            lineHeight: '1.2rem',
                             width: '75%',
                             maxWidth: '1125px',
                             color: '#707070',

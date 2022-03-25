@@ -10,7 +10,7 @@ const NEXT_PUBLIC_URL_DEV = `http://localhost:3000`;
 const NEXT_PUBLIC_URL_PROD = `https://etha.one`;
 export const baseUrl =
     process.env.NEXT_PUBLIC_DEPLOY_ENV === 'prod' ? `${NEXT_PUBLIC_API_URL_PROD}` : `${NEXT_PUBLIC_API_URL_DEV}`;
-console.log(process.env.NEXT_PUBLIC_DEPLOY_ENV);
+
 export const OAUTH2_REDIRECT_URI =
     process.env.NEXT_PUBLIC_DEPLOY_ENV === 'prod'
         ? `${NEXT_PUBLIC_URL_PROD}/oauth2/redirect`
