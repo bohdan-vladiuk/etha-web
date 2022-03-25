@@ -103,7 +103,68 @@ const Careers: NextPage = () => {
     return (
         <>
             <div className={styles.container}>
-                <NavBar />
+                <div
+                    className="d-flex"
+                    style={{
+                        top: '0',
+                        height: '60px',
+                        alignItems: 'center',
+                        paddingLeft: '30px',
+                        padding: '3vh 80px',
+                        backgroundColor: '#ffffff',
+                    }}
+                >
+                    <div
+                        className="p-0 m-0 d-flex align-items-center"
+                        onClick={() => {
+                            history.push('/');
+                        }}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <Image
+                            className="p-0 m-0 d-flex align-items-center mr-3"
+                            height={25}
+                            width={38.94}
+                            src="/logo.svg"
+                        />
+                    </div>
+                    <div
+                        className={` m-0 p-0 mx-4`}
+                        style={{
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '12px',
+                            height: 'fit-content',
+                            whiteSpace: 'nowrap',
+                            textDecoration: 'none',
+                            color: 'black',
+                        }}
+                        onClick={() => {
+                            history.push(`/careers`);
+                        }}
+                    >
+                        Careers
+                    </div>
+                    <div
+                        className={` m-0 p-0 mx-4`}
+                        style={{
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '12px',
+                            height: 'fit-content',
+                            whiteSpace: 'nowrap',
+                            textDecoration: 'none',
+                            color: 'black',
+                        }}
+                        onClick={() => {
+                            history.push(`/about-us`);
+                        }}
+                    >
+                        About Us
+                    </div>
+                </div>{' '}
                 {/* <Page
                     header="The Future is here"
                     image="landing1"
@@ -151,8 +212,7 @@ const Careers: NextPage = () => {
                 {/* <div className={styles.page_background2_container}>
                         <div className={styles.page_background2} />
                     </div> */}
-
-                <div className={`d-flex w-100 justify-content-center `} style={{ marginTop: '80px' }}>
+                <div className={`d-flex w-100 justify-content-center `} style={{ marginTop: '0px' }}>
                     <Image className="p-0 m-0" src={`/careers/banner.jpg`} alt="" height={320} width={1125} />
                 </div>
                 <div
@@ -174,7 +234,6 @@ const Careers: NextPage = () => {
                         style={{
                             fontSize: '20px',
                             fontWeight: '300',
-                            lineHeight: '1.2rem',
                             width: '75%',
                             maxWidth: '1125px',
                             color: '#707070',
