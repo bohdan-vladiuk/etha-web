@@ -10,6 +10,7 @@ export interface Post {
     location?: string;
     voteCount?: VoteCount;
     userVote?: boolean;
+    commentCount?: number;
 }
 
 export interface CreatePostRequest {

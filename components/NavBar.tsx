@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import styles from '../styles/NavBar.module.css';
 import Link from 'next/link';
 import { ContactUsModal } from './ContactUsModal';
+import { ButtonBase } from '@mui/material';
+import { ArrowForwardIos } from '@mui/icons-material';
 
 const ignorePathnames = [
     '/landing',
@@ -53,6 +55,15 @@ export const NavBar: React.FC = () => {
                     className={`${styles.nav_link} m-0 p-0 mx-4`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
+                        history.push(`/careers`);
+                    }}
+                >
+                    Careers
+                </div>
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-4`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
                         history.push(`/about-us`);
                     }}
                 >
@@ -73,6 +84,22 @@ export const NavBar: React.FC = () => {
                         </div>
                     );
                 })}
+
+                {/* Invest Button @ top right of page */}
+                <Button
+                    variant="primary"
+                    href="https://wefunder.com/etha.one"
+                    style={{
+                        borderRadius: '10px',
+                        position: 'absolute',
+                        right: '25px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    Invest Now <ArrowForwardIos fontSize="small" />
+                </Button>
             </div>
 
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
