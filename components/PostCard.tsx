@@ -11,6 +11,8 @@ import { fetchPostDetails, fetchPostDetailsByTag, postVote } from '../middleware
 import { setModalVisibility, setSharePost } from '../redux';
 import { CompareBar } from './CompareBar';
 import { useRouter } from 'next/router';
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+
 
 interface PostCardProps {
     post: Post;
@@ -100,6 +102,15 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                             style={{ display: 'flex', alignItems: 'center' }}
                             onClick={(event) => {
                                 if (user && !pathname.includes(`${user.tag}`)) {
+                                    FirebaseAnalytics.logEvent({
+                                        name: 'politician_profile_click',
+                                        params: {
+                                        userId: state.userId,
+                                        statementId: post.id,
+                                        politicianId: post.user?.id,
+                                        politicianName: post.user?.name,
+                                        },
+                                    });
                                     history.push(`/profile/${user.tag}`);
                                 }
                                 event.stopPropagation();
@@ -123,6 +134,13 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                     className="fa fa-info-circle p-2"
                                     style={{ color: '#707070', cursor: 'pointer' }}
                                     onClick={(e) => {
+                                        FirebaseAnalytics.logEvent({
+                                            name: 'statement_page_open_click',
+                                            params: {
+                                            userId: state.userId,
+                                            statementId: post.id,
+                                            },
+                                        });
                                         window.open(`${post.source}`, '_blank');
                                         e.stopPropagation();
                                     }}
@@ -169,6 +187,14 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                             className="d-flex w-100 m-0 px-1 "
                             style={{ justifyContent: 'space-between', textAlign: 'center' }}
                             onClick={(event) => {
+                                FirebaseAnalytics.logEvent({
+                                    name: 'vote_click_statement_card',
+                                    params: {
+                                    userId: state.userId,
+                                    voteValue: true,
+                                    isChange: true,
+                                    },
+                                });
                                 submitVote(true);
                                 event.stopPropagation();
                             }}
@@ -191,6 +217,14 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                             <div
                                 style={{ width: '25%', cursor: 'pointer' }}
                                 onClick={(event) => {
+                                    FirebaseAnalytics.logEvent({
+                                        name: 'vote_click_statement_card',
+                                        params: {
+                                        userId: state.userId,
+                                        voteValue: false,
+                                        isChange: true,
+                                        },
+                                    });
                                     submitVote(false);
                                     event.stopPropagation();
                                 }}
@@ -212,6 +246,13 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                             <div
                                 style={{ width: '25%', cursor: 'pointer' }}
                                 onClick={(event) => {
+                                    FirebaseAnalytics.logEvent({
+                                        name: 'comment_click',
+                                        params: {
+                                        userId: state.userId,
+                                        statementId: post.id,
+                                        },
+                                    });
                                     history.push(`/post/${post.tag}`);
                                     event.stopPropagation();
                                 }}
@@ -227,6 +268,14 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                             <div
                                 style={{ width: '25%', cursor: 'pointer' }}
                                 onClick={async (event) => {
+                                    FirebaseAnalytics.logEvent({
+                                        name: 'share_click',
+                                        params: {
+                                        userId: state.userId,
+                                        statementId: post.id,
+                                        platformSelected: 'Web',
+                                        },
+                                    });
                                     event.stopPropagation();
                                     dispatch(setSharePost(post.tag || ''));
                                 }}

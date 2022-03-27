@@ -26,6 +26,7 @@ import {
     signOut,
 } from '../redux';
 import api from '../services/api-helper';
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
 
 export async function getUserDetailsWithToken(token: string, dispatch: AppDispatch): Promise<void> {
     const config = {
@@ -82,16 +83,35 @@ export async function signInUser(user: User, dispatch: AppDispatch, cleanFunctio
     api.post(SIGN_IN_USER, user).then(
         (response) => {
             if (response.data !== undefined && response.data !== '') {
+                FirebaseAnalytics.logEvent({
+                    name: 'login_email_success',
+                    params: {
+                        email: user.email,
+                        userId: user.id,
+                    },
+                });
                 dispatch(setToken(response.data.accessToken));
                 dispatch(setSignInWelcome(true));
 
                 cleanFunction();
             } else {
+                FirebaseAnalytics.logEvent({
+                    name: 'login_email_failed',
+                    params: {
+                        email: user.email,
+                    },
+                });
                 console.log('Unable to Sign In');
                 alert('Unable to Sign In Please Check your credentials');
             }
         },
         (err) => {
+            FirebaseAnalytics.logEvent({
+                name: 'login_email_failed',
+                params: {
+                    email: user.email,
+                },
+            });
             alert('Please check your credentials and try again');
             console.log('Error: ', err);
         },
@@ -104,13 +124,32 @@ export async function signUpUser(user: User, dispatch: AppDispatch, cleanFunctio
             if (response.data !== undefined && response.data !== '') {
                 dispatch(setToken(response.data.accessToken));
                 dispatch(setSignUpWelcome(true));
+                FirebaseAnalytics.logEvent({
+                    name: 'signup_email_success',
+                    params: {
+                        email: user.email,
+                        userId: user.id,
+                    },
+                });
                 cleanFunction();
             } else {
+                FirebaseAnalytics.logEvent({
+                    name: 'signup_email_fail',
+                    params: {
+                        email: user.email,
+                    },
+                });
                 console.log('Unable to Sign Up');
                 alert('Please check your credentials and try again');
             }
         },
         (err) => {
+            FirebaseAnalytics.logEvent({
+                name: 'signup_email_fail',
+                params: {
+                    email: user.email,
+                },
+            });
             alert('Please check your credentials and try again');
             console.log('Error: ', err);
         },
