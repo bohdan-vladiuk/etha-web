@@ -19,6 +19,7 @@ import SidePanelLeft from '../../components/SidePanelLeft';
 import SidePanelRight from '../../components/SidePanelRight';
 import { CompareBar } from '../../components/CompareBar';
 import { AppFooter } from '../../components/AppFooter';
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
 
 interface Props {
     preFetchPost?: Post;
@@ -114,6 +115,14 @@ export const PostPanel: NextPage<Props> = (props) => {
     }
 
     function handleCommentPost() {
+        FirebaseAnalytics.logEvent({
+            name: 'post_comment_click',
+            params: {
+            userId: state.userId,
+            statementId: post.id,
+            commentText: commentPost,
+            },
+        });
         if (state.userId !== undefined && state.userId !== '' && commentPost.trim().length > 0) {
             const comment: CommentRequest = {
                 text: commentPost,
@@ -179,6 +188,15 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                 }}
                                                 onClick={(event) => {
                                                     if (post.user) {
+                                                        FirebaseAnalytics.logEvent({
+                                                            name: 'politician_profile_click',
+                                                            params: {
+                                                            userId: state.userId,
+                                                            statementId: post.id,
+                                                            politicianId: post.user?.id,
+                                                            politicianName: post.user?.name,
+                                                            },
+                                                        });
                                                         history.push(`/profile/${post.user.tag}`);
                                                     }
                                                     event.stopPropagation();
@@ -195,6 +213,15 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                 }}
                                                 onClick={(event) => {
                                                     if (post.user) {
+                                                        FirebaseAnalytics.logEvent({
+                                                            name: 'politician_profile_click',
+                                                            params: {
+                                                            userId: state.userId,
+                                                            statementId: post.id,
+                                                            politicianId: post.user?.id,
+                                                            politicianName: post.user?.name,
+                                                            },
+                                                        });
                                                         history.push(`/profile/${post.user.tag}`);
                                                     }
                                                     event.stopPropagation();
@@ -270,6 +297,14 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             <Button
                                                 variant="lighter p-2 pr-3"
                                                 onClick={(event) => {
+                                                    FirebaseAnalytics.logEvent({
+                                                        name: 'vote_click_statement_card',
+                                                        params: {
+                                                        userId: state.userId,
+                                                        voteValue: true,
+                                                        isChange: true,
+                                                        },
+                                                    });
                                                     submitVote(true);
                                                     event.stopPropagation();
                                                 }}
@@ -292,6 +327,14 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             <Button
                                                 variant="lighter p-2 px-3"
                                                 onClick={(event) => {
+                                                    FirebaseAnalytics.logEvent({
+                                                        name: 'vote_click_statement_card',
+                                                        params: {
+                                                        userId: state.userId,
+                                                        voteValue: false,
+                                                        isChange: true,
+                                                        },
+                                                    });
                                                     submitVote(false);
                                                     event.stopPropagation();
                                                 }}
@@ -326,6 +369,14 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             <Button
                                                 variant="lighter p-2 pl-3"
                                                 onClick={(event) => {
+                                                    FirebaseAnalytics.logEvent({
+                                                        name: 'share_click',
+                                                        params: {
+                                                        userId: state.userId,
+                                                        statementId: post.id,
+                                                        platformSelected: 'Web',
+                                                        },
+                                                    });
                                                     dispatch(setSharePost(post.tag || ''));
                                                     event.stopPropagation();
                                                 }}
