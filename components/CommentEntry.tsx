@@ -1,16 +1,16 @@
 // Dependencies
 import moment from 'moment';
-import React from 'react';
-import { Col, Dropdown, Image } from 'react-bootstrap';
+import React, {useState} from 'react';
+import { Col, Dropdown, Image, FormControl, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { ContactUs, deleteComment } from '../middleware';
+import { ContactUs, deleteComment, updateComment } from '../middleware';
 import _ from 'lodash';
 // Components
-import { Comment, ContactUsForm, User } from '../models';
+import { Comment, ContactUsForm, User, CommentRequest } from '../models';
 
 // CSS
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { deleteCommentFromLocal } from '../redux';
+import { deleteCommentFromLocal, setModalVisibility, setComments } from '../redux';
 
 interface CommentEntryProps {
     comment: Comment;
@@ -26,6 +26,9 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
         token: reduxState.userReducer.token,
     }));
 
+    const [edition, setEdition] = useState(false);
+    const [commentText, setCommentText] = useState(props.comment.text || '')
+
     const user: User = _.isEmpty(props.comment.user)
         ? {
               id: state.userId,
@@ -35,6 +38,36 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
         : props.comment.user;
     function returnTime() {
         return moment(props.comment.createdAt).utc(true).fromNow();
+    }
+
+    function handleCommentUpdate() {
+        if (state.userId !== undefined && state.userId !== '' && commentText.trim().length > 0) {
+            const comment: CommentRequest = {
+                text: commentText,
+                userId: props.comment.userId,
+                id: props.comment.id,
+                postId: props.comment.postId || ''
+            };
+            updateComment(state.token, comment, dispatch, (response) => {
+                if (response) {
+                    dispatch(setComments(0, response));
+                    toast('Your comment has been updated');
+                } else {
+                    toast(
+                        'There was an error while updating the comment. Please try again in some time.',
+                    );
+                }
+            });
+            setEdition(false)
+        } else if (commentText.length !== 0) {
+            dispatch(setModalVisibility(true));
+        }
+    }
+
+    function handleKeyPress(target: React.KeyboardEvent) {
+        if (target.key === 'Enter') {
+            handleCommentUpdate();
+        }
     }
     return (
         <>
@@ -55,25 +88,61 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                         alt=""
                     />
                 </Col>
-                <Col xs={8} className="d-flex m-0 p-0" style={{ flexGrow: '1', flexDirection: 'column' }}>
-                    <h5 className="p-0 m-0" style={{ fontStyle: 'bold !important', fontSize: '16px' }}>
-                        {state.userId === props.comment.userId ? state.name : props.comment.user.name}
-                    </h5>
-                    <p
-                        className="p-0 m-0"
-                        style={{
-                            fontSize: '14px',
-                            wordWrap: 'normal',
-                            textOverflow: 'ellipsis',
-                            wordBreak: 'keep-all',
-                        }}
-                    >
-                        {props.comment.text}
-                    </p>
-                    <div className="d-flex " style={{ justifyContent: 'flex-end' }}>
-                        {returnTime()}
-                    </div>
-                </Col>
+                { edition ? (
+                     <Col xs={8} className="d-flex flex-column">
+                        <h5 className="p-0 mb-1" style={{ fontStyle: 'bold !important', fontSize: '16px' }}>
+                            {state.userId === props.comment.userId ? state.name : props.comment.user.name}
+                        </h5>
+                        <FormControl
+                            className=""
+                            value={commentText}
+                            onKeyPress={handleKeyPress}
+                            onChange={(event) => {
+                                setCommentText(event.target.value);
+                            }}
+                            type="text"
+                            placeholder="Post a comment"
+                        />
+                        <div className="mt-1 d-flex justify-content-end">
+                            <Button variant="danger" className='mr-2' onClick={() => {
+                                    setEdition(false)
+                                    setCommentText(props.comment.text || '')
+                                }}
+                            >
+                                cancel
+                            </Button>
+                            <Button
+                                variant="default"
+                                style={{ backgroundColor: '#4824d6', borderColor: '#4824d6', color: '#fff' }}
+                                onClick={handleCommentUpdate}
+                            >
+                                save
+                            </Button>
+                        </div>
+                    </Col>
+                ) : (
+                    <Col xs={8} className="d-flex m-0 p-0" style={{ flexGrow: '1', flexDirection: 'column' }}>
+                        <h5 className="p-0 m-0" style={{ fontStyle: 'bold !important', fontSize: '16px' }}>
+                            {state.userId === props.comment.userId ? state.name : props.comment.user.name}
+                        </h5>
+                        <p
+                            className="p-0 m-0"
+                            style={{
+                                fontSize: '14px',
+                                wordWrap: 'normal',
+                                textOverflow: 'ellipsis',
+                                wordBreak: 'keep-all',
+                            }}
+                        >
+                            {props.comment.text}
+                        </p>
+                        <div className="d-flex " style={{ justifyContent: 'flex-end' }}>
+                            {returnTime()}
+                        </div>
+                    </Col>
+                )
+
+                }
                 <Col xs={2}>
                     <Dropdown className="my-dropdown ">
                         <Dropdown.Toggle className="p-0 m-0" split={false} variant="light-dropdown">
@@ -82,24 +151,36 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
 
                         <Dropdown.Menu style={{ borderRadius: '20px', background: '#fff' }} align="right">
                             {state.userId === props.comment.userId ? (
-                                <Dropdown.Item
-                                    as="button"
-                                    onClick={() => {
-                                        deleteComment(state.token, props.comment.id || '', dispatch, (response) => {
-                                            if (response) {
-                                                dispatch(deleteCommentFromLocal(props.comment.id || ''));
-                                                toast('Your comment has been deleted');
-                                            } else {
-                                                toast(
-                                                    'There was an error while deleting the comment. Please try again in some time.',
-                                                );
-                                            }
-                                        });
-                                    }}
-                                >
-                                    {' '}
-                                    <i className="fa fa-trash"></i> Delete
-                                </Dropdown.Item>
+                               <div>
+                                    <Dropdown.Item
+                                        as="button"
+                                        onClick={() => {
+                                            setEdition(true)
+                                            setCommentText(props.comment.text || '')
+                                        }}
+                                    >
+                                        {' '}
+                                        <i className="fa fa-edit"></i> Edit
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                        as="button"
+                                        onClick={() => {
+                                            deleteComment(state.token, props.comment.id || '', dispatch, (response) => {
+                                                if (response) {
+                                                    dispatch(deleteCommentFromLocal(props.comment.id || ''));
+                                                    toast('Your comment has been deleted');
+                                                } else {
+                                                    toast(
+                                                        'There was an error while deleting the comment. Please try again in some time.',
+                                                    );
+                                                }
+                                            });
+                                        }}
+                                    >
+                                        {' '}
+                                        <i className="fa fa-trash"></i> Delete
+                                    </Dropdown.Item>
+                               </div>
                             ) : (
                                 <Dropdown.Item
                                     as="button"
