@@ -289,6 +289,27 @@ const Home: NextPage = () => {
                     </div>
                 )}
             </div>
+            <a
+                href="https://www.producthunt.com/posts/etha?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-etha"
+                target="_blank"
+                rel="noreferrer"
+            >
+                <img
+                    className="m-2"
+                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=337598&theme=dark"
+                    alt="Etha - Transparency&#0032;&#0038;&#0032;accountability&#0032;in&#0032;news&#0032;media&#0032;&#0038;&#0032;politics | Product Hunt"
+                    style={{
+                        width: '250px',
+                        height: '54px',
+                        position: 'fixed',
+                        right: '0',
+                        bottom: '0',
+                        zIndex: 200,
+                    }}
+                    width="250"
+                    height="54"
+                />
+            </a>
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>
     );

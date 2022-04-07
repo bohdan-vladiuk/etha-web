@@ -60,16 +60,16 @@ export const PostPanel: NextPage<Props> = (props) => {
     }, [post]);
 
     useEffect(() => {
-        if (postTag !== undefined && postTag !== '' && _.isEmpty(post)) {
-            dispatch(setLoaderVisibility(true));
+        if (postTag !== undefined && postTag !== '') {
             fetchPostDetailsByTag(
                 postTag?.toString() || '',
                 state.token,
                 dispatch,
                 (recvPost: Post) => {
-                    dispatch(setLoaderVisibility(false));
                     setPostData(recvPost);
-                    setUserVote(recvPost.userVote);
+                    if (recvPost.userVote !== undefined) {
+                        setUserVote(recvPost.userVote);
+                    }
                 },
                 () => {
                     console.log('Invalid Statemnent ID');
@@ -77,7 +77,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                 },
             );
         }
-    }, [dispatch, postTag, userVote, state.token, state.signedIn, history]);
+    }, [dispatch, postTag, state.token, state.signedIn, history]);
 
     useEffect(() => {
         dispatch(setLoaderVisibility(true));
@@ -105,7 +105,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                 postId: post.id || '',
                 value: voteValue,
             };
-            postVote(state.token, vote, dispatch, (voteCount: VoteCount) => {
+            postVote(state.token, state.userId, vote, dispatch, (voteCount: VoteCount) => {
                 const tempPost = { ...post };
                 tempPost.voteCount = voteCount;
                 setPostData(tempPost);
@@ -118,9 +118,9 @@ export const PostPanel: NextPage<Props> = (props) => {
         FirebaseAnalytics.logEvent({
             name: 'post_comment_click',
             params: {
-            userId: state.userId,
-            statementId: post.id,
-            commentText: commentPost,
+                userId: state.userId,
+                statementId: post.id,
+                commentText: commentPost,
             },
         });
         if (state.userId !== undefined && state.userId !== '' && commentPost.trim().length > 0) {
@@ -145,7 +145,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                 <meta property="og:image" content={post.user?.imageUrl} key="ogImage" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Etha" />
-		        <meta property="og:site" content="etha.one" />
+                <meta property="og:site" content="etha.one" />
                 <meta name="twitter:site" content="@GetEtha" />
                 <meta name="twitter:creator" content="@GetEtha" />
                 <meta name="twitter:card" content="summary" />
@@ -154,7 +154,6 @@ export const PostPanel: NextPage<Props> = (props) => {
                 <meta name="twitter:title" content={`${post.user?.name} says "${post.text}"`} />
                 <meta name="twitter:description" content="Intelligent Political Discourse" />
                 <meta name="twitter:image" content={post.user?.imageUrl} />
-
             </Head>
             <AppNavBar />
             <Container
@@ -191,10 +190,10 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                         FirebaseAnalytics.logEvent({
                                                             name: 'politician_profile_click',
                                                             params: {
-                                                            userId: state.userId,
-                                                            statementId: post.id,
-                                                            politicianId: post.user?.id,
-                                                            politicianName: post.user?.name,
+                                                                userId: state.userId,
+                                                                statementId: post.id,
+                                                                politicianId: post.user?.id,
+                                                                politicianName: post.user?.name,
                                                             },
                                                         });
                                                         history.push(`/profile/${post.user.tag}`);
@@ -216,10 +215,10 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                         FirebaseAnalytics.logEvent({
                                                             name: 'politician_profile_click',
                                                             params: {
-                                                            userId: state.userId,
-                                                            statementId: post.id,
-                                                            politicianId: post.user?.id,
-                                                            politicianName: post.user?.name,
+                                                                userId: state.userId,
+                                                                statementId: post.id,
+                                                                politicianId: post.user?.id,
+                                                                politicianName: post.user?.name,
                                                             },
                                                         });
                                                         history.push(`/profile/${post.user.tag}`);
@@ -300,9 +299,9 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                     FirebaseAnalytics.logEvent({
                                                         name: 'vote_click_statement_card',
                                                         params: {
-                                                        userId: state.userId,
-                                                        voteValue: true,
-                                                        isChange: true,
+                                                            userId: state.userId,
+                                                            voteValue: true,
+                                                            isChange: true,
                                                         },
                                                     });
                                                     submitVote(true);
@@ -330,9 +329,9 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                     FirebaseAnalytics.logEvent({
                                                         name: 'vote_click_statement_card',
                                                         params: {
-                                                        userId: state.userId,
-                                                        voteValue: false,
-                                                        isChange: true,
+                                                            userId: state.userId,
+                                                            voteValue: false,
+                                                            isChange: true,
                                                         },
                                                     });
                                                     submitVote(false);
@@ -372,9 +371,9 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                     FirebaseAnalytics.logEvent({
                                                         name: 'share_click',
                                                         params: {
-                                                        userId: state.userId,
-                                                        statementId: post.id,
-                                                        platformSelected: 'Web',
+                                                            userId: state.userId,
+                                                            statementId: post.id,
+                                                            platformSelected: 'Web',
                                                         },
                                                     });
                                                     dispatch(setSharePost(post.tag || ''));

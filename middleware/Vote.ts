@@ -75,6 +75,7 @@ export async function fetchUserVoteDetails(
 
 export async function postVote(
     token: string,
+    userId: string,
     postVoteRequest: PostVoteRequest,
     dispatch: AppDispatch,
     setFunction: (voteCount: VoteCount) => void,
@@ -88,9 +89,9 @@ export async function postVote(
                 FirebaseAnalytics.logEvent({
                     name: 'vote_submit_success',
                     params: {
-                    userId: response.data.content[0].userId,
-                    statementId: response.data.content[0].postId,
-                    value: response.data.content[0].value,
+                        userId: userId,
+                        statementId: postVoteRequest.postId,
+                        value: postVoteRequest.value,
                     },
                 });
                 setFunction(response.data);
