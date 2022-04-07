@@ -69,7 +69,7 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                 postId: post.id || '',
                 value: voteValue,
             };
-            postVote(state.token, vote, dispatch, (voteCount: VoteCount) => {
+            postVote(state.token, state.userId, vote, dispatch, (voteCount: VoteCount) => {
                 const tempPost = { ...post };
                 tempPost.voteCount = voteCount;
                 setPostData(tempPost);
@@ -104,10 +104,10 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                     FirebaseAnalytics.logEvent({
                                         name: 'politician_profile_click',
                                         params: {
-                                        userId: state.userId,
-                                        statementId: post.id,
-                                        politicianId: post.user?.id,
-                                        politicianName: post.user?.name,
+                                            userId: state.userId,
+                                            statementId: post.id,
+                                            politicianId: post.user?.id,
+                                            politicianName: post.user?.name,
                                         },
                                     });
                                     history.push(`/profile/${user.tag}`);
@@ -136,8 +136,8 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                         FirebaseAnalytics.logEvent({
                                             name: 'statement_page_open_click',
                                             params: {
-                                            userId: state.userId,
-                                            statementId: post.id,
+                                                userId: state.userId,
+                                                statementId: post.id,
                                             },
                                         });
                                         window.open(`${post.source}`, '_blank');
@@ -189,9 +189,9 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                 FirebaseAnalytics.logEvent({
                                     name: 'vote_click_statement_card',
                                     params: {
-                                    userId: state.userId,
-                                    voteValue: true,
-                                    isChange: true,
+                                        userId: state.userId,
+                                        voteValue: true,
+                                        isChange: true,
                                     },
                                 });
                                 submitVote(true);
@@ -219,9 +219,9 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                     FirebaseAnalytics.logEvent({
                                         name: 'vote_click_statement_card',
                                         params: {
-                                        userId: state.userId,
-                                        voteValue: false,
-                                        isChange: true,
+                                            userId: state.userId,
+                                            voteValue: false,
+                                            isChange: true,
                                         },
                                     });
                                     submitVote(false);
@@ -248,8 +248,8 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                     FirebaseAnalytics.logEvent({
                                         name: 'comment_click',
                                         params: {
-                                        userId: state.userId,
-                                        statementId: post.id,
+                                            userId: state.userId,
+                                            statementId: post.id,
                                         },
                                     });
                                     history.push(`/post/${post.tag}`);
@@ -263,8 +263,18 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                     }}
                                 />
                                 <p
-                                    style={{ position: 'absolute', fontSize: 12, fontWeight: 600, right: '62px', marginTop: '-31px',
-                                    backgroundColor: '#4924D6', color: '#fff', borderRadius: '100%', width: '12%', textAlign: 'center' }}
+                                    style={{
+                                        position: 'absolute',
+                                        fontSize: 12,
+                                        fontWeight: 600,
+                                        right: '62px',
+                                        marginTop: '-31px',
+                                        backgroundColor: '#4924D6',
+                                        color: '#fff',
+                                        borderRadius: '100%',
+                                        width: '12%',
+                                        textAlign: 'center',
+                                    }}
                                 >
                                     {post.commentCount}
                                 </p>
@@ -276,9 +286,9 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                     FirebaseAnalytics.logEvent({
                                         name: 'share_click',
                                         params: {
-                                        userId: state.userId,
-                                        statementId: post.id,
-                                        platformSelected: 'Web',
+                                            userId: state.userId,
+                                            statementId: post.id,
+                                            platformSelected: 'Web',
                                         },
                                     });
                                     event.stopPropagation();
