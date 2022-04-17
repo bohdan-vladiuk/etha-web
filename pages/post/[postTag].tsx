@@ -81,7 +81,7 @@ export const PostPanel: NextPage<Props> = (props) => {
 
     useEffect(() => {
         dispatch(setLoaderVisibility(true));
-        fetchCommentList(post.id?.toString() || '', commentPage, 5, dispatch);
+        fetchCommentList(post.id?.toString() || '', state.token, commentPage, 5, dispatch);
     }, [commentPage, dispatch, post]);
 
     function refresh() {
@@ -106,10 +106,26 @@ export const PostPanel: NextPage<Props> = (props) => {
                 value: voteValue,
             };
             postVote(state.token, state.userId, vote, dispatch, (voteCount: VoteCount) => {
+                const isChange = vote.value !== post.userVote;
                 const tempPost = { ...post };
                 tempPost.voteCount = voteCount;
+
+                if (isChange) {
+                    setUserVote(vote.value);
+                    tempPost.userVote = vote.value;
+                } else {
+                    setUserVote(undefined);
+                    tempPost.userVote = undefined;
+                }
                 setPostData(tempPost);
-                setUserVote(vote.value);
+                FirebaseAnalytics.logEvent({
+                    name: 'vote_click_statement_card',
+                    params: {
+                        userId: state.userId,
+                        voteValue: vote.value,
+                        isChange: isChange,
+                    },
+                });
             });
         }
     }
