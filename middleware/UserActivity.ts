@@ -5,9 +5,6 @@ import { setLoaderVisibility, setUserActivityData } from '../redux';
 import api from '../services/api-helper';
 
 export async function fetchUserActivityList(token: string, page: number, dispatch: AppDispatch): Promise<void> {
-    if (page === 0) {
-        dispatch(setLoaderVisibility(true));
-    }
     api.get(GET_USER_ACTIVITY_LIST, {
         headers: { Authorization: `Bearer ${token}` },
         params: {

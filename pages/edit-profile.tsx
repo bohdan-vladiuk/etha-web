@@ -76,7 +76,7 @@ export const EditUserProfile: NextPage = () => {
     };
 
     useEffect(() => {
-        getUserDetailsWithToken(state.token, dispatch);
+        getUserDetailsWithToken(state.token, dispatch, (user) => {});
     }, [dispatch, state.token]);
 
     useEffect(() => {

@@ -11,7 +11,7 @@ import { CommentReactionRequest, CommentRequest, ReactionCount } from '../models
 import api from '../services/api-helper';
 import { setComments, setLoaderVisibility } from '../redux';
 import { AppDispatch } from '../redux/store';
-import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+import { firebaseAnalytics } from '../auth/firebaseClient';
 
 export async function fetchCommentList(
     postId: string,
@@ -70,20 +70,9 @@ export async function postComment(
     api.post(POST_COMMENTS, comment, config)
         .then(
             (response) => {
-                FirebaseAnalytics.logEvent({
-                    name: 'post_comment_success',
-                    params: {
-                        userId: userId,
-                        statementId: comment.postId,
-                        commentId: response.data.content[0].id,
-                    },
-                });
-                FirebaseAnalytics.logEvent({
-                    name: 'comment_submit_success',
-                    params: {
-                        userId: userId,
-                        commentId: response.data.content[0].id,
-                    },
+                firebaseAnalytics.logEvent('post_comment_success', {
+                    userId: userId,
+                    statementId: comment.postId,
                 });
                 dispatch(setComments(0, response.data));
             },
@@ -161,13 +150,10 @@ export async function postReaction(
         .then(
             (response) => {
                 setFunction(response.data);
-                FirebaseAnalytics.logEvent({
-                    name: 'comment_reaction_submit_success',
-                    params: {
-                        userId: userId,
-                        commentId: commentReactionRequest.commentId,
-                        value: commentReactionRequest.value,
-                    },
+                firebaseAnalytics.logEvent('comment_reaction_submit_success', {
+                    userId: userId,
+                    commentId: commentReactionRequest.commentId,
+                    value: commentReactionRequest.value,
                 });
             },
             (err) => {

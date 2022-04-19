@@ -19,7 +19,7 @@ import SidePanelLeft from '../../components/SidePanelLeft';
 import SidePanelRight from '../../components/SidePanelRight';
 import { CompareBar } from '../../components/CompareBar';
 import { AppFooter } from '../../components/AppFooter';
-import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+import { firebaseAnalytics } from '../../auth/firebaseClient';
 
 interface Props {
     preFetchPost?: Post;
@@ -80,7 +80,6 @@ export const PostPanel: NextPage<Props> = (props) => {
     }, [dispatch, postTag, state.token, state.signedIn, history]);
 
     useEffect(() => {
-        dispatch(setLoaderVisibility(true));
         fetchCommentList(post.id?.toString() || '', state.token, commentPage, 5, dispatch);
     }, [commentPage, dispatch, post]);
 
@@ -118,26 +117,20 @@ export const PostPanel: NextPage<Props> = (props) => {
                     tempPost.userVote = undefined;
                 }
                 setPostData(tempPost);
-                FirebaseAnalytics.logEvent({
-                    name: 'vote_click_statement_card',
-                    params: {
-                        userId: state.userId,
-                        voteValue: vote.value,
-                        isChange: isChange,
-                    },
+                firebaseAnalytics.logEvent('vote_click_statement_card', {
+                    userId: state.userId,
+                    voteValue: vote.value,
+                    isChange: isChange,
                 });
             });
         }
     }
 
     function handleCommentPost() {
-        FirebaseAnalytics.logEvent({
-            name: 'post_comment_click',
-            params: {
-                userId: state.userId,
-                statementId: post.id,
-                commentText: commentPost,
-            },
+        firebaseAnalytics.logEvent('post_comment_click', {
+            userId: state.userId,
+            statementId: post.id,
+            commentText: commentPost,
         });
         if (state.userId !== undefined && state.userId !== '' && commentPost.trim().length > 0) {
             const comment: CommentRequest = {
@@ -203,14 +196,11 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                 }}
                                                 onClick={(event) => {
                                                     if (post.user) {
-                                                        FirebaseAnalytics.logEvent({
-                                                            name: 'politician_profile_click',
-                                                            params: {
-                                                                userId: state.userId,
-                                                                statementId: post.id,
-                                                                politicianId: post.user?.id,
-                                                                politicianName: post.user?.name,
-                                                            },
+                                                        firebaseAnalytics.logEvent('politician_profile_click', {
+                                                            userId: state.userId,
+                                                            statementId: post.id,
+                                                            politicianId: post.user?.id,
+                                                            politicianName: post.user?.name,
                                                         });
                                                         history.push(`/profile/${post.user.tag}`);
                                                     }
@@ -228,14 +218,11 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                 }}
                                                 onClick={(event) => {
                                                     if (post.user) {
-                                                        FirebaseAnalytics.logEvent({
-                                                            name: 'politician_profile_click',
-                                                            params: {
-                                                                userId: state.userId,
-                                                                statementId: post.id,
-                                                                politicianId: post.user?.id,
-                                                                politicianName: post.user?.name,
-                                                            },
+                                                        firebaseAnalytics.logEvent('politician_profile_click', {
+                                                            userId: state.userId,
+                                                            statementId: post.id,
+                                                            politicianId: post.user?.id,
+                                                            politicianName: post.user?.name,
                                                         });
                                                         history.push(`/profile/${post.user.tag}`);
                                                     }
@@ -312,13 +299,10 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             <Button
                                                 variant="lighter p-2 pr-3"
                                                 onClick={(event) => {
-                                                    FirebaseAnalytics.logEvent({
-                                                        name: 'vote_click_statement_card',
-                                                        params: {
-                                                            userId: state.userId,
-                                                            voteValue: true,
-                                                            isChange: true,
-                                                        },
+                                                    firebaseAnalytics.logEvent('vote_click_statement_card', {
+                                                        userId: state.userId,
+                                                        voteValue: true,
+                                                        isChange: true,
                                                     });
                                                     submitVote(true);
                                                     event.stopPropagation();
@@ -342,13 +326,10 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             <Button
                                                 variant="lighter p-2 px-3"
                                                 onClick={(event) => {
-                                                    FirebaseAnalytics.logEvent({
-                                                        name: 'vote_click_statement_card',
-                                                        params: {
-                                                            userId: state.userId,
-                                                            voteValue: false,
-                                                            isChange: true,
-                                                        },
+                                                    firebaseAnalytics.logEvent('vote_click_statement_card', {
+                                                        userId: state.userId,
+                                                        voteValue: false,
+                                                        isChange: true,
                                                     });
                                                     submitVote(false);
                                                     event.stopPropagation();
@@ -384,13 +365,10 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             <Button
                                                 variant="lighter p-2 pl-3"
                                                 onClick={(event) => {
-                                                    FirebaseAnalytics.logEvent({
-                                                        name: 'share_click',
-                                                        params: {
-                                                            userId: state.userId,
-                                                            statementId: post.id,
-                                                            platformSelected: 'Web',
-                                                        },
+                                                    firebaseAnalytics.logEvent('share_click', {
+                                                        userId: state.userId,
+                                                        statementId: post.id,
+                                                        platformSelected: 'Web',
                                                     });
                                                     dispatch(setSharePost(post.tag || ''));
                                                     event.stopPropagation();

@@ -12,7 +12,7 @@ import { Comment, ContactUsForm, User, CommentRequest, CommentReactionRequest, R
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { deleteCommentFromLocal, setModalVisibility, setComments } from '../redux';
 import { HiOutlineThumbDown, HiOutlineThumbUp } from 'react-icons/hi';
-import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+import { firebaseAnalytics } from '../auth/firebaseClient';
 
 interface CommentEntryProps {
     comment: Comment;
@@ -90,13 +90,10 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                 tempComment.userReaction = undefined;
             }
             setCommentData(tempComment);
-            FirebaseAnalytics.logEvent({
-                name: 'comment_reaction_success',
-                params: {
-                    userId: state.userId,
-                    voteValue: commentReaction.value,
-                    isChange: isChange,
-                },
+            firebaseAnalytics.logEvent('comment_reaction_success', {
+                userId: state.userId,
+                voteValue: commentReaction.value,
+                isChange: isChange,
             });
         });
     }

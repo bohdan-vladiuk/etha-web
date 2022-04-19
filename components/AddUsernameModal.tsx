@@ -1,14 +1,14 @@
 // Dependencies
 import { AppDispatch, useAppSelector } from '../redux/store';
-import { editUserDetails } from '../middleware';
+import { editUserDetails, signOutUser } from '../middleware';
 import React, { useState } from 'react';
 import { Modal, Button, FormControl } from 'react-bootstrap';
 import Image from 'next/image';
 // CSS
 import { User } from '../models';
-import { signOut } from '../redux';
 import { useDispatch } from 'react-redux';
 import { ContactSupport } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 interface SignUpWelcomeModalProps {
     show: boolean;
@@ -17,6 +17,7 @@ interface SignUpWelcomeModalProps {
 
 export const AddUsernameModal: React.FC<SignUpWelcomeModalProps> = (props: SignUpWelcomeModalProps) => {
     const dispatch = useDispatch<AppDispatch>();
+    const history = useRouter();
     const state = useAppSelector((reduxState) => ({
         token: reduxState.userReducer.token,
         userId: reduxState.userReducer.user_id,
@@ -65,8 +66,10 @@ export const AddUsernameModal: React.FC<SignUpWelcomeModalProps> = (props: SignU
                         <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
                             <Button
                                 onClick={() => {
-                                    dispatch(signOut());
-                                    props.onHide();
+                                    signOutUser(dispatch, () => {
+                                        history.push('/home');
+                                        props.onHide();
+                                    });
                                 }}
                                 style={{ margin: 'auto', width: '40%' }}
                                 variant="light m-1"

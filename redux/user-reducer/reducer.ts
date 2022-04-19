@@ -1,3 +1,4 @@
+import { firebaseClient } from '../../auth/firebaseClient';
 import { IUserState, UserAction } from './interfaces';
 import * as types from './types';
 

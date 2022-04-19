@@ -57,7 +57,6 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
 
     useEffect(() => {
         if (profileTag !== undefined && profileTag !== '') {
-            dispatch(setLoaderVisibility(true));
             fetchUserByTag(
                 profileTag?.toString() || '',
                 dispatch,
@@ -105,7 +104,7 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                 <meta property="og:image" content={`${props.preFetchUser?.imageUrl}`} key="ogImage" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Etha" />
-		        <meta property="og:site" content="etha.one" />
+                <meta property="og:site" content="etha.one" />
                 <meta name="twitter:site" content="@GetEtha" />
                 <meta name="twitter:creator" content="@GetEtha" />
                 <meta name="twitter:card" content="summary" />
