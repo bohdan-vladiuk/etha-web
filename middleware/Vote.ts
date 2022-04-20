@@ -6,7 +6,7 @@ import { PostVoteRequest, VoteCount, Vote, VotingDetails, PutVoteRequest } from 
 import api from '../services/api-helper';
 import { AppDispatch } from '../redux/store';
 import { setLoaderVisibility } from '../redux';
-import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+import { firebaseAnalytics } from '../auth/firebaseClient';
 
 export async function fetchVoteList(postId: string, returnFunction: (votes: Vote[]) => void): Promise<void> {
     api.get(GET_VOTES_LIST, {
@@ -86,13 +86,10 @@ export async function postVote(
     api.post(SET_VOTES, postVoteRequest, config)
         .then(
             (response) => {
-                FirebaseAnalytics.logEvent({
-                    name: 'vote_submit_success',
-                    params: {
-                        userId: userId,
-                        statementId: postVoteRequest.postId,
-                        value: postVoteRequest.value,
-                    },
+                firebaseAnalytics.logEvent('vote_submit_success', {
+                    userId: userId,
+                    statementId: postVoteRequest.postId,
+                    value: postVoteRequest.value,
                 });
                 setFunction(response.data);
             },

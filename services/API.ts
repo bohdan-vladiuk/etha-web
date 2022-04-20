@@ -48,6 +48,7 @@ export const GET_VOTE_COUNT = `${baseUrl}/vote/count`;
 export const EDIT_VOTES = `${baseUrl}/vote`;
 export const GET_VOTES_LIST = `${baseUrl}/vote/list`;
 export const GET_VOTES_DETAIL = `${baseUrl}/vote/list/detail`;
+export const SET_COMMENT_REACTION = `${baseUrl}/comment-reaction`;
 
 export const GET_USER_ACTIVITY_LIST = `${baseUrl}/user-activity`;
 

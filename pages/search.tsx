@@ -1,27 +1,19 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import styles from '../styles/Home.module.css';
-import Image from 'next/image';
+
 import ReactGA from 'react-ga';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Button, Col, Container, Dropdown, FormControl, Row, Spinner } from 'react-bootstrap';
-import {
-    editUserDetails,
-    fetchNewPosts,
-    fetchUserActivityList,
-    getUserDetailsWithToken,
-    searchPosts,
-    singOutUser,
-} from '../middleware';
+import { Col, Container, Dropdown, FormControl, Row, Spinner } from 'react-bootstrap';
+import { searchPosts } from '../middleware';
 import { Post, User, UserActivity } from '../models';
 import { PostCard } from '../components/PostCard';
 import _, { result } from 'lodash';
 import Popup from 'reactjs-popup';
 import { UserActivityEntry } from '../components/UserActivityEntry';
 import { ParsedUrlQuery } from 'querystring';
-import { setUsers, setSearchPosts } from '../redux';
+import { setUsers, setSearchPosts, setModalVisibility } from '../redux';
 import { searchUsers } from '../middleware/User';
 import UserCard from '../components/UserCard';
 import { AppNavBar } from '../components/AppNavBar';
@@ -42,10 +34,10 @@ const Search: NextPage = () => {
     const receivedSearchParam = history.query.searchParam !== undefined ? history.query.searchParam.toString() : '';
 
     const state = useAppSelector((reduxState) => ({
+        signedIn: reduxState.userReducer.signed_in,
         userId: reduxState.userReducer.user_id,
         userData: reduxState.dataReducer.userData,
         postsData: reduxState.dataReducer.searchPosts,
-        signedIn: reduxState.userReducer.signed_in,
     }));
 
     useEffect(() => {
@@ -53,7 +45,11 @@ const Search: NextPage = () => {
         dispatch(setUsers({}));
         setSearchParam(receivedSearchParam);
     }, [receivedSearchParam, dispatch]);
-
+    useEffect(() => {
+        if (!state.signedIn) {
+            dispatch(setModalVisibility(true));
+        }
+    }, [state.signedIn]);
     useEffect(() => {
         ReactGA.event({
             category: 'page_load',

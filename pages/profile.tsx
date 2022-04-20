@@ -6,7 +6,7 @@ import Popup from 'reactjs-popup';
 // Components
 import { UserActivity } from '../models';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { fetchUserActivityList, getUserDetailsWithToken, singOutUser, fetchUserPosts } from '../middleware';
+import { fetchUserActivityList, getUserDetailsWithToken, signOutUser, fetchUserPosts } from '../middleware';
 
 // CSS
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -18,6 +18,7 @@ import SidePanelLeft from '../components/SidePanelLeft';
 import SidePanelRight from '../components/SidePanelRight';
 import { AppFooter } from '../components/AppFooter';
 import { NextPage } from 'next';
+import { setModalVisibility } from '../redux';
 
 export const Profile: NextPage = () => {
     const [isLogoutVisible, setLogoutPopup] = useState(false);
@@ -40,7 +41,7 @@ export const Profile: NextPage = () => {
         email: reduxState.userReducer.email,
         agree: reduxState.userReducer.agree,
         disagree: reduxState.userReducer.disagree,
-        commetnCount: reduxState.userReducer.commentCount,
+        commentCount: reduxState.userReducer.commentCount,
         userActivityData: reduxState.dataReducer.userActivityData,
     }));
 
@@ -53,7 +54,7 @@ export const Profile: NextPage = () => {
     const arrowStyle = { color: '#f03792' }; // style for an svg element
 
     useEffect(() => {
-        getUserDetailsWithToken(state.token, dispatch);
+        getUserDetailsWithToken(state.token, dispatch, (user) => {});
     }, [dispatch, state.token]);
 
     useEffect(() => {
@@ -61,14 +62,14 @@ export const Profile: NextPage = () => {
     }, []);
     useEffect(() => {
         if (!state.signedIn) {
-            history.push('/');
+            dispatch(setModalVisibility(true));
         }
     }, [state.signedIn]);
-    useEffect(() => {
-        if (state.userId !== undefined) {
-            fetchUserPosts(state.userId, currentPage, state.token, dispatch);
-        }
-    }, [currentPage, dispatch, state.userId, state.token]);
+    // useEffect(() => {
+    //     if (state.userId !== undefined) {
+    //         fetchUserPosts(state.userId, currentPage, state.token, dispatch);
+    //     }
+    // }, [currentPage, dispatch, state.userId, state.token]);
 
     useEffect(() => {
         fetchUserActivityList(state.token, currentPage, dispatch);
@@ -291,7 +292,7 @@ export const Profile: NextPage = () => {
                                 <Button
                                     variant="primary mb-1"
                                     onClick={() => {
-                                        singOutUser(dispatch, () => {
+                                        signOutUser(dispatch, () => {
                                             history.push('/');
                                         });
                                     }}

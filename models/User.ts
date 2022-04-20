@@ -24,3 +24,12 @@ export interface ImageUploadResponse {
     success: boolean;
     path: string;
 }
+
+export interface UserForm {
+    name: string;
+    password: string;
+    phone: string;
+    tag: string;
+    dob: any;
+    email: string;
+}

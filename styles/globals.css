@@ -18,6 +18,10 @@ a {
     font-family: 'Satoshi', sans-serif;
 }
 
+.modal {
+    padding-right: 0px !important;
+}
+
 .modal .form-group {
     margin-bottom: 0;
 }
@@ -109,6 +113,10 @@ input[type='number']::-webkit-outer-spin-button {
 }
 .borderRadius {
     border-radius: 15px;
+}
+.abs-left-25 {
+    position: absolute;
+    left: 25px;
 }
 .image-container {
     display: flex;
@@ -210,11 +218,12 @@ input[type='number']::-webkit-outer-spin-button {
     color: #8155ba;
     cursor: pointer;
 }
+
 .btn-primary {
     color: #fff !important;
     background: #4824d6 !important;
     border-color: #4824d6 !important;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 10px;
     padding: 10px;
     height: 48px;
@@ -225,12 +234,19 @@ input[type='number']::-webkit-outer-spin-button {
     color: #4824d6 !important;
     background: #fff !important;
     border-color: #fff !important;
-    font-size: 16px;
     border-radius: 10px;
     padding: 10px;
     height: 48px;
     min-width: 150px;
     margin: 0.3rem;
+}
+.btn-outline {
+    color: #4824d6 !important;
+    border: 1px solid #4824d6 !important;
+    border-radius: 8px !important;
+    box-shadow: none;
+    font-size: 14px;
+    height: 48px;
 }
 .btn-light-dropdown {
     color: #4824d6 !important;

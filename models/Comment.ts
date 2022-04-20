@@ -5,9 +5,11 @@ export interface Comment {
     userId: string;
     user: User;
     userName?: string;
-    postId?: string;
     text?: string;
+    postId?: string;
     createdAt: Date;
+    reactionCount: ReactionCount;
+    userReaction?: boolean;
 }
 
 export interface CommentRequest {
@@ -15,4 +17,14 @@ export interface CommentRequest {
     userId?: string;
     postId: string;
     text: string;
+}
+export interface ReactionCount {
+    commentId: string;
+    like: number;
+    dislike: number;
+}
+
+export interface CommentReactionRequest {
+    commentId: string;
+    value: boolean;
 }
