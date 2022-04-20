@@ -122,7 +122,8 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                 className="px-4 mt-0"
                                 style={{ width: '100%', textAlign: 'center', fontSize: '12px', color: '#676767' }}
                             >
-                                Our system will create an account for you automatically, if you don't have an account.
+                                Our system will create an account for you automatically, if you don&lsquo;t have an
+                                account.
                             </p>
                             <div className="w-100 mt-2" style={{ textAlign: 'center' }}>
                                 <Button
