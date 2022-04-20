@@ -67,7 +67,7 @@ export const AddUsernameModal: React.FC<SignUpWelcomeModalProps> = (props: SignU
                             <Button
                                 onClick={() => {
                                     signOutUser(dispatch, () => {
-                                        history.push('/home');
+                                        history.push('/');
                                         props.onHide();
                                     });
                                 }}

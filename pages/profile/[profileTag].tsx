@@ -62,7 +62,11 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                 dispatch,
                 (recvUser: User) => {
                     dispatch(setLoaderVisibility(false));
-                    setUser(recvUser);
+                    if (recvUser.role === 'politician') {
+                        setUser(recvUser);
+                    } else {
+                        history.push('/home');
+                    }
                 },
                 () => {
                     history.push('/');
@@ -320,7 +324,11 @@ PoliticianPanel.getInitialProps = async ({ query }) => {
     let user = {};
     await api.get(FETCH_USER_TAG + `/${profileTag}`).then(
         (response) => {
-            user = response.data;
+            if (response.data.role === 'politician') {
+                user = response.data;
+            } else {
+                return {};
+            }
         },
         (err) => {
             console.log('Error: ', err);

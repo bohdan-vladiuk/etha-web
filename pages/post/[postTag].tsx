@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import api from '../../services/api-helper';
 import style from '../../styles/[postTag].module.css';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { setComments, setLoaderVisibility, setSharePost } from '../../redux';
+import { setComments, setModalVisibility, setSharePost } from '../../redux';
 import { fetchCommentList, fetchPostDetailsByTag, postComment, postVote } from '../../middleware';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { CommentEntry } from '../../components/CommentEntry';
@@ -98,7 +98,7 @@ export const PostPanel: NextPage<Props> = (props) => {
     }
     function submitVote(voteValue: boolean) {
         if (state.userId === undefined || state.userId === '') {
-            history.push('/login');
+            dispatch(setModalVisibility(true));
         } else {
             const vote: PostVoteRequest = {
                 postId: post.id || '',
@@ -140,7 +140,7 @@ export const PostPanel: NextPage<Props> = (props) => {
             postComment(state.token, state.userId, comment, dispatch);
             setCommentPost('');
         } else if (commentPost.length !== 0) {
-            history.push('/login');
+            dispatch(setModalVisibility(true));
         }
     }
 
@@ -265,7 +265,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                                         </div>
                                         <p
                                             style={{
-                                                fontSize: '16x',
+                                                fontSize: '14x',
                                                 fontWeight: 400,
                                                 color: 'black',
                                                 textAlign: 'justify',

@@ -8,6 +8,8 @@ import { CustomButton } from './Button.component';
 import CountDown from './ComingSoon/Timer';
 import { useRouter } from 'next/router';
 import { ArrowForwardIos } from '@mui/icons-material';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { setLoaderVisibility, setModalVisibility } from '../redux';
 
 interface PageProps {
     image: string;
@@ -28,7 +30,10 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
     const fontsize = titleSize ? '5rem' : '3rem';
     const fontweight = titleSize ? 'bold' : '600';
     const lineheight = titleSize ? '5rem' : '3rem';
-
+    const state = useAppSelector((reduxState) => ({
+        signedIn: reduxState.userReducer.signed_in,
+    }));
+    const dispatch = useAppDispatch();
     return (
         <>
             {!reversed ? (
@@ -118,7 +123,11 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                                 justifyContent: 'center',
                                             }}
                                             onClick={() => {
-                                                history.push('/home');
+                                                if (state.signedIn) {
+                                                    history.push('/home');
+                                                } else {
+                                                    dispatch(setModalVisibility(true));
+                                                }
                                             }}
                                         >
                                             Explore Now <ArrowForwardIos fontSize="small" />

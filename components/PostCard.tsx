@@ -265,12 +265,14 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                         position: 'absolute',
                                         fontSize: 12,
                                         fontWeight: 600,
-                                        right: '62px',
-                                        marginTop: '-31px',
+                                        right: 0,
+                                        left: 15,
+                                        top: -5,
+                                        margin: 'auto',
                                         backgroundColor: '#4924D6',
                                         color: '#fff',
                                         borderRadius: '100%',
-                                        width: '12%',
+                                        width: '15px',
                                         textAlign: 'center',
                                     }}
                                 >

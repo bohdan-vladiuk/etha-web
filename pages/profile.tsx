@@ -18,6 +18,7 @@ import SidePanelLeft from '../components/SidePanelLeft';
 import SidePanelRight from '../components/SidePanelRight';
 import { AppFooter } from '../components/AppFooter';
 import { NextPage } from 'next';
+import { setModalVisibility } from '../redux';
 
 export const Profile: NextPage = () => {
     const [isLogoutVisible, setLogoutPopup] = useState(false);
@@ -61,7 +62,7 @@ export const Profile: NextPage = () => {
     }, []);
     useEffect(() => {
         if (!state.signedIn) {
-            history.push('/');
+            dispatch(setModalVisibility(true));
         }
     }, [state.signedIn]);
     // useEffect(() => {
@@ -292,7 +293,7 @@ export const Profile: NextPage = () => {
                                     variant="primary mb-1"
                                     onClick={() => {
                                         signOutUser(dispatch, () => {
-                                            history.push('/home');
+                                            history.push('/');
                                         });
                                     }}
                                 >

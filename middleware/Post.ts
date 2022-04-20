@@ -21,7 +21,6 @@ export async function fetchHotPosts(page: number, token: string, dispatch: AppDi
         headers: { Authorization: `Bearer ${token}` },
         params: { page: page, size: 5 },
     };
-    if (page === 0) dispatch(setLoaderVisibility(true));
     api.get(GET_HOT_POSTS, config)
         .then(
             (response) => {
@@ -56,7 +55,6 @@ export async function fetchUserPosts(
         headers: { Authorization: `Bearer ${token}` },
         params: { userId: userId, page: page, size: 10 },
     };
-    if (page === 0) dispatch(setLoaderVisibility(true));
     api.get(PUBLIC_FIGURE_POSTS, config)
         .then(
             (response) => {
@@ -78,7 +76,6 @@ export async function fetchNewPosts(page: number, token: string, dispatch: AppDi
         headers: { Authorization: `Bearer ${token}` },
         params: { page: page, size: 10 },
     };
-    if (page === 0) dispatch(setLoaderVisibility(true));
     api.get(GET_NEW_POSTS, config)
         .then(
             (response) => {
@@ -95,7 +92,6 @@ export async function fetchNewPosts(page: number, token: string, dispatch: AppDi
 }
 
 export async function searchPosts(searchParam: string, page: number, dispatch: AppDispatch): Promise<void> {
-    if (page === 0) dispatch(setLoaderVisibility(true));
     api.get(SEARCH_POSTS, {
         params: {
             text: searchParam,
@@ -127,7 +123,6 @@ export async function fetchPostDetails(
     const config = {
         headers: { Authorization: `Bearer ${token}` },
     };
-    dispatch(setLoaderVisibility(true));
     api.get(GET_POST + `/${postId}`, config)
         .then(
             (response) => {
@@ -153,7 +148,6 @@ export async function fetchPostDetailsByTag(
     const config = {
         headers: { Authorization: `Bearer ${token}` },
     };
-    dispatch(setLoaderVisibility(true));
     api.get(GET_POST_TAG + `/${postTag}`, config)
         .then(
             (response) => {

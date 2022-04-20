@@ -14,10 +14,12 @@ import { AppNavBar } from '../components/AppNavBar';
 import SidePanelLeft from '../components/SidePanelLeft';
 import SidePanelRight from '../components/SidePanelRight';
 import { AppFooter } from '../components/AppFooter';
+import { setModalVisibility } from '../redux';
 
 const Trending: NextPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const dispatch = useAppDispatch();
+    const history = useRouter();
     const state = useAppSelector((reduxState) => ({
         userId: reduxState.userReducer.user_id,
         postData: reduxState.dataReducer.hotPosts,
@@ -36,6 +38,12 @@ const Trending: NextPage = () => {
     useEffect(() => {
         refresh();
     }, [state.signedIn, state.userId]);
+
+    useEffect(() => {
+        if (!state.signedIn) {
+            dispatch(setModalVisibility(true));
+        }
+    }, [state.signedIn]);
 
     useEffect(() => {
         fetchHotPosts(currentPage, state.token, dispatch);

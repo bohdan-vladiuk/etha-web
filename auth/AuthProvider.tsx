@@ -29,10 +29,10 @@ export function AuthProvider({ children }: any) {
             }
             console.log(`updating token...`);
             const token = await user.getIdToken();
-            dispatch(setToken(token));
             setUser(user);
             nookies.destroy(null, 'token');
             nookies.set(null, 'token', token, { path: '/' });
+            dispatch(setToken(token));
         });
     }, []);
 

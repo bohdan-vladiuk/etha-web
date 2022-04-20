@@ -159,7 +159,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                     >
                                         <Image
                                             className="abs-left-25"
-                                            src="icons/google_color.svg"
+                                            src="/icons/google_color.svg"
                                             height={26}
                                             width={26}
                                         />
@@ -201,7 +201,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                     >
                                         <Image
                                             className="abs-left-25"
-                                            src="icons/apple_logo.svg"
+                                            src="/icons/apple_logo.svg"
                                             height={'30px'}
                                             width={'30px'}
                                         />
@@ -233,7 +233,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                     >
                                         <Image
                                             className="abs-left-25"
-                                            src="icons/mail-min.png"
+                                            src="/icons/mail-min.png"
                                             height={'23px'}
                                             width={'30px'}
                                         />
@@ -286,7 +286,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                 }}
                             >
                                 <Image
-                                    src="icons/back_arr.png"
+                                    src="/icons/back_arr.png"
                                     height={25}
                                     width={25}
                                     alt=""
