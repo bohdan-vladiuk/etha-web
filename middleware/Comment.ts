@@ -1,25 +1,35 @@
 // Components
-import { DELETE_COMMENTS, GET_COMMENTS_LIST, GET_USER_COMMENT_COUNT, POST_COMMENTS, EDIT_COMMENTS } from '../services/API';
-import { CommentRequest } from '../models';
+import {
+    DELETE_COMMENTS,
+    GET_COMMENTS_LIST,
+    GET_USER_COMMENT_COUNT,
+    POST_COMMENTS,
+    EDIT_COMMENTS,
+    SET_COMMENT_REACTION,
+} from '../services/API';
+import { CommentReactionRequest, CommentRequest, ReactionCount } from '../models';
 import api from '../services/api-helper';
 import { setComments, setLoaderVisibility } from '../redux';
 import { AppDispatch } from '../redux/store';
-import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+import { firebaseAnalytics } from '../auth/firebaseClient';
 
 export async function fetchCommentList(
     postId: string,
+    token: string,
     page: number,
     size: number,
     dispatch: AppDispatch,
 ): Promise<void> {
-    dispatch(setLoaderVisibility(true));
-    api.get(GET_COMMENTS_LIST, {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
         params: {
             postId: postId,
             page: page,
             size: size,
         },
-    })
+    };
+
+    api.get(GET_COMMENTS_LIST, config)
         .then(
             (response) => {
                 dispatch(setComments(page, response.data));
@@ -60,20 +70,9 @@ export async function postComment(
     api.post(POST_COMMENTS, comment, config)
         .then(
             (response) => {
-                FirebaseAnalytics.logEvent({
-                    name: 'post_comment_success',
-                    params: {
+                firebaseAnalytics.logEvent('post_comment_success', {
                     userId: userId,
                     statementId: comment.postId,
-                    commentId: response.data.content[0].id,
-                    }
-                });
-                FirebaseAnalytics.logEvent({
-                    name: 'comment_submit_success',
-                    params: {
-                    userId: userId,
-                    commentId: response.data.content[0].id,
-                    }
                 });
                 dispatch(setComments(0, response.data));
             },
@@ -126,7 +125,7 @@ export async function updateComment(
         .then(
             (response) => {
                 if (response) {
-                    cleanFunction(response.data)
+                    cleanFunction(response.data);
                 }
             },
             (err) => {
@@ -135,5 +134,33 @@ export async function updateComment(
         )
         .finally(() => {
             dispatch(setLoaderVisibility(false));
-        })
+        });
+}
+
+export async function postReaction(
+    token: string,
+    userId: string,
+    commentReactionRequest: CommentReactionRequest,
+    dispatch: AppDispatch,
+    setFunction: (reactionCount: ReactionCount) => void,
+): Promise<void> {
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    dispatch(setLoaderVisibility(true));
+    api.post(SET_COMMENT_REACTION, commentReactionRequest, config)
+        .then(
+            (response) => {
+                setFunction(response.data);
+                firebaseAnalytics.logEvent('comment_reaction_submit_success', {
+                    userId: userId,
+                    commentId: commentReactionRequest.commentId,
+                    value: commentReactionRequest.value,
+                });
+            },
+            (err) => {
+                console.log('Error: ', err);
+            },
+        )
+        .finally(() => {
+            dispatch(setLoaderVisibility(false));
+        });
 }

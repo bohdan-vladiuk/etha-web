@@ -23,6 +23,7 @@ export const EditUserProfile: NextPage = () => {
     const dispatch = useAppDispatch();
     const history = useRouter();
     const state = useAppSelector((reduxState) => ({
+        signedIn: reduxState.userReducer.signed_in,
         token: reduxState.userReducer.token,
         tag: reduxState.userReducer.tag,
         imageUrl: reduxState.userReducer.imageUrl,
@@ -56,6 +57,11 @@ export const EditUserProfile: NextPage = () => {
             imageUrl: path,
         });
     };
+    useEffect(() => {
+        if (!state.signedIn) {
+            history.push('/');
+        }
+    }, [state.signedIn]);
     // Code implemented for uploading images
     // const [picture, setPicture] = useState<any | null>();
     // const [imgData, setImgData] = useState<any | null>();
@@ -76,7 +82,7 @@ export const EditUserProfile: NextPage = () => {
     };
 
     useEffect(() => {
-        getUserDetailsWithToken(state.token, dispatch);
+        getUserDetailsWithToken(state.token, dispatch, (user) => {});
     }, [dispatch, state.token]);
 
     useEffect(() => {

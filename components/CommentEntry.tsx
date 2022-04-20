@@ -1,16 +1,18 @@
 // Dependencies
 import moment from 'moment';
-import React, {useState} from 'react';
-import { Col, Dropdown, Image, FormControl, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Dropdown, Image, Button, FormControl } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { ContactUs, deleteComment, updateComment } from '../middleware';
+import { ContactUs, deleteComment, postReaction, updateComment } from '../middleware';
 import _ from 'lodash';
 // Components
-import { Comment, ContactUsForm, User, CommentRequest } from '../models';
+import { Comment, ContactUsForm, User, CommentRequest, CommentReactionRequest, ReactionCount } from '../models';
 
 // CSS
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { deleteCommentFromLocal, setModalVisibility, setComments } from '../redux';
+import { HiOutlineThumbDown, HiOutlineThumbUp } from 'react-icons/hi';
+import { firebaseAnalytics } from '../auth/firebaseClient';
 
 interface CommentEntryProps {
     comment: Comment;
@@ -18,8 +20,12 @@ interface CommentEntryProps {
 
 export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryProps) => {
     const dispatch = useAppDispatch();
+    const iconSize = '18';
+    const [userReaction, setUserReaction] = useState<boolean | undefined>(props.comment.userReaction);
+    const [comment, setCommentData] = useState<Comment>(props.comment);
 
     const state = useAppSelector((reduxState) => ({
+        signedIn: reduxState.userReducer.signed_in,
         userId: reduxState.userReducer.user_id,
         name: reduxState.userReducer.name,
         imageUrl: reduxState.userReducer.imageUrl,
@@ -27,38 +33,36 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
     }));
 
     const [edition, setEdition] = useState(false);
-    const [commentText, setCommentText] = useState(props.comment.text || '')
+    const [commentText, setCommentText] = useState(comment.text || '');
 
-    const user: User = _.isEmpty(props.comment.user)
+    const user: User = _.isEmpty(comment.user)
         ? {
               id: state.userId,
               name: state.name,
               imageUrl: state.imageUrl,
           }
-        : props.comment.user;
+        : comment.user;
     function returnTime() {
-        return moment(props.comment.createdAt).utc(true).fromNow();
+        return moment(comment.createdAt).utc(true).fromNow();
     }
 
-    function handleCommentUpdate() {
+    function handleCommentUpdate(recvComment: Comment) {
         if (state.userId !== undefined && state.userId !== '' && commentText.trim().length > 0) {
             const comment: CommentRequest = {
                 text: commentText,
-                userId: props.comment.userId,
-                id: props.comment.id,
-                postId: props.comment.postId || ''
+                userId: recvComment.userId,
+                id: recvComment.id,
+                postId: recvComment.postId || '',
             };
             updateComment(state.token, comment, dispatch, (response) => {
                 if (response) {
                     dispatch(setComments(0, response));
                     toast('Your comment has been updated');
                 } else {
-                    toast(
-                        'There was an error while updating the comment. Please try again in some time.',
-                    );
+                    toast('There was an error while updating the comment. Please try again in some time.');
                 }
             });
-            setEdition(false)
+            setEdition(false);
         } else if (commentText.length !== 0) {
             dispatch(setModalVisibility(true));
         }
@@ -66,97 +70,226 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
 
     function handleKeyPress(target: React.KeyboardEvent) {
         if (target.key === 'Enter') {
-            handleCommentUpdate();
+            handleCommentUpdate(comment);
         }
     }
+
+    function submitReaction(reactionValue: boolean) {
+        const commentReaction: CommentReactionRequest = {
+            commentId: comment.id || '',
+            value: reactionValue,
+        };
+        postReaction(state.token, state.userId || '', commentReaction, dispatch, (reactionCount: ReactionCount) => {
+            const isChange = commentReaction.value !== comment.userReaction;
+            const tempComment = { ...comment };
+            tempComment.reactionCount = { ...reactionCount };
+            if (isChange) {
+                setUserReaction(commentReaction.value);
+                tempComment.userReaction = commentReaction.value;
+            } else {
+                setUserReaction(undefined);
+                tempComment.userReaction = undefined;
+            }
+            setCommentData(tempComment);
+            firebaseAnalytics.logEvent('comment_reaction_success', {
+                userId: state.userId,
+                voteValue: commentReaction.value,
+                isChange: isChange,
+            });
+        });
+    }
+
     return (
-        <>
-            <div
-                className="d-flex mt-2 w-100"
-                style={{
-                    minHeight: '30px',
-                    minWidth: '210px',
-                    maxWidth: '515px',
-                    fontSize: '14px',
-                    wordBreak: 'break-all',
-                }}
-            >
-                <Col xs={2} className="p-0 m-0">
-                    <Image
-                        className="comment-image-container"
-                        src={!_.isEmpty(user.imageUrl) ? user.imageUrl : '/user_circle.png'}
-                        alt=""
-                    />
-                </Col>
-                { edition ? (
-                     <Col xs={8} className="d-flex flex-column">
-                        <h5 className="p-0 mb-1" style={{ fontStyle: 'bold !important', fontSize: '16px' }}>
-                            {state.userId === props.comment.userId ? state.name : props.comment.user.name}
-                        </h5>
-                        <FormControl
-                            className=""
-                            value={commentText}
-                            onKeyPress={handleKeyPress}
-                            onChange={(event) => {
-                                setCommentText(event.target.value);
-                            }}
-                            type="text"
-                            placeholder="Post a comment"
-                        />
-                        <div className="mt-1 d-flex justify-content-end">
-                            <Button variant="danger" className='mr-2' onClick={() => {
-                                    setEdition(false)
-                                    setCommentText(props.comment.text || '')
+        <div
+            className="mt-2 mb-1 w-100"
+            style={{
+                minHeight: '100px',
+                minWidth: '210px',
+                maxWidth: '515px',
+                fontSize: '14px',
+                wordBreak: 'break-all',
+            }}
+        >
+            <div className="d-flex w-100 px-2">
+                <Image
+                    className="comment-image-container"
+                    src={!_.isEmpty(user.imageUrl) ? user.imageUrl : '/user_circle.png'}
+                    alt=""
+                />
+                <div className="px-2" style={{ flexDirection: 'column', flexGrow: '1' }}>
+                    {edition ? (
+                        <>
+                            <h5 className="p-0 mb-1" style={{ fontStyle: 'bold !important', fontSize: '14px' }}>
+                                {state.userId === comment.userId ? state.name : comment.user.name}
+                            </h5>
+                            <FormControl
+                                className=""
+                                value={commentText}
+                                onKeyPress={handleKeyPress}
+                                onChange={(event) => {
+                                    setCommentText(event.target.value);
+                                }}
+                                type="text"
+                                placeholder="Post a comment"
+                            />
+                            <div className="mt-1 d-flex justify-content-end">
+                                <Button
+                                    variant="danger"
+                                    className="mr-2"
+                                    onClick={() => {
+                                        setEdition(false);
+                                        setCommentText(comment.text || '');
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    variant="default"
+                                    style={{ backgroundColor: '#4824d6', borderColor: '#4824d6', color: '#fff' }}
+                                    onClick={() => handleCommentUpdate(comment)}
+                                >
+                                    Save
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <h5 className="p-0 m-0" style={{ fontStyle: 'bold !important', fontSize: '16px' }}>
+                                {state.userId === comment.userId ? state.name : comment.user.name}
+                            </h5>
+                            <p
+                                className="p-0 m-0"
+                                style={{
+                                    fontSize: '14px',
+                                    wordWrap: 'normal',
+                                    textOverflow: 'ellipsis',
+                                    wordBreak: 'keep-all',
                                 }}
                             >
-                                cancel
-                            </Button>
-                            <Button
-                                variant="default"
-                                style={{ backgroundColor: '#4824d6', borderColor: '#4824d6', color: '#fff' }}
-                                onClick={handleCommentUpdate}
-                            >
-                                save
-                            </Button>
-                        </div>
-                    </Col>
-                ) : (
-                    <Col xs={8} className="d-flex m-0 p-0" style={{ flexGrow: '1', flexDirection: 'column' }}>
-                        <h5 className="p-0 m-0" style={{ fontStyle: 'bold !important', fontSize: '16px' }}>
-                            {state.userId === props.comment.userId ? state.name : props.comment.user.name}
-                        </h5>
-                        <p
-                            className="p-0 m-0"
-                            style={{
-                                fontSize: '14px',
-                                wordWrap: 'normal',
-                                textOverflow: 'ellipsis',
-                                wordBreak: 'keep-all',
-                            }}
-                        >
-                            {props.comment.text}
-                        </p>
-                        <div className="d-flex " style={{ justifyContent: 'flex-end' }}>
-                            {returnTime()}
-                        </div>
-                    </Col>
-                )
-
-                }
-                <Col xs={2}>
+                                {comment.text}
+                            </p>
+                            <div className="d-flex" style={{}}>
+                                <div
+                                    className="d-flex my-2 mx-1"
+                                    style={{
+                                        justifyContent: 'flex-start',
+                                        fontSize: '10px',
+                                        flexGrow: '1',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <span
+                                        onClick={(event) => {
+                                            if (state.signedIn) {
+                                                submitReaction(true);
+                                            } else {
+                                                dispatch(setModalVisibility(true));
+                                            }
+                                            event.stopPropagation();
+                                        }}
+                                    >
+                                        <HiOutlineThumbUp
+                                            size={iconSize}
+                                            style={
+                                                userReaction === true
+                                                    ? {
+                                                          filter: 'invert(21%) sepia(78%) saturate(4550%) hue-rotate(116deg) brightness(92%) contrast(101%)',
+                                                      }
+                                                    : {
+                                                          filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                      }
+                                            }
+                                        />
+                                        <span
+                                            className="mx-1"
+                                            style={
+                                                userReaction === false
+                                                    ? {
+                                                          color: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
+                                                          fontSize: '9px',
+                                                          fontWeight: 'bold',
+                                                      }
+                                                    : {
+                                                          color: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                          fontSize: '9px',
+                                                      }
+                                            }
+                                        >
+                                            {_.isEmpty(comment.reactionCount) ? '' : comment.reactionCount.like}
+                                        </span>
+                                    </span>
+                                    <span
+                                        onClick={(event) => {
+                                            if (state.signedIn) {
+                                                submitReaction(false);
+                                            } else {
+                                                dispatch(setModalVisibility(true));
+                                            }
+                                            event.stopPropagation();
+                                        }}
+                                    >
+                                        <HiOutlineThumbDown
+                                            size={iconSize}
+                                            style={
+                                                userReaction === false
+                                                    ? {
+                                                          filter: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
+                                                      }
+                                                    : {
+                                                          filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                      }
+                                            }
+                                        />
+                                        <span
+                                            className="mx-1"
+                                            style={
+                                                userReaction === false
+                                                    ? {
+                                                          color: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
+                                                          fontSize: '9px',
+                                                      }
+                                                    : {
+                                                          color: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
+                                                          fontSize: '9px',
+                                                      }
+                                            }
+                                        >
+                                            {_.isEmpty(comment.reactionCount) ? '' : comment.reactionCount.dislike}
+                                        </span>
+                                    </span>
+                                </div>
+                                <div
+                                    className="d-flex"
+                                    style={{
+                                        justifyContent: 'flex-end',
+                                        fontSize: '10px',
+                                        flexGrow: '1',
+                                        alignItems: 'end',
+                                    }}
+                                >
+                                    {returnTime()}
+                                </div>
+                            </div>
+                            {/* <div className="d-flex " style={{ justifyContent: 'flex-end', fontSize: '10px' }}>
+                                {returnTime()}
+                            </div> */}
+                        </>
+                    )}
+                </div>
+                <div>
                     <Dropdown className="my-dropdown ">
                         <Dropdown.Toggle className="p-0 m-0" split={false} variant="light-dropdown">
-                            <i className="fa fa-ellipsis-v"></i>
+                            <i className="fa fa-ellipsis-v" style={{ position: 'relative', top: '0' }}></i>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu style={{ borderRadius: '20px', background: '#fff' }} align="right">
-                            {state.userId === props.comment.userId ? (
-                               <div>
+                            {state.userId === comment.userId ? (
+                                <div>
                                     <Dropdown.Item
                                         as="button"
                                         onClick={() => {
-                                            setEdition(true)
-                                            setCommentText(props.comment.text || '')
+                                            setEdition(true);
+                                            setCommentText(comment.text || '');
                                         }}
                                     >
                                         {' '}
@@ -165,9 +298,9 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                     <Dropdown.Item
                                         as="button"
                                         onClick={() => {
-                                            deleteComment(state.token, props.comment.id || '', dispatch, (response) => {
+                                            deleteComment(state.token, comment.id || '', dispatch, (response) => {
                                                 if (response) {
-                                                    dispatch(deleteCommentFromLocal(props.comment.id || ''));
+                                                    dispatch(deleteCommentFromLocal(comment.id || ''));
                                                     toast('Your comment has been deleted');
                                                 } else {
                                                     toast(
@@ -180,7 +313,7 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                         {' '}
                                         <i className="fa fa-trash"></i> Delete
                                     </Dropdown.Item>
-                               </div>
+                                </div>
                             ) : (
                                 <Dropdown.Item
                                     as="button"
@@ -188,7 +321,7 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                         const form: ContactUsForm = {
                                             email: '',
                                             name: state.name + ' ' + state.userId,
-                                            message: `${state.userId} reports commentId: ${props.comment.id}`,
+                                            message: `${state.userId} reports commentId: ${comment.id}`,
                                         };
                                         ContactUs(form, () => {
                                             toast(
@@ -202,9 +335,9 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                             )}
                         </Dropdown.Menu>
                     </Dropdown>
-                </Col>
+                </div>
             </div>
-            <hr style={{ backgroundColor: '#F7F7F7' }} />
-        </>
+            <hr className="mt-1" style={{ backgroundColor: '#F7F7F7' }} />
+        </div>
     );
 };
