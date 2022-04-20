@@ -25,6 +25,7 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
     const [comment, setCommentData] = useState<Comment>(props.comment);
 
     const state = useAppSelector((reduxState) => ({
+        signedIn: reduxState.userReducer.signed_in,
         userId: reduxState.userReducer.user_id,
         name: reduxState.userReducer.name,
         imageUrl: reduxState.userReducer.imageUrl,
@@ -179,7 +180,11 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                 >
                                     <span
                                         onClick={(event) => {
-                                            submitReaction(true);
+                                            if (state.signedIn) {
+                                                submitReaction(true);
+                                            } else {
+                                                dispatch(setModalVisibility(true));
+                                            }
                                             event.stopPropagation();
                                         }}
                                     >
@@ -215,7 +220,11 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                     </span>
                                     <span
                                         onClick={(event) => {
-                                            submitReaction(false);
+                                            if (state.signedIn) {
+                                                submitReaction(false);
+                                            } else {
+                                                dispatch(setModalVisibility(true));
+                                            }
                                             event.stopPropagation();
                                         }}
                                     >
