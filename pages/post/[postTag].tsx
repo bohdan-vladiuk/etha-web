@@ -468,4 +468,5 @@ PostPanel.getInitialProps = async ({ query }) => {
         preFetchPost: post,
     };
 };
+
 export default PostPanel;
