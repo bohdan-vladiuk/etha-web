@@ -13,11 +13,7 @@ import { Footer } from '../components/Footer';
 import { cp } from 'fs/promises';
 
 const Home: NextPage = () => {
-    const history = useRouter();
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
-    const [fullname, setFullname] = useState('');
-    const [email, setEmail] = useState('');
-
     const [opacity, setOpacity] = useState(0.0);
 
     const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
@@ -115,7 +111,7 @@ const Home: NextPage = () => {
                     {/* <div className={styles.page_background2_container}>
                         <div className={styles.page_background2} />
                     </div> */}
-                    <div
+                    {/* <div
                         className={``}
                         style={{
                             display: 'flex',
@@ -134,7 +130,7 @@ const Home: NextPage = () => {
                             We verify, cross reference and keep you up to date with your favorite stories so you can
                             focus on investing in yourself, staying informed, and getting involved.
                         </p>
-                    </div>
+                    </div> */}
                     {/* <div className={styles.page_image2}>
                         <Image className="p-0 m-0" src={`/iPhone4.svg`} alt="" height={531} width={1125} />
                     </div>
@@ -191,14 +187,21 @@ const Home: NextPage = () => {
                 </div>
                 {showJoinButton && (
                     <div
-                        className="d-lg-none m-0 px-5 py-2 d-flex align-items-center fixed-bottom"
-                        style={{ backgroundColor: '#fff', opacity: `${opacity}` }}
+                        className="d-lg-none d-md-flex m-0 px-2 py-2 d-flex align-items-center fixed-bottom"
+                        style={{ backgroundColor: '#fff', opacity: `${opacity}`, justifyContent: 'space-evenly' }}
                     >
                         <CustomButton
                             placeHolder="Give Feedback"
-                            width="100%"
+                            width="45%"
                             click={() => {
                                 setShowJoinPage(true);
+                            }}
+                        />
+                        <CustomButton
+                            placeHolder="Invest Now"
+                            width="45%"
+                            click={() => {
+                                window.open('https://wefunder.com/etha.one', '_blank');
                             }}
                         />
                     </div>

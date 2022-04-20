@@ -17,8 +17,6 @@ export function AuthProvider({ children }: any) {
             (window as any).nookies = nookies;
         }
         return firebaseClient.auth().onIdTokenChanged(async (user) => {
-            console.log(`token changed!`);
-            console.log(user);
             if (!user) {
                 console.log(`no token found...`);
                 setUser(null);

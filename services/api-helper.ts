@@ -2,8 +2,8 @@ import axios from 'axios';
 
 //TODO MAKE changes before deployment
 
-// const NEXT_PUBLIC_API_URL_DEV = `https://dev.etha.one/api`;
-const NEXT_PUBLIC_API_URL_DEV = `http://localhost:8080`;
+const NEXT_PUBLIC_API_URL_DEV = `https://dev.etha.one/api`;
+// const NEXT_PUBLIC_API_URL_DEV = `http://localhost:8080`;/
 const NEXT_PUBLIC_API_URL_PROD = `https://prod.etha.one/api`;
 
 const NEXT_PUBLIC_URL_DEV = `http://localhost:3000`;
