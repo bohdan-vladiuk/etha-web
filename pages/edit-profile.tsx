@@ -121,8 +121,8 @@ export const EditUserProfile: NextPage = () => {
                                             toast('Your name cannot be empty');
                                         } else if (_.isEmpty(formData.tag)) {
                                             toast('Your User Tag cannot be empty');
-                                        } else if (_.isEmpty(formData.dob)) {
-                                            toast('Your need to add a Date of Birth to Update the Profile');
+                                        } else if (!_.isEmpty(formData.dob) && !moment(formData.dob).isValid()) {
+                                            toast('Your need to add a Valid Date of Birth to Update the Profile');
                                         } else {
                                             const user: User = {
                                                 id: state.userId,
