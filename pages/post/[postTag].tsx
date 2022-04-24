@@ -12,7 +12,6 @@ import style from '../../styles/[postTag].module.css';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setComments, setModalVisibility, setSharePost } from '../../redux';
 import { fetchCommentList, fetchPostDetailsByTag, postComment, postVote } from '../../middleware';
-import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { CommentEntry } from '../../components/CommentEntry';
 import { AppNavBar } from '../../components/AppNavBar';
 import SidePanelLeft from '../../components/SidePanelLeft';

@@ -1,6 +1,3 @@
-// Dependencies
-
-// Components
 import {
     GET_NEW_POSTS,
     GET_HOT_POSTS,

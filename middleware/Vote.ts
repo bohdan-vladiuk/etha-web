@@ -1,6 +1,3 @@
-// Dependencies
-
-// Components
 import { GET_VOTE_DETAIL, GET_VOTES_DETAIL, GET_VOTES_LIST, SET_VOTES, GET_VOTE_COUNT } from '../services/API';
 import { PostVoteRequest, VoteCount, Vote, VotingDetails, PutVoteRequest } from '../models';
 import api from '../services/api-helper';
@@ -118,37 +115,3 @@ export async function updateVote(
         },
     );
 }
-
-// export async function fetchPublicFigureVotes(
-//     userId: string,
-//     setFunction: (userVotes: VoteCount) => void,
-// ): Promise<void> {
-//     api.get(GET_VOTES_PUBLIC_FIGURE, {
-//         params: {
-//             userId: userId,
-//         },
-//     }).then(
-//         (response) => {
-//             setFunction(response.data);
-//         },
-//         (err) => {
-//             console.log('Error: ', err);
-//         },
-//     );
-// }
-
-// export async function fetchUserVotes(
-//     token: string,
-//     setFunction: (publicFigureVotes: VoteCount) => void,
-// ): Promise<void> {
-//     api.get(GET_USER_VOTE_COUNT, {
-//         headers: { Authorization: `Bearer ${token}` },
-//     }).then(
-//         (response) => {
-//             setFunction(response.data);
-//         },
-//         (err) => {
-//             console.log('Error: ', err);
-//         },
-//     );
-// }

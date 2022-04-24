@@ -1,8 +1,5 @@
-// Dependencies
 import React from 'react';
-// Components
 import { VoteCount } from '../models';
-// CSS
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';

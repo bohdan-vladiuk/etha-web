@@ -1,10 +1,8 @@
-// Dependencies
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Modal, Image, FormControl, InputGroup, FormCheck } from 'react-bootstrap';
 import ReactGA from 'react-ga';
 import { useDispatch } from 'react-redux';
 
-// Components
 import { checkUser, signInUser, signUpUser } from '../middleware';
 import { User } from '../models';
 import { AppDispatch } from '../redux/store';
@@ -158,6 +156,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+                                            alt='Google'
                                             className="abs-left-25"
                                             src="/icons/google_color.svg"
                                             height={26}
@@ -200,6 +199,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+                                            alt='Apple'
                                             className="abs-left-25"
                                             src="/icons/apple_logo.svg"
                                             height={'30px'}
@@ -232,6 +232,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+                                            alt='Email'
                                             className="abs-left-25"
                                             src="/icons/mail-min.png"
                                             height={'23px'}

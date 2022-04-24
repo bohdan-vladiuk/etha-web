@@ -6,11 +6,8 @@ import styles from '../styles/Home.module.css';
 import { NavBar } from '../components/NavBar';
 import { Page } from '../components/PageComponent';
 import { ContactUsModal } from '../components/ContactUsModal';
-import { useRouter } from 'next/router';
 import { CustomButton } from '../components/Button.component';
-import { CustomInput } from '../components/Input';
 import { Footer } from '../components/Footer';
-import { cp } from 'fs/promises';
 
 const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
@@ -88,79 +85,6 @@ const Home: NextPage = () => {
                     checked
                     bg="#bdbdf575"
                 />
-                {/* <Page
-                    header="A safe place for free expression."
-                    image="Page3"
-                    details={pageTextData.pageThree}
-                    button={{ placeHolder: 'The Briefings', click: () => '' }}
-                /> */}
-                {/* <div className={styles.page_container}>
-                    <div className={styles.page_background_container}>
-                        <div className={styles.page_background} />
-                    </div>
-                    <div className={styles.page_image}>
-                        <Image className="p-0 m-0" src={`/PostGroup.jpg`} alt="" height={766} width={705} />
-                    </div>
-                    <div className={styles.page_font}>
-                        <p className="p-0 m-0 px-2">
-                            With an innovative fact-checking process for an extra layer of accountablity
-                        </p>
-                    </div>
-                </div> */}
-                <div className={`${styles.page3_container}`}>
-                    {/* <div className={styles.page_background2_container}>
-                        <div className={styles.page_background2} />
-                    </div> */}
-                    {/* <div
-                        className={``}
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'flex-start',
-                            width: '100%',
-                            zIndex: 10,
-                            fontSize: '2rem',
-                            lineHeight: '2rem',
-                            fontWeight: 700,
-                        }}
-                    >
-                        <p>Daily coverage. Delivered straight to you.</p>
-                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '50%' }}>
-                            We verify, cross reference and keep you up to date with your favorite stories so you can
-                            focus on investing in yourself, staying informed, and getting involved.
-                        </p>
-                    </div> */}
-                    {/* <div className={styles.page_image2}>
-                        <Image className="p-0 m-0" src={`/iPhone4.svg`} alt="" height={531} width={1125} />
-                    </div>
-                    <div
-                        className={``}
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'flex-start',
-                            width: '100%',
-                            zIndex: 10,
-                            fontSize: '2rem',
-                            lineHeight: '2rem',
-                            fontWeight: 700,
-                        }}
-                    >
-                        <p>Using facts to bring an end to polarization.</p>
-                        <p style={{ fontSize: '0.8rem', fontWeight: '300', lineHeight: '1.2rem', width: '50%' }}>
-                            Polarization in the media doesn’t emphasize commonalities, it weaponizes differences. Etha
-                            changes that by focusing on the facts to keep you educated and focus on the things that
-                            matter to you.
-                        </p>
-                    </div> */}
-                </div>
-
-                {/* <div className={`d-flex w-100 justify-content-center my-5`}>
-                    <Image className="p-0 m-0" src={`/PostGroup2.jpg`} alt="" height={631} width={1025} />
-                </div> */}
-
                 <div className="d-flex flex-column align-items-center" style={{ backgroundColor: '#152649' }}>
                     <div className={styles.page_font3}>
                         <p>

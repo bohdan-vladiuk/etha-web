@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Image, Row, Spinner } from 'react-bootstrap';
 import _ from 'lodash';
-import ReactGA from 'react-ga';
-// Components
 import { fetchUserByTag } from '../../middleware/User';
 import { Post, User } from '../../models';
 import { PostCard } from '../../components/PostCard';
@@ -11,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setLoaderVisibility, setUserPosts } from '../../redux';
 import { FETCH_USER_TAG } from '../../services/API';
 import api from '../../services/api-helper';
-// CSS
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { useRouter } from 'next/router';

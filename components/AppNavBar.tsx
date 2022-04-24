@@ -1,12 +1,8 @@
-// Dependencies
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Dropdown, Col, Form, InputGroup, Button } from 'react-bootstrap';
+import { Col, Form, InputGroup, Button } from 'react-bootstrap';
 import Image from 'next/image';
-// import { useHistory, useLocation } from 'react-router-dom';
-import { setContactFormVisibility, setModalVisibility } from '../redux';
-// Components
-// CSS
+import { setModalVisibility } from '../redux';
 import { useRouter } from 'next/router';
 import styles from '../styles/NavBar.module.css';
 
@@ -15,7 +11,6 @@ export const AppNavBar: React.FC = () => {
     const [isPageStatic, setPageStatic] = useState(false);
     const [isBackEnabled, setBackEnabled] = useState(false);
     const [searchParam, setSearchParam] = useState('');
-    const [contactUsVisible, setContactUsVisible] = useState(false);
 
     const history = useRouter();
     const pathname = history.pathname;
@@ -202,96 +197,6 @@ export const AppNavBar: React.FC = () => {
                     )}
                 </Col>
             </div>
-
-            {/* Smaller Header d-sm-flex d-md-none*/}
-            {/* <div
-                        className={`${styles.search_header_container} d-sm-flex d-md-none w-100 m-auto pt-2 pb-1'}
-                        style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            backgroundColor: `${isPageSearch ? '#00000000' : '#fff'}`,
-                            boxShadow: `${isPageSearch ? '' : '#00000070 0px 3px 5px'}`,
-                        }}
-                    >
-                        {isPageSearch ? (
-                            <InputGroup
-                                className={`${styles.search_bar} m-0 mx-2 p-0`}
-                                style={{
-                                    background: '#fff',
-                                    boxShadow: '#00000070 0px 3px 6px 0px',
-                                    borderRadius: '5px 5px 5px 5px',
-                                }}
-                            >
-                                <Form.Control
-                                    style={{
-                                        height: '100%',
-                                        borderRadius: '5px 0px 0px 5px',
-                                        border: '0px',
-                                        color: '#707070',
-                                    }}
-                                    value={searchParam}
-                                    size="lg"
-                                    type="text"
-                                    placeholder="Search..."
-                                    onKeyPress={handleKeyPress}
-                                    onChange={(event) => {
-                                        setSearchParam(event.target.value);
-                                    }}
-                                />
-                                <Image
-                                    src="/icons/search.png"
-                                    height="38px"
-                                    className="p-2 my-auto mr-2"
-                                    style={{
-                                        borderRadius: '0px 5px 5px 0px',
-                                        filter: 'invert(48%) sepia(0%) saturate(0%) hue-rotate(197deg) brightness(90%) contrast(89%)',
-                                    }}
-                                    onClick={() => {
-                                        if (searchParam.length > 1) {
-                                            history.push({
-                                                pathname: '/search',
-                                                search: `?searchParam=${searchParam.trim()}`,
-                                            });
-                                            setSearchParam('');
-                                        }
-                                    }}
-                                />
-                            </InputGroup>
-                        ) : (
-                            <>
-                                <Col xs={3} className="text-center">
-                                    <img
-                                        className=""
-                                        src={isBackEnabled ? '/back_button.png' : '/apple-icon.png'}
-                                        alt=""
-                                        height="50px"
-                                        onClick={() => {
-                                            if (!isBackEnabled) {
-                                                history.push('/');
-                                            } else {
-                                                if (history.action !== 'POP') {
-                                                    history.goBack();
-                                                } else {
-                                                    history.push('/');
-                                                }
-                                            }
-                                        }}
-                                    />
-                                </Col>
-                                <Col
-                                    className="d-flex text-center"
-                                    style={{ flexDirection: 'column', alignItems: 'center' }}
-                                >
-                                    <h3 className="m-auto">{pageName}</h3>
-                                </Col>
-                                <Col
-                                    xs={3}
-                                    className="d-flex text-center"
-                                    style={{ flexDirection: 'column', alignItems: 'center' }}
-                                ></Col>
-                            </>
-                        )}
-                    </div> */}
         </>
     );
 };
