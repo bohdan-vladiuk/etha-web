@@ -5,7 +5,11 @@ import ReactGA from 'react-ga';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import InfiniteScroll from 'react-infinite-scroll-component';
+<<<<<<< Updated upstream
 import { Col, Container, Dropdown, FormControl, Row, Spinner } from 'react-bootstrap';
+=======
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
+>>>>>>> Stashed changes
 import { searchPosts } from '../middleware';
 import { Post, User, UserActivity } from '../models';
 import { PostCard } from '../components/PostCard';
@@ -133,8 +137,8 @@ const Search: NextPage = () => {
                                                 />
                                                 <InfiniteScroll
                                                     dataLength={
-                                                        !_.isEmpty(state.postsData.content)
-                                                            ? Object.keys(state.postsData.content).length
+                                                        !_.isEmpty(state.userData.content)
+                                                            ? Object.keys(state.userData.content).length
                                                             : 0
                                                     }
                                                     next={fetchMoreData}
@@ -165,6 +169,19 @@ const Search: NextPage = () => {
                                                         !_.isEmpty(state.postsData.hits)
                                                             ? Object.keys(state.postsData.hits).length
                                                             : 0
+                                                    }
+                                                    loader={
+                                                        <div
+                                                            className="d-flex w-100"
+                                                            style={{ justifyContent: 'center' }}
+                                                        >
+                                                            <Spinner
+                                                                className="my-2"
+                                                                animation="border"
+                                                                role="status"
+                                                                variant="secondary"
+                                                            />
+                                                        </div>
                                                     }
                                                     next={fetchMoreData}
                                                     hasMore={state.postsData.nbPages - 1 > currentPage}

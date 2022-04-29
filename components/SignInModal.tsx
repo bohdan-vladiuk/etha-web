@@ -122,7 +122,8 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                 className="px-4 mt-0"
                                 style={{ width: '100%', textAlign: 'center', fontSize: '12px', color: '#676767' }}
                             >
-                                Our system will create an account for you automatically, if you don't have an account.
+                                Our system will create an account for you automatically, if you don&lsquo;t have an
+                                account.
                             </p>
                             <div className="w-100 mt-2" style={{ textAlign: 'center' }}>
                                 <Button
@@ -158,6 +159,10 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+<<<<<<< Updated upstream
+=======
+                                            alt="Google"
+>>>>>>> Stashed changes
                                             className="abs-left-25"
                                             src="/icons/google_color.svg"
                                             height={26}
@@ -200,6 +205,10 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+<<<<<<< Updated upstream
+=======
+                                            alt="Apple"
+>>>>>>> Stashed changes
                                             className="abs-left-25"
                                             src="/icons/apple_logo.svg"
                                             height={'30px'}
@@ -232,6 +241,10 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+<<<<<<< Updated upstream
+=======
+                                            alt="Email"
+>>>>>>> Stashed changes
                                             className="abs-left-25"
                                             src="/icons/mail-min.png"
                                             height={'23px'}
