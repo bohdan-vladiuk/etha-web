@@ -1,4 +1,3 @@
-// Dependencies
 import React from 'react';
 import { Col, Row, Container, Image } from 'react-bootstrap';
 import { useEffect } from 'react';

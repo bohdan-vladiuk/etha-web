@@ -1,10 +1,7 @@
-// Dependencies
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Modal, Image, FormControl, InputGroup, FormCheck } from 'react-bootstrap';
 import ReactGA from 'react-ga';
 import { useDispatch } from 'react-redux';
-
-// Components
 import { checkUser, signInUser, signUpUser } from '../middleware';
 import { User } from '../models';
 import { AppDispatch } from '../redux/store';
@@ -49,7 +46,6 @@ export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalP
         setSignUpName('');
         setSignUpPassword('');
         setSignUpConfirmPassword('');
-        //window.localStorage.setItem('redirectUrl', pathname);
     }, [show]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -186,6 +182,7 @@ export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalP
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+                                            alt='Google'
                                             className="abs-left-25"
                                             src="icons/google_color.svg"
                                             height={26}
@@ -209,14 +206,6 @@ export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalP
                                         firebaseAnalytics.logEvent('social_login_click', {
                                             type: 'apple',
                                         });
-                                        // signInUserWithApple(dispatch, () => {
-                                        //     FirebaseAnalytics.logEvent({
-                                        //         name: 'social_login_success',
-                                        //         params: {
-                                        //             type: 'apple',
-                                        //         },
-                                        //     });
-                                        // });
                                     }}
                                 >
                                     <div
@@ -224,6 +213,7 @@ export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalP
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
+                                            alt='Apple'
                                             className="abs-left-25"
                                             src="icons/apple_logo.svg"
                                             height={'30px'}
@@ -235,95 +225,6 @@ export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalP
                             </div>
                         </div>
                     ) : (
-                        // <>
-                        //     <div
-                        //         className="mt-3 ml-3"
-                        //         style={{
-                        //             height: '60px',
-                        //             width: '125px',
-                        //         }}
-                        //     >
-                        //         <Image src="/etha_logo.svg" height={60} width={125} alt="" objectFit="contain" />
-                        //     </div>{' '}
-                        //     <p className="ml-3 mt-2" style={{ fontSize: '35px', marginTop: '', fontWeight: 'bold' }}>
-                        //         Hi, Welcome Back
-                        //     </p>
-                        //     <p className="ml-3" style={{ fontSize: '18px' }}>
-                        //         <b> Sign In</b> With
-                        //     </p>
-                        //     <div className="ml-3 d-flex w-100" style={{ alignItems: 'center' }}>
-                        //         <a
-                        //             style={{
-                        //                 margin: '5px',
-                        //                 paddingLeft: '5px',
-                        //                 paddingRight: '5px',
-                        //                 width: '50px',
-                        //                 height: '27px',
-                        //                 backgroundColor: '#ffffff',
-                        //                 textAlign: 'center',
-                        //                 verticalAlign: 'middle',
-                        //                 borderRadius: '5px',
-                        //                 boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.1)',
-                        //             }}
-                        //             href={`${GOOGLE_AUTH_URL}?currentPath=${pathname}&platform=google`}
-                        //         >
-                        //             <Image src="icons/google.png" height={25} width={25} alt="" objectFit="contain" />
-                        //         </a>
-                        //         <a
-                        //             style={{
-                        //                 margin: '5px',
-                        //                 paddingLeft: '5px',
-                        //                 paddingRight: '5px',
-                        //                 width: '50px',
-                        //                 height: '27px',
-                        //                 backgroundColor: '#ffffff',
-                        //                 textAlign: 'center',
-                        //                 borderRadius: '5px',
-                        //                 boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.1)',
-                        //             }}
-                        //             href={`${APPLE_AUTH_URL}?currentPath=${pathname}&platform=apple`}
-                        //         >
-                        //             <Image
-                        //                 src="icons/apple-min.png"
-                        //                 height={20}
-                        //                 width={20}
-                        //                 alt=""
-                        //                 objectFit="contain"
-                        //             />
-                        //         </a>
-                        //         <p
-                        //             style={{
-                        //                 margin: '5px',
-                        //                 paddingLeft: '5px',
-                        //                 paddingRight: '5px',
-                        //                 width: '50px',
-                        //                 height: '27px',
-                        //                 backgroundColor: '#ffffff',
-                        //                 textAlign: 'center',
-                        //                 borderRadius: '5px',
-                        //                 boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.1)',
-                        //             }}
-                        //             onClick={() => setModalState('SIGNIN')}
-                        //         >
-                        //             <Image
-                        //                 src="icons/mail-min.png"
-                        //                 height={20}
-                        //                 width={20}
-                        //                 alt=""
-                        //                 objectFit="contain"
-                        //             />
-                        //         </p>
-                        //     </div>
-                        //     <Button
-                        //         variant="link"
-                        //         type="button"
-                        //         className="mt-3 mb-2"
-                        //         style={{ width: '350px' }}
-                        //         onClick={() => setModalState('SIGNUP')}
-                        //     >
-                        //         Don&apos;t have an Account? Sign Up Here
-                        //     </Button>
-                        // </>
                         <></>
                     )}
                     {localModalState === 'SIGNIN' ? (

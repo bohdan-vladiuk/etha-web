@@ -1,4 +1,3 @@
-// Components
 import { GET_USER_ACTIVITY_LIST } from '../services/API';
 import { AppDispatch } from '../redux/store';
 import { setLoaderVisibility, setUserActivityData } from '../redux';

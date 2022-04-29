@@ -1,9 +1,4 @@
-// Dependencies
 import React from 'react';
-
-// Components
-// CSS
-import { useAppSelector } from '../redux/store';
 
 export const SocialIcons: React.FC = () => {
     return (

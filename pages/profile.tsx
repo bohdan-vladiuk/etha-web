@@ -1,14 +1,9 @@
-// Dependencies
 import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Dropdown, DropdownButton, Image, Row, Spinner } from 'react-bootstrap';
 import Popup from 'reactjs-popup';
-
-// Components
 import { UserActivity } from '../models';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { fetchUserActivityList, getUserDetailsWithToken, signOutUser, fetchUserPosts } from '../middleware';
-
-// CSS
 import InfiniteScroll from 'react-infinite-scroll-component';
 import _ from 'lodash';
 import { UserActivityEntry } from '../components/UserActivityEntry';
@@ -65,11 +60,6 @@ export const Profile: NextPage = () => {
             dispatch(setModalVisibility(true));
         }
     }, [state.signedIn]);
-    // useEffect(() => {
-    //     if (state.userId !== undefined) {
-    //         fetchUserPosts(state.userId, currentPage, state.token, dispatch);
-    //     }
-    // }, [currentPage, dispatch, state.userId, state.token]);
 
     useEffect(() => {
         fetchUserActivityList(state.token, currentPage, dispatch);
@@ -81,7 +71,6 @@ export const Profile: NextPage = () => {
 
     function refresh() {
         setCurrentPage(0);
-        // dispatch(setLoaderVisibility(true));
     }
     return (
         <>
@@ -169,39 +158,7 @@ export const Profile: NextPage = () => {
                                             </Button>
                                         </Dropdown.Item>
                                     </DropdownButton>
-                                    {/* <Dropdown
-                                        className="my-dropdown p-0 m-0"
-                                        style={{ position: 'absolute', top: '20%', right: '0' }}
-                                    >
-                                        <Dropdown.Toggle className="p-0 m-0" split={false} variant="light-dropdown">
-                                        </Dropdown.Toggle>
-
-                                        <Dropdown.Menu style={{ borderRadius: '20px' }}></Dropdown.Menu>
-                                    </Dropdown> */}
                                 </div>
-
-                                {/* <div className="d-flex w-100 px-4 mt-4" style={{ justifyContent: 'center' }}>
-                        <div className="px-4">
-                            <p style={{ color: '#646464', fontSize: '12px' }}>
-                                <span style={{ fontWeight: 'bolder', fontSize: '18px', color: '#000' }}>
-                                    {' '}
-                                    50k
-                                </span>
-                                <br />
-                                Agrees
-                            </p>
-                        </div>
-                        <div className="px-4">
-                            <p style={{ color: '#646464', fontSize: '12px' }}>
-                                <span style={{ fontWeight: 'bolder', fontSize: '18px', color: '#000' }}>
-                                    10k
-                                </span>
-                                <br />
-                                Disagrees
-                            </p>
-                        </div>
-                    </div>
-                    <div className="my-1" style={{ width: '100%', background: 'rgba(0,0,0,.1)', height: '0.1px' }} /> */}
                             </div>
                         </div>
 

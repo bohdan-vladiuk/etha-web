@@ -1,4 +1,3 @@
-// Dependencies
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
 import _ from 'lodash';

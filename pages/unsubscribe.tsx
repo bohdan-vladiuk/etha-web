@@ -1,8 +1,6 @@
-// Dependencies
 import React from 'react';
 import { Button, FormControl, Row } from 'react-bootstrap';
 
-// Components
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { UnsubscribeNewsletter } from '../middleware';

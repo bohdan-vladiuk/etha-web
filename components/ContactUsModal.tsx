@@ -1,4 +1,3 @@
-// Dependencies
 import React, { useState, useEffect } from 'react';
 
 import { AddToWaitlist, ContactUs } from '../middleware';

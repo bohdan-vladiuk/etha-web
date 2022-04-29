@@ -1,12 +1,5 @@
-// Dependencies
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Dropdown, Col, Form, InputGroup, Button } from 'react-bootstrap';
-import Image from 'next/image';
-// import { useHistory, useLocation } from 'react-router-dom';
-import { setContactFormVisibility, setModalVisibility } from '../redux';
-// Components
-// CSS
 import { useRouter } from 'next/router';
 import styles from '../styles/Footer.module.css';
 
@@ -15,12 +8,10 @@ export const AppFooter: React.FC = () => {
     const [isPageStatic, setPageStatic] = useState(false);
     const [isBackEnabled, setBackEnabled] = useState(false);
     const [searchParam, setSearchParam] = useState('');
-    const [contactUsVisible, setContactUsVisible] = useState(false);
 
     const history = useRouter();
     const pathname = history.pathname;
 
-    const dispatch = useAppDispatch();
     const state = useAppSelector((reduxState) => ({
         signed_in: reduxState.userReducer.signed_in,
         userName: reduxState.userReducer.name,
