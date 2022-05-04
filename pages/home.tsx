@@ -43,11 +43,11 @@ const Home: NextPage = () => {
         fetchNewPosts(currentPage, state.token, dispatch);
     }, [currentPage, dispatch, state.token]);
 
-    useEffect(() => {
-        if (!state.signedIn) {
-            dispatch(setModalVisibility(true));
-        }
-    }, [state.signedIn]);
+    // useEffect(() => {
+    //     if (!state.signedIn) {
+    //         dispatch(setModalVisibility(true));
+    //     }
+    // }, [state.signedIn]);
 
     function fetchMoreData() {
         setCurrentPage(currentPage + 1);
@@ -99,7 +99,7 @@ const Home: NextPage = () => {
                         </InfiniteScroll>
                     </Col>
                     <Col className=" d-none d-lg-flex" lg={3}>
-                        <SidePanelRight />
+                        {/* <SidePanelRight /> */}
                     </Col>
                 </Row>
                 <AppFooter />

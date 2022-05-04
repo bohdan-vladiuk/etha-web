@@ -7,7 +7,7 @@ import { useAppSelector } from '../redux/store';
 
 export const SocialIcons: React.FC = () => {
     return (
-        <div className="p-1">
+        <div className="d-flex w-100" style={{ justifyContent: 'space-evenly' }}>
             <i
                 className="fab fa-facebook-square px-2"
                 style={{ fontSize: '30px', color: '#3B5998', cursor: 'pointer' }}

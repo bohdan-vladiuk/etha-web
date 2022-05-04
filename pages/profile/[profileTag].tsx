@@ -310,7 +310,7 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                         </div>{' '}
                     </Col>
                     <Col className=" d-none d-lg-flex" lg={3}>
-                        <SidePanelRight />
+                        {/* <SidePanelRight /> */}
                     </Col>
                 </Row>
                 <AppFooter />

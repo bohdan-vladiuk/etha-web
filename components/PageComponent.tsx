@@ -123,11 +123,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                                                 justifyContent: 'center',
                                             }}
                                             onClick={() => {
-                                                if (state.signedIn) {
-                                                    history.push('/home');
-                                                } else {
-                                                    dispatch(setModalVisibility(true));
-                                                }
+                                                history.push('/home');
                                             }}
                                         >
                                             Explore Now <ArrowForwardIos fontSize="small" />

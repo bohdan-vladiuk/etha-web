@@ -45,11 +45,11 @@ const Search: NextPage = () => {
         dispatch(setUsers({}));
         setSearchParam(receivedSearchParam);
     }, [receivedSearchParam, dispatch]);
-    useEffect(() => {
-        if (!state.signedIn) {
-            dispatch(setModalVisibility(true));
-        }
-    }, [state.signedIn]);
+    // useEffect(() => {
+    //     if (!state.signedIn) {
+    //         dispatch(setModalVisibility(true));
+    //     }
+    // }, [state.signedIn]);
     useEffect(() => {
         ReactGA.event({
             category: 'page_load',
@@ -214,7 +214,7 @@ const Search: NextPage = () => {
                         </div>
                     </Col>
                     <Col className=" d-none d-lg-flex" lg={3}>
-                        <SidePanelRight />
+                        {/* <SidePanelRight /> */}
                     </Col>
                 </Row>
                 <AppFooter />

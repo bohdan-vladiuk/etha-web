@@ -39,11 +39,11 @@ const Trending: NextPage = () => {
         refresh();
     }, [state.signedIn, state.userId]);
 
-    useEffect(() => {
-        if (!state.signedIn) {
-            dispatch(setModalVisibility(true));
-        }
-    }, [state.signedIn]);
+    // useEffect(() => {
+    //     if (!state.signedIn) {
+    //         dispatch(setModalVisibility(true));
+    //     }
+    // }, [state.signedIn]);
 
     useEffect(() => {
         fetchHotPosts(currentPage, state.token, dispatch);
@@ -99,7 +99,7 @@ const Trending: NextPage = () => {
                         </InfiniteScroll>
                     </Col>
                     <Col className=" d-none d-lg-flex" lg={3}>
-                        <SidePanelRight />
+                        {/* <SidePanelRight /> */}
                     </Col>
                 </Row>
                 <AppFooter />
