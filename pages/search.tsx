@@ -5,18 +5,12 @@ import ReactGA from 'react-ga';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import InfiniteScroll from 'react-infinite-scroll-component';
-<<<<<<< Updated upstream
-import { Col, Container, Dropdown, FormControl, Row, Spinner } from 'react-bootstrap';
-=======
+
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
->>>>>>> Stashed changes
 import { searchPosts } from '../middleware';
-import { Post, User, UserActivity } from '../models';
+import { Post, User } from '../models';
 import { PostCard } from '../components/PostCard';
-import _, { result } from 'lodash';
-import Popup from 'reactjs-popup';
-import { UserActivityEntry } from '../components/UserActivityEntry';
-import { ParsedUrlQuery } from 'querystring';
+import _ from 'lodash';
 import { setUsers, setSearchPosts, setModalVisibility } from '../redux';
 import { searchUsers } from '../middleware/User';
 import UserCard from '../components/UserCard';
@@ -98,11 +92,6 @@ const Search: NextPage = () => {
         setCurrentPage(currentPage + 1);
     }
 
-    // function refresh() {
-    //     setCurrentPage(0);
-    //     setHasMore(true);
-    //     dispatch(setLoaderVisibility(true));
-    // }
     return (
         <>
             <AppNavBar />
@@ -185,16 +174,6 @@ const Search: NextPage = () => {
                                                     }
                                                     next={fetchMoreData}
                                                     hasMore={state.postsData.nbPages - 1 > currentPage}
-                                                    loader={
-                                                        <>
-                                                            {/* <Spinner
-                                                className="my-2"
-                                                animation="border"
-                                                role="status"
-                                                variant="secondary"
-                                            /> */}
-                                                        </>
-                                                    }
                                                     initialScrollY={0}
                                                     className="mt-1"
                                                 >

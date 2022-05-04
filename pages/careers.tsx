@@ -26,25 +26,6 @@ const Careers: NextPage = () => {
 
     const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
 
-    // const pageTextData = {
-    //     pageOne: [
-    //         'Stay up to date with breaking news, top national and local newspapers',
-    //         'Access the world’s best journalism from trusted sources',
-    //         'Top and fact checked stories chosen by editors, personalized for you',
-    //         'Live stream of content in an interactive application',
-    //         'Personalized daily briefings for a curated experience',
-    //     ],
-    //     pageTwo: [
-    //         'Participate in free, open and global conversations with healthy discourse.',
-    //         'Freedom to connect with others, control your conversations, and we’re here to fact check when you need us.',
-    //         'Safe, inclusive, and authentic conversations.',
-    //         'We use our technology to limit the distribution and reach of harmful or misleading information so you don’t have to.',
-    //     ],
-    //     pageThree: [
-    //         'We don’t take sides. Our focus is on the truth and accountability in order to keep everyone equiped with factual and science backed information.',
-    //     ],
-    // };
-
     const careersData = [
         {
             title: 'AI/ML Engineer',
@@ -122,6 +103,7 @@ const Careers: NextPage = () => {
                         style={{ cursor: 'pointer' }}
                     >
                         <Image
+                            alt='Etha'
                             className="p-0 m-0 d-flex align-items-center mr-3"
                             height={25}
                             width={38.94}
@@ -165,53 +147,6 @@ const Careers: NextPage = () => {
                         About Us
                     </div>
                 </div>{' '}
-                {/* <Page
-                    header="The Future is here"
-                    image="landing1"
-                    details={[
-                        'Introducing Etha - your favorite resource for the stories that really matter, fact backed information and true freedom of expression.',
-                    ]}
-                    storeButton={() => ''}
-                    titleSize
-                />
-                <ComingSoon />
-                <Page
-                    header="An innovative way to get your information"
-                    image="iPhone1"
-                    details={pageTextData.pageOne}
-                    checked
-                    reversed
-                    bg="#bdbdf575"
-                />
-                <Page
-                    header="Healthy conversations without bias"
-                    image="iPhone2"
-                    details={pageTextData.pageTwo}
-                    checked
-                    bg="#bdbdf575"
-                /> */}
-                {/* <Page
-                    header="A safe place for free expression."
-                    image="Page3"
-                    details={pageTextData.pageThree}
-                    button={{ placeHolder: 'The Briefings', click: () => '' }}
-                /> */}
-                {/* <div className={styles.page_container}>
-                    <div className={styles.page_background_container}>
-                        <div className={styles.page_background} />
-                    </div>
-                    <div className={styles.page_image}>
-                        <Image className="p-0 m-0" src={`/careers/banner.jpg`} alt="" height={766} width={705} />
-                    </div>
-                    <div className={styles.page_font}>
-                        <p className="p-0 m-0 px-2">
-                            With an innovative fact-checking process for an extra layer of accountablity
-                        </p>
-                    </div>
-                </div> */}
-                {/* <div className={styles.page_background2_container}>
-                        <div className={styles.page_background2} />
-                    </div> */}
                 <div className={`d-flex w-100 justify-content-center `} style={{ marginTop: '0px' }}>
                     <Image className="p-0 m-0" src={`/careers/banner.jpg`} alt="" height={320} width={1125} />
                 </div>

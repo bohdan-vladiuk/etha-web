@@ -11,7 +11,6 @@ interface UserActivityEntryProps {
 
 export const UserActivityEntry: React.FC<UserActivityEntryProps> = (props: UserActivityEntryProps) => {
     const history = useRouter();
-    // const [post, setPostData] = useState<Post>(props.post);
 
     function getActivityImage(): string {
         if (!_.isEmpty(props.activity.vote)) {
@@ -26,19 +25,6 @@ export const UserActivityEntry: React.FC<UserActivityEntryProps> = (props: UserA
         }
         return '';
     }
-    // function getActivityText(): string {
-    //     if (props.activity.voteId !== undefined) {
-    //         if (props.activity.vote?.value === true) {
-    //             return 'You Agreed on ';
-    //         } else {
-    //             return 'You Disagreed on ';
-    //         }
-    //     }
-    //     if (props.activity.commentId !== undefined) {
-    //         return 'You Commented on ';
-    //     }
-    //     return '';
-    // }
     function getActivityFilter(): string {
         if (!_.isEmpty(props.activity.vote)) {
             if (props.activity.vote?.value === true) {

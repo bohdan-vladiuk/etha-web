@@ -1,4 +1,3 @@
-// Components
 import {
     DELETE_COMMENTS,
     GET_COMMENTS_LIST,

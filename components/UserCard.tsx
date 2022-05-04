@@ -1,9 +1,6 @@
-// Dependencies
 import React from 'react';
 
-// Components
 import { User } from '../models';
-// CSS
 import { Image } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 

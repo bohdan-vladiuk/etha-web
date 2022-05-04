@@ -1,10 +1,8 @@
-// Dependencies
 import React, { useEffect } from 'react';
-import { setLoaderVisibility, setModalVisibility, setToken } from '../redux';
+import { setToken } from '../redux';
 import ReactGA from 'react-ga';
-// Components
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 export const OAuth2RedirectHandler: React.FC = () => {
     const dispatch = useAppDispatch();

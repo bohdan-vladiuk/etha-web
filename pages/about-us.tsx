@@ -1,7 +1,5 @@
-// Dependencies
 import React from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
-// Components
 import { LargeCardDetails, SmallCardDetails, teamCardLarge, teamCardSmall } from '../models/Team';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';

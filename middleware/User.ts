@@ -1,10 +1,8 @@
-// Components
 import {
     TOKEN_GET_USER_DETAILS,
     SIGN_IN_USER,
     SIGN_UP_USER,
     SET_USER_DETAILS,
-    CONTACT_US_SUBMIT,
     FETCH_USER,
     FETCH_USER_TAG,
     SEARCH_USERS,
@@ -15,7 +13,7 @@ import {
 } from '../services/API';
 
 import { AppDispatch } from '../redux/store';
-import { ContactUsForm, ImageUploadResponse, User } from '../models';
+import { ImageUploadResponse, User } from '../models';
 import {
     setLoaderVisibility,
     setSignInWelcome,

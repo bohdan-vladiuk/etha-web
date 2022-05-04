@@ -1,4 +1,3 @@
-// Dependencies
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import Image from 'next/image';

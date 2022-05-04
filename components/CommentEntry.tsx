@@ -1,14 +1,10 @@
-// Dependencies
 import moment from 'moment';
 import React, { useState } from 'react';
 import { Dropdown, Image, Button, FormControl } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { ContactUs, deleteComment, postReaction, updateComment } from '../middleware';
 import _ from 'lodash';
-// Components
 import { Comment, ContactUsForm, User, CommentRequest, CommentReactionRequest, ReactionCount } from '../models';
-
-// CSS
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { deleteCommentFromLocal, setModalVisibility, setComments } from '../redux';
 import { HiOutlineThumbDown, HiOutlineThumbUp } from 'react-icons/hi';
@@ -270,9 +266,6 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                     {returnTime()}
                                 </div>
                             </div>
-                            {/* <div className="d-flex " style={{ justifyContent: 'flex-end', fontSize: '10px' }}>
-                                {returnTime()}
-                            </div> */}
                         </>
                     )}
                 </div>

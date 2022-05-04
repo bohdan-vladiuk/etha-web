@@ -1,4 +1,3 @@
-// Dependencies
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useEffect } from 'react';

@@ -1,8 +1,5 @@
-// Dependencies
 import React from 'react';
-// Components
 import { VoteCount } from '../models';
-// CSS
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -41,6 +38,7 @@ export const CompareSmiley: React.FC<CompareBarProps> = (props: CompareBarProps)
                             >
                                 <Image
                                     className=""
+                                    alt='smiley'
                                     src="/icons/smiley_up.png"
                                     height={agreePercent}
                                     width={agreePercent}

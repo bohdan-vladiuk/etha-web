@@ -1,4 +1,3 @@
-// Dependencies
 import React from 'react';
 import { Col, Row, Container, Image } from 'react-bootstrap';
 import { useEffect } from 'react';
@@ -7,8 +6,6 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 
 export const PressArticle: NextPage = () => {
-    const history = useRouter();
-
     return (
         <div>
             <Head>

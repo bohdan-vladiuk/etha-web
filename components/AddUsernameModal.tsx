@@ -1,13 +1,10 @@
-// Dependencies
 import { AppDispatch, useAppSelector } from '../redux/store';
 import { editUserDetails, signOutUser } from '../middleware';
 import React, { useState } from 'react';
 import { Modal, Button, FormControl } from 'react-bootstrap';
 import Image from 'next/image';
-// CSS
 import { User } from '../models';
 import { useDispatch } from 'react-redux';
-import { ContactSupport } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 interface SignUpWelcomeModalProps {
