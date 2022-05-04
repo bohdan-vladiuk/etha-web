@@ -183,8 +183,7 @@ export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalP
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
-
-                                            alt='Google'
+                                            alt="Google"
                                             className="abs-left-25"
                                             src="icons/google_color.svg"
                                             height={26}
@@ -215,14 +214,7 @@ export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalP
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
                                             alt="Apple"
->>>>>>> Stashed changes
-=======
-                                            alt='Apple'
->>>>>>> cd2630a850a965b9387211baec34de8a2a8e97e7
                                             className="abs-left-25"
                                             src="icons/apple_logo.svg"
                                             height={'30px'}
