@@ -414,7 +414,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             <div className="comments">
                                                 {!_.isEmpty(state.commentData.content) ? (
                                                     state.commentData.content.map((comment: Comment, index: number) => {
-                                                        return <CommentEntry key={index} comment={comment} />;
+                                                        return <CommentEntry key={comment.id} comment={comment} />;
                                                     })
                                                 ) : (
                                                     <div
