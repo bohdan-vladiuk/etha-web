@@ -59,7 +59,7 @@ export const EditUserProfile: NextPage = () => {
     };
     useEffect(() => {
         if (!state.signedIn) {
-            history.push('/');
+            history.push('/home');
         }
     }, [state.signedIn]);
 
@@ -289,7 +289,7 @@ export const EditUserProfile: NextPage = () => {
                         </LocalizationProvider>
                     </Col>
                     <Col className=" d-none d-lg-flex" lg={3}>
-                        <SidePanelRight />
+                        {/* <SidePanelRight /> */}
                     </Col>
                 </Row>
                 <AppFooter />

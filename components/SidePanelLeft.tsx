@@ -85,8 +85,8 @@ export const SidePanelLeft: React.FC = () => {
                 </p>
             </Button>
 
-            <div className="w-100 mt-4" style={{ cursor: 'pointer', position: 'absolute', bottom: 0 }}>
-                <div className="d-flex p-0 mt-4 mr-4" style={{ cursor: 'pointer' }}>
+            <div className="w-100 mt-4 pt-4" style={{ cursor: 'pointer', position: 'absolute', bottom: 0 }}>
+                <div className="d-flex p-0" style={{ cursor: 'pointer' }}>
                     <Image
                         className="p-0 py-0 pr-2"
                         src={`/google_store.svg`}
@@ -161,7 +161,15 @@ export const SidePanelLeft: React.FC = () => {
                     </Button>
                 </div>
                 {/* Copyright */}
-                <div style={{ padding:'0 0.5rem 0 0.5rem',marginLeft:'2px',textAlign:'left',fontSize:'12px', color:'#423131'}}>
+                <div
+                    style={{
+                        padding: '0 0.5rem 0 0.5rem',
+                        marginLeft: '2px',
+                        textAlign: 'left',
+                        fontSize: '12px',
+                        color: '#423131',
+                    }}
+                >
                     {'\u00A9'} 2022 Etha | All Rights Reserved
                 </div>
             </div>

@@ -57,7 +57,7 @@ export const Profile: NextPage = () => {
     }, []);
     useEffect(() => {
         if (!state.signedIn) {
-            dispatch(setModalVisibility(true));
+            history.push('/home');
         }
     }, [state.signedIn]);
 
@@ -301,7 +301,7 @@ export const Profile: NextPage = () => {
                         </Popup>
                     </Col>
                     <Col className=" d-none d-lg-flex" lg={3}>
-                        <SidePanelRight />
+                        {/* <SidePanelRight /> */}
                     </Col>
                 </Row>
                 <AppFooter />
