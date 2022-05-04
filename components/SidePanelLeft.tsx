@@ -86,7 +86,6 @@ export const SidePanelLeft: React.FC = () => {
             </Button>
 
             <div className="w-100 mt-4 pt-4" style={{ cursor: 'pointer', position: 'absolute', bottom: 0 }}>
-                <SocialIcons />
                 <div className="d-flex p-0" style={{ cursor: 'pointer' }}>
                     <Image
                         className="p-0 py-0 pr-2"
