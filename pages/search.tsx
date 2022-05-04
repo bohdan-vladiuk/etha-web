@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
+
 import { searchPosts } from '../middleware';
 import { Post, User } from '../models';
 import { PostCard } from '../components/PostCard';

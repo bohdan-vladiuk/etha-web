@@ -157,9 +157,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
-
                                             alt="Google"
-
                                             className="abs-left-25"
                                             src="/icons/google_color.svg"
                                             height={26}
@@ -202,9 +200,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
-
-
-                                            alt='Apple'
+                                            alt="Apple"
                                             className="abs-left-25"
                                             src="/icons/apple_logo.svg"
                                             height={'30px'}
@@ -237,9 +233,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
                                     >
                                         <Image
-
                                             alt="Email"
-
                                             className="abs-left-25"
                                             src="/icons/mail-min.png"
                                             height={'23px'}
