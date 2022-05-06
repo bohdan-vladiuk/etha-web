@@ -102,7 +102,14 @@ const Home: NextPage = () => {
                             zIndex: 10,
                         }}
                     >
-                        <Image className="p-0 m-0" src={`/landing_map.svg`} alt="" height={531} width={1125} />
+                        <Image
+                            quality="100"
+                            className="p-0 m-0"
+                            src={`/landing_map.svg`}
+                            alt=""
+                            height={531}
+                            width={1125}
+                        />
                     </div>
                 </div>
 

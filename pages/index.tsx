@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-import Image from 'next/image';
+// import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
 import { NavBar } from '../components/NavBar';
@@ -8,17 +8,38 @@ import { Page } from '../components/PageComponent';
 import { ContactUsModal } from '../components/ContactUsModal';
 import { CustomButton } from '../components/Button.component';
 import { Footer } from '../components/Footer';
-import { Button, Col, Container } from 'react-bootstrap';
+import { Button, Carousel, CarouselItem, Col, Container, Image } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { ArrowDownward, ArrowDownwardRounded, ArrowForwardIos } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { setModalVisibility } from '../redux';
+import { faqs, featurePoints } from '../models/Web';
+
+const featureList = [
+    {
+        title: 'View Profiles and Current Ratings of Politicians',
+        image: '/home/features/test.png',
+    },
+    {
+        title: 'Agree and Disagree with statements made by politicians',
+        image: '/home/features/test.png',
+    },
+    {
+        title: 'Share your Political Views',
+        image: '/home/features/test.png',
+    },
+    {
+        title: 'See the latest topics and trends',
+        image: '/home/features/test.png',
+    },
+];
 
 const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
     const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
     const [opacity, setOpacity] = useState(0.0);
-
+    const segment1 = getFeaturePointsUI(1);
+    const segment2 = getFeaturePointsUI(2);
     const state = useAppSelector((reduxState) => ({
         signedIn: reduxState.userReducer.signed_in,
     }));
@@ -28,6 +49,8 @@ const Home: NextPage = () => {
     useEffect(() => {
         const win: Window = window;
         const onScroll: EventListener = (event: Event) => {
+            console.log('scroll: ' + win.scrollY);
+            console.log('scrollHE: ' + win.innerHeight);
             if (win.scrollY >= win.innerHeight) {
                 setOpacity((opacity) => (opacity > 1 ? 1 : opacity + 0.2));
                 setShowJoinButton(true);
@@ -47,6 +70,14 @@ const Home: NextPage = () => {
         return re.test(testMail);
     }
 
+    function getFeaturePointsUI(segment: number) {
+        const endLoop = segment * 4;
+        var list = [];
+        for (var i = (segment - 1) * 4; i < endLoop; i++) {
+            list.push(featurePoints[i]);
+        }
+        return list;
+    }
     return (
         <>
             <div className={styles.container}>
@@ -63,7 +94,7 @@ const Home: NextPage = () => {
                             }}
                         >
                             <Col lg={5}>
-                                <Image src="/home/iphone-1.png" height={601} width={460} />
+                                <Image src="/home/iphone-1.png" width="100%" />
                             </Col>
                             <Col lg={7}>
                                 <h1 className={styles.home_header}>Let's Fix the System</h1>
@@ -175,6 +206,183 @@ const Home: NextPage = () => {
                         </div>
                         <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
+                        </div>
+                        <div className={`${styles.dark_container} mt-5`}>
+                            <Col md={6} className="px-4 pt-5">
+                                <h1 className={styles.light_header}>
+                                    We care how you feel about news biasedness and misinformation
+                                </h1>
+                                <p className={styles.light_content}>
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                    helplessness and hopelessness in the face of diverse misinformation and our civic
+                                    engagement inevitably suffer,
+                                </p>
+                            </Col>
+                            <Col md={6} style={{ height: '400px !important' }}>
+                                <Image
+                                    src="/home/iphone-2.png"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </Col>
+                        </div>
+                        <div className={`${styles.landing_container_light} pt-5 mt-5`}>
+                            {featureList.map((feature) => {
+                                return (
+                                    <Col
+                                        className="d-flex w-100 px-2 py-3"
+                                        style={{ alignItems: 'center', flexDirection: 'column' }}
+                                        md={6}
+                                        key={feature.title}
+                                    >
+                                        <Image src={feature.image} width="70%" />
+                                        <div className={`${styles.feature_text_container}`}>{feature.title}</div>
+                                    </Col>
+                                );
+                            })}
+                        </div>
+                        <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
+                        </div>
+                        <div className={`${styles.black_container}`}>
+                            <Col md={6} className="pl-4">
+                                <h1 className={styles.light_header}>A Safe Place for free expression </h1>
+                                <p className={styles.light_content}>
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                    helplessness and hopelessness in the face of diverse misinformation and our civic
+                                    engagement inevitably suffer,
+                                </p>
+                                <div
+                                    className="d-flex p-0 mt-4 mr-4 mb-3"
+                                    style={{ cursor: 'pointer', alignItems: 'center', flexWrap: 'wrap' }}
+                                >
+                                    <Col xs={6} lg={4} className="m-0 p-0">
+                                        <Button
+                                            variant="primary ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                minWidth: '50px !important',
+                                                width: '100px !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open(
+                                                    'https://play.google.com/store/apps/details?id=one.etha.app',
+                                                    '_blank',
+                                                )
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0 pr-2"
+                                                src={`/home/play-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                    <Col xs={6} lg={4} className="m-0 p-0">
+                                        <Button
+                                            variant="light ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                border: 'none !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0"
+                                                src={`/home/app-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                </div>
+                            </Col>
+                            <Col md={6} className="my-0 py-0">
+                                <Image src="/home/iphone-3.png" width="100%" style={{ objectFit: 'cover' }} />
+                            </Col>
+                        </div>
+                        <Carousel indicators={false} interval={3000} controls fade className="w-100 mt-4">
+                            <Carousel.Item
+                                className="d-flex w-100"
+                                style={{ justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
+                            >
+                                {segment1.map((featurePoint, index) => {
+                                    return (
+                                        <Col key={`fp-${index}`} className={`${styles.feature_point_container}`} sm={6}>
+                                            <div className={`${styles.feature_point}`}>
+                                                <div className={`${styles.checkmark}`}>
+                                                    <Image
+                                                        src="/home/check.svg"
+                                                        width="100%"
+                                                        style={{ objectFit: 'cover' }}
+                                                    />
+                                                </div>
+                                                <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
+                                            </div>
+                                        </Col>
+                                    );
+                                })}
+                            </Carousel.Item>
+                            <Carousel.Item
+                                className="d-flex w-100"
+                                style={{ justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
+                            >
+                                {segment2.map((featurePoint, index) => {
+                                    return (
+                                        <Col key={`fp-${index}`} className={`${styles.feature_point_container}`} sm={6}>
+                                            <div className={`${styles.feature_point}`}>
+                                                <div className={`${styles.checkmark}`}>
+                                                    <Image
+                                                        src="/home/check.svg"
+                                                        width="100%"
+                                                        style={{ objectFit: 'cover' }}
+                                                    />
+                                                </div>{' '}
+                                                <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
+                                            </div>
+                                        </Col>
+                                    );
+                                })}
+                            </Carousel.Item>
+                        </Carousel>
+                        <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
+                        </div>
+                        <div
+                            className="d-flex w-100 my-5 py-5"
+                            style={{ alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}
+                        >
+                            <h1 className={styles.home_header_secondary}>
+                                Participate in free, open and global conversations with healthy discourse
+                            </h1>
+                            <p className={`${styles.home_content_small}`}>
+                                Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                helplessness and hopelessness in the face of diverse misinformation and our civic
+                                engagement inevitably suffer,
+                            </p>
+                        </div>
+                        <div className="w-100">
+                            <h1 className={`${styles.home_header_secondary} mb-5`}>Frequently Asked Questions</h1>
+                            {faqs.map((faq, index) => {
+                                return (
+                                    <Col className={`${styles.faq_container}`} lg={12} key={index}>
+                                        <div className={`${styles.faq_header}`}>{faq.question}</div>
+                                        <div className={`${styles.faq_answer} mt-4 mb-3`}>{faq.answer}</div>
+                                    </Col>
+                                );
+                            })}
                         </div>
                     </Container>
                 </div>

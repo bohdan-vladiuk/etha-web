@@ -16,6 +16,24 @@
     bottom: 0;
     left: 0;
 }
+
+.footerLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.footerLink {
+    font-weight: medium;
+    font-size: 16px;
+    line-height: 27px;
+}
+
+.footer_header {
+    margin-top: 80px;
+    font-size: 45px;
+    line-height: 60px;
+    font-weight: bold;
+    color: #fff;
+}
 @media screen and (max-width: 768px) {
     .footer_container {
         display: flex;

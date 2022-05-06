@@ -1,11 +1,15 @@
-import React from 'react';
-import { Modal } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Col, Container, Modal } from 'react-bootstrap';
 import Image from 'next/image';
 import styles from '../styles/Footer.module.css';
+import { SocialIcons } from './SocialIcons';
+import { ContactUsModal } from './ContactUsModal';
 
 interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
+    const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
+
     const data = {
         Resources: [
             ['Blog', '/'],
@@ -31,39 +35,109 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
         ],
     };
     return (
-        <>
-            <div className={`${styles.footer_container}`}>
-                <div className="d-flex flex-column align-items-start ">
-                    <Image className="" src={`/etha_logo.svg`} alt="" height={30} width={80} />
-                    <p className="pt-2" style={{ fontSize: '0.8rem' }}>
-                        Connecting the world with ideas <br />
-                        and information
-                    </p>
-                </div>
-                {Object.entries(data).map((title, idx) => {
-                    return (
-                        <div key={idx} className="d-flex flex-column">
-                            <p style={{ fontSize: '1rem', fontWeight: 'bold' }}>{title[0]}</p>
-                            {title[1].map((details, index) => {
-                                return (
-                                    <a
-                                        key={index}
-                                        style={{
-                                            fontSize: '0.7rem',
-                                            textDecoration: 'none',
-                                            color: '#000',
-                                            fontWeight: '300',
-                                        }}
-                                        href={details[1]}
-                                    >
-                                        {details[0]}
-                                    </a>
-                                );
-                            })}
-                        </div>
-                    );
-                })}
+        <Container>
+            <div className={`${styles.footer_header}`}>Download Etha today</div>
+            <div
+                className="d-flex w-100 p-0 mt-4 mr-4 mb-3"
+                style={{ cursor: 'pointer', alignItems: 'left', flexWrap: 'wrap' }}
+            >
+                <Col xs={6} md={2} className="m-0 p-0">
+                    <Button
+                        variant="primary ml-0 mr-2"
+                        style={{
+                            borderRadius: '5px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            minWidth: '50px !important',
+                            width: '100px !important',
+                        }}
+                        onClick={() =>
+                            window.open('https://play.google.com/store/apps/details?id=one.etha.app', '_blank')
+                        }
+                    >
+                        <Image className="p-0 py-0 pr-2" src={`/home/play-store.svg`} alt="" height={40} width={120} />
+                    </Button>
+                </Col>
+                <Col xs={6} md={2} className="m-0 p-0">
+                    <Button
+                        variant="light ml-0 mr-2"
+                        style={{
+                            borderRadius: '5px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: 'none !important',
+                        }}
+                        onClick={() => window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')}
+                    >
+                        <Image className="p-0 py-0" src={`/home/app-store.svg`} alt="" height={40} width={120} />
+                    </Button>
+                </Col>
             </div>
-        </>
+            <div style={{ color: '#fff' }}>© 2022 All Rights Reserved | Made with Love in NYC &#x1F496;</div>
+
+            <div
+                className="d-flex w-100 mt-3"
+                style={{
+                    justifyContent: 'space-evenly',
+                    flexWrap: 'wrap-reverse',
+                    color: '#fff',
+                    marginBottom: '70px',
+                }}
+            >
+                <Col lg={6} className="d-flex px-1">
+                    <div
+                        className={styles.footerLink}
+                        onClick={() => {
+                            window.open('https://etha.one/privacy-policy', '_blank');
+                        }}
+                    >
+                        Privacy Policy
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div
+                        onClick={() => {
+                            window.open('https://etha.one/terms-of-service', '_blank');
+                        }}
+                        className={styles.footerLink}
+                    >
+                        Terms
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </Col>
+                <Col lg={6} className="d-flex" style={{ justifyContent: 'flex-end' }}>
+                    <div
+                        className={styles.footerLink}
+                        onClick={() => {
+                            window.open('https://etha.one/about-us', '_blank');
+                        }}
+                    >
+                        About
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div
+                        className={styles.footerLink}
+                        onClick={() => {
+                            setShowJoinPage(true);
+                        }}
+                    >
+                        Contact
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div
+                        className={styles.footerLink}
+                        onClick={() => {
+                            window.open('https://wefunder.com/etha.one', '_blank');
+                        }}
+                    >
+                        Invest Now
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <SocialIcons variant="dark" />
+                </Col>
+            </div>
+            <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
+        </Container>
     );
 };

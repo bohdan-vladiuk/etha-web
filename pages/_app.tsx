@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/satoshi.css';
 import type { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
