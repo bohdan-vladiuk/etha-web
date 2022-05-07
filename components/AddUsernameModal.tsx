@@ -38,7 +38,7 @@ export const AddUsernameModal: React.FC<SignUpWelcomeModalProps> = (props: SignU
             <Modal show={props.show} onHide={props.onHide} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Body bsPrefix="signup-welcome-modal">
                     <div style={{ width: '30%', maxWidth: '200px', minWidth: '140px', margin: '0 auto' }}>
-                        <Image quality="100" src="/etha_logo.svg" alt="" height={173} width={242} />
+                        <Image src="/etha_logo.svg" alt="" height={173} width={242} />
                     </div>
 
                     <Modal.Body style={{ flexDirection: 'column' }}>

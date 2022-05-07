@@ -135,7 +135,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             focusing();
                         }}
                     >
-                        <Image quality="100" src="/close.svg" height={40} width={40} alt="Close" />
+                        <Image src="/close.svg" height={40} width={40} alt="Close" />
                     </div>
                     <div className={style.contact_container}>
                         <div
@@ -420,7 +420,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             </div>
                         </div>
                         <div className={`${style.contact_image}`} style={{ backgroundColor: '#f9f9f9' }}>
-                            <Image quality="100" src="/home/iphone-2.png" alt="" height={600} width={600} />
+                            <Image src="/home/iphone-2.png" alt="" height={600} width={600} />
                         </div>
                     </div>
                 </Modal.Body>
@@ -442,14 +442,14 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             setSubmit(false);
                         }}
                     >
-                        <Image quality="100" src="/close.svg" height={40} width={40} alt="Close" />
+                        <Image src="/close.svg" height={40} width={40} alt="Close" />
                     </div>
                     <div
                         className={`d-flex flex-column align-items-center justify-content-center`}
                         style={{ height: '100%' }}
                     >
                         <div className={style.contact_image} style={{ height: '30%' }}>
-                            <Image quality="100" src="/landing3a.svg" alt="" height={366} width={907.62} />
+                            <Image src="/landing3a.svg" alt="" height={366} width={907.62} />
                         </div>
                         <div className="d-flex flex-column align-items-center" style={{ width: '75%' }}>
                             <p style={{ fontSize: '45px', fontWeight: '700', lineHeight: '5vh' }}>
@@ -460,7 +460,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             </p>
                         </div>
                         <div className={style.contact_image} style={{ height: '30%' }}>
-                            <Image quality="100" src="/home/iphone-3.png" alt="" width="100%" height="100%" />
+                            <Image src="/home/iphone-3.png" alt="" width="100%" height="100%" />
                         </div>
                     </div>
                 </Modal.Body>

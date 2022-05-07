@@ -137,14 +137,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                         style={{ backgroundColor: `${bg}`, alignItems: `${bg === undefined && `center`}` }}
                     >
                         <div className={`${styles.page_image} d-flex justify-content-center p-0 m-0`}>
-                            <Image
-                                quality="100"
-                                className="p-0 m-0"
-                                src={`/${image}.svg`}
-                                alt=""
-                                height={631}
-                                width={631}
-                            />
+                            <Image className="p-0 m-0" src={`/${image}.svg`} alt="" height={631} width={631} />
                         </div>
                     </div>
                 </div>
@@ -157,14 +150,7 @@ export const Page: React.FC<PageProps> = (props: PageProps) => {
                         <div
                             className={`${styles.page_image} d-flex align-items-center justify-content-center p-0 m-0`}
                         >
-                            <Image
-                                quality="100"
-                                className="p-0 m-0"
-                                src={`/${image}.svg`}
-                                alt=""
-                                height={631}
-                                width={631}
-                            />
+                            <Image className="p-0 m-0" src={`/${image}.svg`} alt="" height={631} width={631} />
                         </div>
                     </div>
                     <div className={`${styles.page_content_container}`}>

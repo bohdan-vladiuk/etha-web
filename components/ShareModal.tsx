@@ -86,14 +86,7 @@ export const ShareModal: React.FC<ShareModalProps> = (props: ShareModalProps) =>
                                                 filter: 'invert(56%) sepia(0%) saturate(1289%) hue-rotate(176deg) brightness(89%) contrast(86%)',
                                             }}
                                         >
-                                            <Image
-                                                quality="100"
-                                                className=""
-                                                src="/icons/88026.png"
-                                                alt=""
-                                                height={50}
-                                                width={50}
-                                            />
+                                            <Image className="" src="/icons/88026.png" alt="" height={50} width={50} />
                                         </div>
                                     </Button>
                                 </div>
@@ -141,14 +134,7 @@ export const ShareModal: React.FC<ShareModalProps> = (props: ShareModalProps) =>
                             >
                                 {/* <MoreHorizOutlinedIcon /> */}
 
-                                <Image
-                                    quality="100"
-                                    className=""
-                                    src="/icons/button.png"
-                                    alt=""
-                                    height={50}
-                                    width={50}
-                                />
+                                <Image className="" src="/icons/button.png" alt="" height={50} width={50} />
                             </Button>
                         ) : (
                             <></>

@@ -39,7 +39,7 @@ export const CompareBar: React.FC<CompareBarProps> = (props: CompareBarProps) =>
                                     filter: 'invert(21%) sepia(78%) saturate(4550%) hue-rotate(116deg) brightness(92%) contrast(101%)',
                                 }}
                             >
-                                <Image quality="100" src="/icons/agree.png" alt="" height={15} width={15} />
+                                <Image src="/icons/agree.png" alt="" height={15} width={15} />
                             </span>
                             {' ' + agreePercent + '%'}
                         </p>
@@ -57,7 +57,7 @@ export const CompareBar: React.FC<CompareBarProps> = (props: CompareBarProps) =>
                                     filter: 'invert(24%) sepia(94%) saturate(6418%) hue-rotate(356deg) brightness(101%) contrast(119%)',
                                 }}
                             >
-                                <Image quality="100" src="/icons/disagree.png" alt="" height={15} width={15} />
+                                <Image src="/icons/disagree.png" alt="" height={15} width={15} />
                             </span>
                             {' ' + disagreePercent + '%'}
                         </p>

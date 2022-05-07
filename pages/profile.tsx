@@ -269,7 +269,7 @@ export const Profile: NextPage = () => {
                         >
                             <div className="py-3" style={{ width: '320px', minWidth: '210px' }}>
                                 <div className="text-center w-100 m-auto py-2" style={{}}>
-                                    <Image quality="100" src="/etha_logo.svg" alt="" height="60px" />
+                                    <Image src="/etha_logo.svg" alt="" height="60px" />
                                 </div>{' '}
                                 <div className="text-center w-100 m-auto py-2" style={{}}>
                                     <p
