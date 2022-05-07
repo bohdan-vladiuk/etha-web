@@ -107,7 +107,7 @@ const Home: NextPage = () => {
                                 <Image src="/home/iphone-1.png" width="100%" />
                             </Col>
                             <Col lg={7}>
-                                <h1 className={styles.home_header}>Let's Fix the System</h1>
+                                <h1 className={styles.home_header}>Let&lsquo;s Fix the System</h1>
                                 <p className={styles.home_content_grey}>
                                     Introducing Etha - your new favorite interactive social news platform, which helps
                                     you hold politicians accountable and mitigates the spread of misinformation.
