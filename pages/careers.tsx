@@ -103,7 +103,7 @@ const Careers: NextPage = () => {
                         style={{ cursor: 'pointer' }}
                     >
                         <Image
-                            alt='Etha'
+                            alt="Etha"
                             className="p-0 m-0 d-flex align-items-center mr-3"
                             height={25}
                             width={38.94}
@@ -148,7 +148,14 @@ const Careers: NextPage = () => {
                     </div>
                 </div>{' '}
                 <div className={`d-flex w-100 justify-content-center `} style={{ marginTop: '0px' }}>
-                    <Image className="p-0 m-0" src={`/careers/banner.jpg`} alt="" height={320} width={1125} />
+                    <Image
+                        quality="100"
+                        className="p-0 m-0"
+                        src={`/careers/banner.jpg`}
+                        alt=""
+                        height={320}
+                        width={1125}
+                    />
                 </div>
                 <div
                     className={``}
@@ -266,7 +273,14 @@ const Careers: NextPage = () => {
                             zIndex: 10,
                         }}
                     >
-                        <Image className="p-0 m-0" src={`/landing_map.svg`} alt="" height={531} width={1125} />
+                        <Image
+                            quality="100"
+                            className="p-0 m-0"
+                            src={`/landing_map.svg`}
+                            alt=""
+                            height={531}
+                            width={1125}
+                        />
                     </div>
                 </div>
                 <div

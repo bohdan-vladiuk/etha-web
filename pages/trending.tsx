@@ -15,6 +15,7 @@ import SidePanelLeft from '../components/SidePanelLeft';
 import SidePanelRight from '../components/SidePanelRight';
 import { AppFooter } from '../components/AppFooter';
 import { setModalVisibility } from '../redux';
+import Head from 'next/head';
 
 const Trending: NextPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -59,6 +60,9 @@ const Trending: NextPage = () => {
 
     return (
         <>
+            <Head>
+                <meta name="keywords" content="etha,latest politician statements,political polls" />
+            </Head>
             <AppNavBar />
             <Container
                 style={{

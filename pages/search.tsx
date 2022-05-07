@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
+
 import { searchPosts } from '../middleware';
 import { Post, User } from '../models';
 import { PostCard } from '../components/PostCard';
@@ -18,6 +19,7 @@ import { AppNavBar } from '../components/AppNavBar';
 import SidePanelLeft from '../components/SidePanelLeft';
 import SidePanelRight from '../components/SidePanelRight';
 import { AppFooter } from '../components/AppFooter';
+import Head from 'next/head';
 
 const Search: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -94,6 +96,9 @@ const Search: NextPage = () => {
 
     return (
         <>
+            <Head>
+                <meta name="keywords" content="etha,latest politician statements,political polls" />
+            </Head>
             <AppNavBar />
             <Container
                 style={{

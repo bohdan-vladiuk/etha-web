@@ -99,10 +99,10 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
         <>
             <Head>
                 <title>{`${user.name}`}</title>
-                <meta name="og:description" content={`${props.preFetchUser?.title}`} key="ogDesc" />
-                <meta property="og:title" content={`${props.preFetchUser?.name}`} key="ogTitle" />
-                <meta property="og:url" content={`https://etha.one/profile/${props.preFetchUser?.tag}`} key="ogUrl" />
-                <meta property="og:image" content={`${props.preFetchUser?.imageUrl}`} key="ogImage" />
+                <meta name="og:description" content={`${user?.title}`} key="ogDesc" />
+                <meta property="og:title" content={`${user?.name}`} key="ogTitle" />
+                <meta property="og:url" content={`https://etha.one/profile/${user?.tag}`} key="ogUrl" />
+                <meta property="og:image" content={`${user?.imageUrl}`} key="ogImage" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Etha" />
                 <meta property="og:site" content="etha.one" />
@@ -110,10 +110,11 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                 <meta name="twitter:creator" content="@GetEtha" />
                 <meta name="twitter:card" content="summary" />
                 <meta property="twitter:domain" content="etha.one" />
-                <meta property="twitter:url" content={`${props.preFetchUser?.name}`} />
-                <meta name="twitter:title" content={`${props.preFetchUser?.title}`} />
+                <meta property="twitter:url" content={`${user?.name}`} />
+                <meta name="twitter:title" content={`${user?.title}`} />
                 <meta name="twitter:description" content="Intelligent Political Discourse" />
-                <meta name="twitter:image" content={`${props.preFetchUser?.imageUrl}`} />
+                <meta name="twitter:image" content={`${user?.imageUrl}`} />
+                <meta name="keywords" content={`etha,${user?.name}, ${user?.title}`} />
             </Head>{' '}
             <AppNavBar />
             <Container

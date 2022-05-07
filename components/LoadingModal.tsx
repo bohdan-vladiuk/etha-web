@@ -12,7 +12,7 @@ export const LoadingModal: React.FC<LoadingModalProps> = (props: LoadingModalPro
     const { show, onHide } = props;
     return (
         <Modal contentClassName={styles.load_modal} show={show} onHide={onHide} centered>
-            <Image className={styles.load_image} alt="" height={80} width={80} src="/loading.gif" />
+            <Image quality="100" className={styles.load_image} alt="" height={80} width={80} src="/loading.gif" />
         </Modal>
     );
 };

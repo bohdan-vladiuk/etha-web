@@ -124,7 +124,14 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                                 event.stopPropagation();
                             }}
                         >
-                            <Image className="image-container mr-2" src={user.imageUrl} alt="" width={40} height={40} />
+                            <Image
+                                quality="100"
+                                className="image-container mr-2"
+                                src={user.imageUrl}
+                                alt=""
+                                width={40}
+                                height={40}
+                            />
                             <div>
                                 <p className="public-figure-title">{user.name}</p>
                                 <p className="public-figure-bio ">{user.title}</p>

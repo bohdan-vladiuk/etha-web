@@ -111,7 +111,13 @@ export const EditUserProfile: NextPage = () => {
                                     flex: 2,
                                 }}
                             >
-                                <Image src="/icons/back_arr.png" height={40} alt="" onClick={() => history.back()} />
+                                <Image
+                                    quality="100"
+                                    src="/icons/back_arr.png"
+                                    height={40}
+                                    alt=""
+                                    onClick={() => history.back()}
+                                />
                                 <Button
                                     size="sm"
                                     variant="lighter"

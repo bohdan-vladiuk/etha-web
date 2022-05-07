@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-import Image from 'next/image';
+// import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
 import { NavBar } from '../components/NavBar';
@@ -8,37 +8,53 @@ import { Page } from '../components/PageComponent';
 import { ContactUsModal } from '../components/ContactUsModal';
 import { CustomButton } from '../components/Button.component';
 import { Footer } from '../components/Footer';
+import { Button, Carousel, CarouselItem, Col, Container, Image } from 'react-bootstrap';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+import { setModalVisibility } from '../redux';
+import { faqs, featurePoints } from '../models/Web';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { ImQuotesLeft } from 'react-icons/im';
+
+const featureList = [
+    {
+        title: 'View Profiles and Current Ratings of Politicians',
+        image: '/home/features/test.png',
+    },
+    {
+        title: 'Agree and Disagree with statements made by politicians',
+        image: '/home/features/test.png',
+    },
+    {
+        title: 'Share your Political Views',
+        image: '/home/features/test.png',
+    },
+    {
+        title: 'See the latest topics and trends',
+        image: '/home/features/test.png',
+    },
+];
 
 const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
-    const [opacity, setOpacity] = useState(0.0);
-
     const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
+    const [opacity, setOpacity] = useState(0.0);
+    const segment1 = getFeaturePointsUI(1);
+    const segment2 = getFeaturePointsUI(2);
+    const state = useAppSelector((reduxState) => ({
+        signedIn: reduxState.userReducer.signed_in,
+    }));
+    const [carouselIndex, setCarouselIndex] = useState(0);
 
-    const pageTextData = {
-        pageOne: [
-            'Stay up to date with what politicians are saying about current events.',
-            'Access to LeaderQ scores for politicians, which is their public approval rating (think of this as a report card for politicians)  ',
-            'Users Interact with the statements made by politicians to impact their LeaderQ score and hold them accountable.',
-            'Real-time representation of news and people’s opinions on politicians and specific subjects and policies.',
-            'Verified, aggregated news from more than 10000+ media channels',
-        ],
-        pageTwo: [
-            'Participate in free, open and global conversations with healthy discourse.',
-            'Conversations tie into the politician’s LeaderQ score, making them more or less popular over time.',
-            'Help people find the middle-ground between ideologies and mitigate political polarization.',
-            'We use our technology to limit the distribution and reach of harmful or misleading information so you don’t have to.',
-            'Making sure you get less-biased content at all times.',
-        ],
-        pageThree: [
-            'We don’t take sides. Our focus is on the truth and accountability in order to keep everyone equiped with factual and science backed information.',
-        ],
-    };
+    const history = useRouter();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const win: Window = window;
         const onScroll: EventListener = (event: Event) => {
-            if (win.scrollY >= win.innerHeight) {
+            if (document.body.scrollTop >= win.innerHeight) {
+                console.log('hithere');
                 setOpacity((opacity) => (opacity > 1 ? 1 : opacity + 0.2));
                 setShowJoinButton(true);
             } else {
@@ -48,88 +64,464 @@ const Home: NextPage = () => {
         };
 
         win.addEventListener('scroll', onScroll);
+        win.addEventListener('wheel', onScroll);
 
-        return () => window.removeEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('wheel', onScroll);
+        };
     }, [opacity]);
 
-    function validateEmail(testMail: string): boolean {
-        const re = /\S+@\S+\.\S+/;
-        return re.test(testMail);
+    function handleCarouselSelect() {
+        if (carouselIndex === 0) {
+            setCarouselIndex(1);
+        } else {
+            setCarouselIndex(0);
+        }
     }
 
+    function getFeaturePointsUI(segment: number) {
+        const endLoop = segment * 4;
+        var list = [];
+        for (var i = (segment - 1) * 4; i < endLoop; i++) {
+            list.push(featurePoints[i]);
+        }
+        return list;
+    }
     return (
         <>
+            {showJoinButton && <NavBar />}
             <div className={styles.container}>
-                <NavBar />
-                <Page
-                    header="Let's Fix the System"
-                    image="landing1"
-                    details={[
-                        'Introducing Etha – your new favorite interactive social news platform, which helps you hold politicians accountable and mitigates the spread of misinformation.',
-                    ]}
-                    storeButton={() => ''}
-                    titleSize
-                />
-                <Page
-                    header="An Innovative way to hold politicians accountable"
-                    image="iPhone1"
-                    details={pageTextData.pageOne}
-                    checked
-                    reversed
-                    bg="#bdbdf575"
-                />
-                <Page
-                    header="A Safe Place for free expression "
-                    image="iPhone2"
-                    details={pageTextData.pageTwo}
-                    checked
-                    bg="#bdbdf575"
-                />
-                <div className="d-flex flex-column align-items-center" style={{ backgroundColor: '#152649' }}>
-                    <div className={styles.page_font3}>
-                        <p>
-                            Join our community to get early access and a better way to hold your politicians accountable
-                        </p>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                            height: '100%',
-                            width: '100%',
-                            zIndex: 10,
-                        }}
-                    >
-                        <Image className="p-0 m-0" src={`/landing_map.svg`} alt="" height={531} width={1125} />
-                    </div>
+                <div className={`${styles.landing_container}`}>
+                    <Container className="mb-0" style={{ paddingBottom: '40px' }}>
+                        <div
+                            className="d-flex w-100"
+                            style={{
+                                justifyContent: 'center',
+                                paddingTop: '60px',
+                                alignItems: 'center',
+                                flexWrap: 'wrap',
+                            }}
+                        >
+                            <Col lg={5}>
+                                <Image src="/home/iphone-1.png" width="100%" />
+                            </Col>
+                            <Col lg={7}>
+                                <h1 className={styles.home_header}>Let's Fix the System</h1>
+                                <p className={styles.home_content_grey}>
+                                    Introducing Etha - your new favorite interactive social news platform, which helps
+                                    you hold politicians accountable and mitigates the spread of misinformation.
+                                </p>
+                                <div
+                                    className="d-flex p-0 mt-4 mr-4"
+                                    style={{ cursor: 'pointer', alignItems: 'center', flexWrap: 'wrap' }}
+                                >
+                                    <Col md={3.5} className="m-0 p-0">
+                                        <Button
+                                            variant="primary ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                minWidth: '50px !important',
+                                                width: '100px !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open(
+                                                    'https://play.google.com/store/apps/details?id=one.etha.app',
+                                                    '_blank',
+                                                )
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0 pr-2"
+                                                src={`/home/play-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                    <Col md={3.5} className="m-0 p-0">
+                                        <Button
+                                            variant="light ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                border: 'none !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0"
+                                                src={`/home/app-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                    <Col md={3} className="m-0 p-0">
+                                        <Button
+                                            variant="light-custom m-0 p-0"
+                                            style={{
+                                                borderRadius: '32px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                width: '130px',
+                                                justifyContent: 'center',
+                                                border: 'none !important',
+                                            }}
+                                            onClick={() => {
+                                                if (state.signedIn) {
+                                                    history.push('/home');
+                                                } else {
+                                                    dispatch(setModalVisibility(true));
+                                                }
+                                            }}
+                                        >
+                                            <Image
+                                                className="p-0 m-0 py-0"
+                                                src={`/home/explore.svg`}
+                                                alt=""
+                                                height={20}
+                                                width={30}
+                                            />
+                                            Explore
+                                        </Button>
+                                    </Col>
+                                </div>
+                                <div
+                                    className="d-flex p-0 mr-4"
+                                    style={{ cursor: 'pointer', justifyContent: 'center', width: '300px' }}
+                                ></div>
+                            </Col>
+                        </div>
+                        <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
+                            <ArrowForwardIos style={{ transform: 'rotate(90deg)' }} />
+                        </div>
+                    </Container>
                 </div>
+                <div className={`${styles.landing_container_light} pt-2`}>
+                    <Container className="mb-0" style={{ paddingBottom: '40px' }}>
+                        <div className={`${styles.testimonial_container} w-100 d-none d-md-flex`}>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When you feel oblivious and detached from the political domian
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
 
-                <div className="d-none d-lg-flex justify-content-center">
-                    <Footer />
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When news anxiety leads to feelings of helplessness and hopelessness
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+
+                                    <div className={`${styles.testimonial_content}`}>
+                                        Our civic engagement and democracy inevitably will also suffer.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className=" d-flex w-100 d-md-none" style={{ flexWrap: 'wrap' }}>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When you feel oblivious and detached from the political domian
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When news anxiety leads to feelings of helplessness and hopelessness
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+                                    <div className={`${styles.testimonial_content}`}>
+                                        Our civic engagement and democracy inevitably will also suffer.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex w-100 mt-2 mb-2" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
+                        </div>
+                        <div className={`${styles.dark_container}`} style={{ marginTop: '80px' }}>
+                            <Col md={6} className="px-4 pt-5">
+                                <h1 className={styles.light_header}>
+                                    We care how you feel about news biasedness and misinformation
+                                </h1>
+                                <p className={styles.light_content}>
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                    helplessness and hopelessness in the face of diverse misinformation and our civic
+                                    engagement inevitably suffer,
+                                </p>
+                            </Col>
+                            <Col md={6} style={{ height: '400px !important' }}>
+                                <Image
+                                    src="/home/iphone-2.png"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </Col>
+                        </div>
+                        <div className={`${styles.landing_container_light} pt-5 mt-5`}>
+                            {featureList.map((feature) => {
+                                return (
+                                    <Col
+                                        className="d-flex w-100 px-2 py-3"
+                                        style={{ alignItems: 'center', flexDirection: 'column' }}
+                                        md={6}
+                                        key={feature.title}
+                                    >
+                                        <Image src={feature.image} width="70%" />
+                                        <div className={`${styles.feature_text_container}`}>{feature.title}</div>
+                                    </Col>
+                                );
+                            })}
+                        </div>
+                        <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
+                        </div>
+                        <div className={`${styles.black_container}`}>
+                            <Col md={6} className="pl-4">
+                                <h1 className={styles.light_header}>A Safe Place for free expression </h1>
+                                <p className={styles.light_content}>
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                    helplessness and hopelessness in the face of diverse misinformation and our civic
+                                    engagement inevitably suffer,
+                                </p>
+                                <div
+                                    className="d-flex p-0 mt-4 mr-4 mb-3"
+                                    style={{ cursor: 'pointer', alignItems: 'center', flexWrap: 'wrap' }}
+                                >
+                                    <Col xs={6} lg={4} className="m-0 p-0">
+                                        <Button
+                                            variant="primary ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                minWidth: '50px !important',
+                                                width: '100px !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open(
+                                                    'https://play.google.com/store/apps/details?id=one.etha.app',
+                                                    '_blank',
+                                                )
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0 pr-2"
+                                                src={`/home/play-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                    <Col xs={6} lg={4} className="m-0 p-0">
+                                        <Button
+                                            variant="light ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                border: 'none !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0"
+                                                src={`/home/app-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                </div>
+                            </Col>
+                            <Col md={6} className="my-0 py-0">
+                                <Image src="/home/iphone-3.png" width="100%" style={{ objectFit: 'cover' }} />
+                            </Col>
+                        </div>
+                        <Carousel
+                            indicators={false}
+                            interval={3000}
+                            controls={false}
+                            fade
+                            className="w-100 mt-4"
+                            activeIndex={carouselIndex}
+                        >
+                            <Carousel.Item
+                                className="d-flex w-100"
+                                style={{ justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
+                            >
+                                {segment1.map((featurePoint, index) => {
+                                    return (
+                                        <Col key={`fp-${index}`} className={`${styles.feature_point_container}`} sm={6}>
+                                            <div className={`${styles.feature_point}`}>
+                                                <div className={`${styles.checkmark}`}>
+                                                    <Image
+                                                        src="/home/check.svg"
+                                                        width="100%"
+                                                        style={{ objectFit: 'cover' }}
+                                                    />
+                                                </div>
+                                                <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
+                                            </div>
+                                        </Col>
+                                    );
+                                })}
+                            </Carousel.Item>
+                            <Carousel.Item
+                                className="d-flex w-100"
+                                style={{ justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
+                            >
+                                {segment2.map((featurePoint, index) => {
+                                    return (
+                                        <Col key={`fp-${index}`} className={`${styles.feature_point_container}`} sm={6}>
+                                            <div className={`${styles.feature_point}`}>
+                                                <div className={`${styles.checkmark}`}>
+                                                    <Image
+                                                        src="/home/check.svg"
+                                                        width="100%"
+                                                        style={{ objectFit: 'cover' }}
+                                                    />
+                                                </div>
+                                                <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
+                                            </div>
+                                        </Col>
+                                    );
+                                })}
+                            </Carousel.Item>
+                        </Carousel>
+                        <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
+                            <Button variant="carousel" onClick={handleCarouselSelect}>
+                                <IoIosArrowBack />
+                            </Button>
+                            <Button variant="carousel" onClick={handleCarouselSelect}>
+                                <IoIosArrowForward />{' '}
+                            </Button>
+                        </div>
+                        <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
+                        </div>
+                        <div
+                            className="d-flex w-100 my-5 py-5"
+                            style={{ alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}
+                        >
+                            <h1 className={styles.home_header_secondary}>
+                                Participate in free, open and global conversations with healthy discourse
+                            </h1>
+                            <p className={`${styles.home_content_small}`}>
+                                Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                helplessness and hopelessness in the face of diverse misinformation and our civic
+                                engagement inevitably suffer,
+                            </p>
+                        </div>
+                        <div className="w-100">
+                            <h1 className={`${styles.home_header_secondary} mb-5`}>Frequently Asked Questions</h1>
+                            {faqs.map((faq, index) => {
+                                return (
+                                    <Col className={`${styles.faq_container}`} lg={12} key={index}>
+                                        <div className={`${styles.faq_header}`}>{faq.question}</div>
+                                        <div className={`${styles.faq_answer} mt-4 mb-3`}>{faq.answer}</div>
+                                    </Col>
+                                );
+                            })}
+                        </div>
+                    </Container>
                 </div>
-                {showJoinButton && (
-                    <div
-                        className="d-lg-none d-md-flex m-0 px-2 py-2 d-flex align-items-center fixed-bottom"
-                        style={{ backgroundColor: '#fff', opacity: `${opacity}`, justifyContent: 'space-evenly' }}
-                    >
-                        <CustomButton
-                            placeHolder="Give Feedback"
-                            width="45%"
-                            click={() => {
-                                setShowJoinPage(true);
-                            }}
-                        />
-                        <CustomButton
-                            placeHolder="Invest Now"
-                            width="45%"
-                            click={() => {
-                                window.open('https://wefunder.com/etha.one', '_blank');
-                            }}
-                        />
-                    </div>
-                )}
+                <Footer />
             </div>
             <a
                 href="https://www.producthunt.com/posts/etha?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-etha"
