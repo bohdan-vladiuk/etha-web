@@ -1,15 +1,17 @@
-// Dependencies
 import React from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
-// Components
 import { LargeCardDetails, SmallCardDetails, teamCardLarge, teamCardSmall } from '../models/Team';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
+import Head from 'next/head';
 
 export const AboutUs: NextPage = () => {
     const history = useRouter();
     return (
         <>
+            <Head>
+                <meta name="keywords" content="etha,latest politician statements,political polls" />
+            </Head>
             <div
                 className="d-flex w-100 p-4"
                 style={{

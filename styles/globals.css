@@ -6,6 +6,7 @@ body {
     margin: 0;
     scroll-behavior: smooth;
     width: 100%;
+    overflow-x: hidden;
 }
 
 a {
@@ -15,7 +16,7 @@ a {
 
 * {
     box-sizing: border-box;
-    font-family: 'Satoshi', sans-serif;
+    font-family: 'Satoshi-Regular';
 }
 
 .modal {
@@ -101,7 +102,7 @@ input[type='number']::-webkit-outer-spin-button {
     display: flex;
     margin-left: 5px;
     border-radius: 100%;
-    width: 40px;
+    min-width: 40px;
     height: 40px;
     overflow: hidden !important;
     object-fit: cover !important;
@@ -147,6 +148,21 @@ input[type='number']::-webkit-outer-spin-button {
     box-shadow: #00000070 1px 1px;
 }
 
+.btn-carousel {
+    border-radius: 50px !important;
+    width: 50px;
+    justify-content: center;
+    text-align: center;
+    vertical-align: center;
+    margin: 0 10px;
+    padding: 0;
+    background: #ffffff;
+}
+
+.btn-carousel:hover {
+    background: #f7f7f7;
+}
+
 .btn-vote {
     background: #ffffff;
     border-style: none;
@@ -160,12 +176,8 @@ input[type='number']::-webkit-outer-spin-button {
     margin-right: 15px;
     height: 50px;
     border-radius: 12px;
-    /* border: solid 1px; */
-    /* border-color: #9e9e9e; */
-    /* box-shadow: 1px 1px #cccccc; */
 }
 .btn-vote-up {
-    /* background: linear-gradient(to right, rgb(100, 145, 115), rgb(219, 213, 164)); */
     background: #689f38;
     color: white;
 
@@ -179,15 +191,9 @@ input[type='number']::-webkit-outer-spin-button {
     margin-left: 25px;
     margin-right: 25px;
     height: 60px;
-    /* border-radius: 12px; */
-    /* border: solid 1px; */
-    /* border-color: #9e9e9e; */
-    /* box-shadow: 1px 1px #cccccc; */
 }
 .btn-vote-down {
     background: #dc3545;
-    /* background: linear-gradient(to right, #870000, rgb(219, 213, 164)); */
-
     color: white;
     border-style: none;
     font-size: 20px;
@@ -199,10 +205,6 @@ input[type='number']::-webkit-outer-spin-button {
     margin-left: 25px;
     margin-right: 25px;
     height: 60px;
-    /* border-radius: 12px;
-    border: solid 1px;
-    border-color: #9e9e9e;
-    box-shadow: 1px 1px #cccccc; */
 }
 .btn-vote:disabled {
     background-color: #cccccc;
@@ -238,6 +240,14 @@ input[type='number']::-webkit-outer-spin-button {
     padding: 10px;
     height: 48px;
     min-width: 150px;
+    margin: 0.3rem;
+}
+.btn-light-custom {
+    color: #212121 !important;
+    background: #fff !important;
+    border-color: #fff !important;
+    border-radius: 10px;
+    height: 48px;
     margin: 0.3rem;
 }
 .btn-outline {

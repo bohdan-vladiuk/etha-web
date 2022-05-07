@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/satoshi.css';
 import type { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +12,6 @@ import Script from 'next/script';
 import { PersistGate } from 'redux-persist/integration/react';
 import { setLoaderVisibility, setModalVisibility, unsetSharePostId } from '../redux';
 import { LoadingModal } from '../components/LoadingModal';
-import { NavBar } from '../components/NavBar';
 import { ToastContainer } from 'react-toastify';
 import { ShareModal } from '../components/ShareModal';
 import { SignInModal } from '../components/SignInModal';
@@ -23,7 +23,6 @@ import { AuthProvider, useAuth } from '../auth/AuthProvider';
 function MyApp({ Component, pageProps }: AppProps) {
     const dispatch = useAppDispatch();
     const [nameModalVisibility, setNameModalVisibility] = useState(false);
-    const { user } = useAuth();
     const state = useAppSelector((reduxState) => ({
         token: reduxState.userReducer.token,
         userId: reduxState.userReducer.user_id,
@@ -51,11 +50,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <div className="main-container">
-            {/* <NavBar /> */}
             <AuthProvider>
                 <Component {...pageProps} />
                 <LoadingModal
-                    // show={true}
                     show={state.isLoading !== undefined ? state.isLoading : false}
                     onHide={() => {
                         dispatch(setLoaderVisibility(false));

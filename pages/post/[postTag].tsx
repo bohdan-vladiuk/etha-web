@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
-import { Button, Image, FormControl, Container, Row, Col } from 'react-bootstrap';
+import { Button, Image, FormControl, Container, Row, Col, Spinner } from 'react-bootstrap';
 
 import Head from 'next/head';
 import { Comment, CommentRequest, Post, PostVoteRequest, VoteCount } from '../../models';
@@ -12,7 +12,6 @@ import style from '../../styles/[postTag].module.css';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setComments, setModalVisibility, setSharePost } from '../../redux';
 import { fetchCommentList, fetchPostDetailsByTag, postComment, postVote } from '../../middleware';
-import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { CommentEntry } from '../../components/CommentEntry';
 import { AppNavBar } from '../../components/AppNavBar';
 import SidePanelLeft from '../../components/SidePanelLeft';
@@ -20,6 +19,7 @@ import SidePanelRight from '../../components/SidePanelRight';
 import { CompareBar } from '../../components/CompareBar';
 import { AppFooter } from '../../components/AppFooter';
 import { firebaseAnalytics } from '../../auth/firebaseClient';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface Props {
     preFetchPost?: Post;
@@ -137,7 +137,9 @@ export const PostPanel: NextPage<Props> = (props) => {
                 text: commentPost,
                 postId: post.id?.toString() || '',
             };
-            postComment(state.token, state.userId, comment, dispatch);
+            postComment(state.token, state.userId, comment, dispatch, () => {
+                setCommentPage(0);
+            });
             setCommentPost('');
         } else if (commentPost.length !== 0) {
             dispatch(setModalVisibility(true));
@@ -163,6 +165,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                 <meta name="twitter:title" content={`${post.user?.name} says "${post.text}"`} />
                 <meta name="twitter:description" content="Intelligent Political Discourse" />
                 <meta name="twitter:image" content={post.user?.imageUrl} />
+                <meta name="keywords" content={`etha,${post.user?.name}, ${post.user?.title}`} />
             </Head>
             <AppNavBar />
             <Container
@@ -411,7 +414,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             className={`${style.comments_container} mt-3`}
                                             style={{ paddingBottom: '20px' }}
                                         >
-                                            <div className="comments">
+                                            {/* <div className="comments">
                                                 {!_.isEmpty(state.commentData.content) ? (
                                                     state.commentData.content.map((comment: Comment, index: number) => {
                                                         return <CommentEntry key={comment.id} comment={comment} />;
@@ -436,6 +439,56 @@ export const PostPanel: NextPage<Props> = (props) => {
                                             ) : (
                                                 <></>
                                             )}
+                                             */}
+                                            <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
+                                                <InfiniteScroll
+                                                    style={{
+                                                        width: '100vw',
+                                                        justifyContent: 'center',
+                                                        maxWidth: '515px',
+                                                        paddingBottom: '100px',
+                                                        height: '100%',
+                                                    }}
+                                                    dataLength={
+                                                        !_.isEmpty(state.commentData.content)
+                                                            ? Object.keys(state.commentData.content).length
+                                                            : 0
+                                                    }
+                                                    next={fetchMoreComments}
+                                                    hasMore={state.commentData.totalPages > commentPage}
+                                                    loader={
+                                                        <div
+                                                            className="d-flex w-100"
+                                                            style={{ justifyContent: 'center' }}
+                                                        >
+                                                            <Spinner
+                                                                animation="border"
+                                                                role="status"
+                                                                variant="secondary"
+                                                            />
+                                                        </div>
+                                                    }
+                                                    initialScrollY={0}
+                                                    pullDownToRefresh
+                                                    refreshFunction={refresh}
+                                                    pullDownToRefreshThreshold={50}
+                                                    pullDownToRefreshContent={
+                                                        <h3 style={{ textAlign: 'center' }}>
+                                                            &#8595; Pull down to refresh
+                                                        </h3>
+                                                    }
+                                                    releaseToRefreshContent={
+                                                        <h3 style={{ textAlign: 'center' }}>
+                                                            &#8593; Release to refresh
+                                                        </h3>
+                                                    }
+                                                >
+                                                    {!_.isEmpty(state.commentData.content) &&
+                                                        state.commentData.content.map((comment: Comment) => {
+                                                            return <CommentEntry key={comment.id} comment={comment} />;
+                                                        })}
+                                                </InfiniteScroll>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

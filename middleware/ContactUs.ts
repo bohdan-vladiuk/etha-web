@@ -1,6 +1,4 @@
 import { ContactUsForm, SubscribeToNewsLetter, UnsubscribeToNewsLetter } from '../models/ContactUs';
-import { setLoaderVisibility } from '../redux';
-import { AppDispatch } from '../redux/store';
 import { CONTACT_US_SUBMIT, SUBSCRIBE_NEWSLETTER, UNSUBSCRIBE_NEWSLETTER, WAITLIST_SUBMIT } from '../services/API';
 import api from '../services/api-helper';
 

@@ -1,4 +1,3 @@
-// Dependencies
 import React from 'react';
 import { Button, Col, Modal, Image } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';

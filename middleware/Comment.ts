@@ -1,4 +1,3 @@
-// Components
 import {
     DELETE_COMMENTS,
     GET_COMMENTS_LIST,
@@ -62,6 +61,7 @@ export async function postComment(
     userId: string,
     comment: CommentRequest,
     dispatch: AppDispatch,
+    cleanFucntion: () => void,
 ): Promise<void> {
     const config = {
         headers: { Authorization: `Bearer ${token}` },

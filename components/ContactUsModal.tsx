@@ -1,4 +1,3 @@
-// Dependencies
 import React, { useState, useEffect } from 'react';
 
 import { AddToWaitlist, ContactUs } from '../middleware';
@@ -421,7 +420,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             </div>
                         </div>
                         <div className={`${style.contact_image}`} style={{ backgroundColor: '#f9f9f9' }}>
-                            <Image src="/landing2.svg" alt="" height={600} width={600} />
+                            <Image src="/home/iphone-2.png" alt="" height={600} width={600} />
                         </div>
                     </div>
                 </Modal.Body>
@@ -461,7 +460,7 @@ export const ContactUsModal: React.FC<ConatctUsModalProps> = (props: ConatctUsMo
                             </p>
                         </div>
                         <div className={style.contact_image} style={{ height: '30%' }}>
-                            <Image src="/landing3b.svg" alt="" height={358.88} width={859.92} />
+                            <Image src="/home/iphone-3.png" alt="" width="100%" height="100%" />
                         </div>
                     </div>
                 </Modal.Body>

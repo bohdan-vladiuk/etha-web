@@ -1,16 +1,14 @@
-// Dependencies
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Modal, FormControl, InputGroup, FormCheck } from 'react-bootstrap';
+import { Button, Col, Modal, Image, FormControl, InputGroup, FormCheck } from 'react-bootstrap';
 import ReactGA from 'react-ga';
 import { useDispatch } from 'react-redux';
-import Image from 'next/image';
-
-// Components
-import { signInUser, signUpUser } from '../middleware';
+import { checkUser, signInUser, signUpUser } from '../middleware';
 import { User } from '../models';
 import { AppDispatch } from '../redux/store';
 import { APPLE_AUTH_URL, FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL } from '../services/API';
 import { toast } from 'react-toastify';
+import { TextField } from '@material-ui/core';
+import { firebaseAnalytics } from '../auth/firebaseClient';
 
 interface SignInModalProps {
     show: boolean;
@@ -19,9 +17,17 @@ interface SignInModalProps {
 
 type SignInScreenState = 'MAIN' | 'SIGNIN' | 'SIGNUP';
 
-export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps) => {
+export const UserDetailsModal: React.FC<SignInModalProps> = (props: SignInModalProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const { show, onHide } = props;
+    const [formData, setFormData] = useState({
+        name: '',
+        password: '',
+        phone: '',
+        tag: '',
+        dob: '',
+        email: '',
+    });
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const [localModalState, setModalState] = useState<SignInScreenState>('MAIN');
@@ -40,9 +46,26 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
         setSignUpName('');
         setSignUpPassword('');
         setSignUpConfirmPassword('');
-        //window.localStorage.setItem('redirectUrl', pathname);
     }, [show]);
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+    const handleDateChange = (date: string) => {
+        setFormData({
+            ...formData,
+            dob: date,
+        });
+    };
+    const handlePhoneChange = (value: string) => {
+        setFormData({
+            ...formData,
+            phone: value,
+        });
+    };
     function validateEmail(testMail: string): boolean {
         const re = /\S+@\S+\.\S+/;
         return re.test(testMail);
@@ -56,8 +79,8 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                     borderRadius: '15px',
                 }}
             >
-                <Col
-                    className="d-flex m-0 p-0"
+                <div
+                    className="d-flex w-100 m-0 p-0 py-2"
                     style={{
                         height: '100%',
                         width: '100%',
@@ -69,145 +92,139 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                     }}
                 >
                     {localModalState === 'MAIN' ? (
-                        <>
+                        <div
+                            className=" d-flex w-100"
+                            style={{
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
                             <div
-                                className="mt-3 ml-3"
+                                className="mt-3"
                                 style={{
                                     height: '60px',
                                     width: '125px',
                                 }}
                             >
-                                <Image src="/etha_logo.svg" height={60} width={125} alt="" objectFit="contain" />
-                            </div>{' '}
-                            <p className="ml-3 mt-2" style={{ fontSize: '35px', marginTop: '', fontWeight: 'bold' }}>
-                                Hi, Welcome Back
-                            </p>
-                            <p className="ml-3" style={{ fontSize: '18px' }}>
-                                <b> Sign In</b> With
-                            </p>
-                            <div className="ml-3 d-flex w-100" style={{ alignItems: 'center' }}>
-                                {/* {Capacitor.getPlatform() !== 'web' ? (
-                                    <>
-                                        {' '}
-                                        <Image
-                                            className="m-1"
-                                            src="/icons/facebook.png"
-                                            height="58px"
-                                            onClick={async () => {
-                                                await Browser.open({
-                                                    url: `${FACEBOOK_AUTH_URL}?currentPath=${pathname}`,
-                                                });
-                                            }}
-                                        />
-                                        <Image
-                                            className="m-1"
-                                            src="/icons/google.png"
-                                            height="72px"
-                                            onClick={async () => {
-                                                await Browser.open({
-                                                    url: `${GOOGLE_AUTH_URL}?currentPath=${pathname}`,
-                                                });
-                                            }}
-                                        />
-                                    </>
-                                ) : (
-                                    <> */}
-                                {/* <a
-                                    style={{
-                                        margin: '5px',
-                                        paddingLeft: '5px',
-                                        paddingRight: '5px',
-                                        width: '50px',
-                                        backgroundColor: '#ffffff',
-                                        textAlign: 'center',
-                                        borderRadius: '5px',
-                                        boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.1)',
-                                    }}
-                                    href={`${FACEBOOK_AUTH_URL}?currentPath=${pathname}&platform=facebook`}
-                                >
-                                    <Image
-                                        src="/icons/facebook-min.png"
-                                        height={20}
-                                        width={20}
-                                        alt=""
-                                        objectFit="contain"
-                                    />
-                                </a> */}
-
-                                <a
-                                    style={{
-                                        margin: '5px',
-                                        paddingLeft: '5px',
-                                        paddingRight: '5px',
-                                        width: '50px',
-                                        height: '27px',
-                                        backgroundColor: '#ffffff',
-                                        textAlign: 'center',
-                                        verticalAlign: 'middle',
-                                        borderRadius: '5px',
-                                        boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.1)',
-                                    }}
-                                    href={`${GOOGLE_AUTH_URL}?currentPath=${pathname}&platform=google`}
-                                >
-                                    <Image src="/icons/google.png" height={25} width={25} alt="" objectFit="contain" />
-                                </a>
-                                <a
-                                    style={{
-                                        margin: '5px',
-                                        paddingLeft: '5px',
-                                        paddingRight: '5px',
-                                        width: '50px',
-                                        height: '27px',
-                                        backgroundColor: '#ffffff',
-                                        textAlign: 'center',
-                                        borderRadius: '5px',
-                                        boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.1)',
-                                    }}
-                                    href={`${APPLE_AUTH_URL}?currentPath=${pathname}&platform=apple`}
-                                >
-                                    <Image
-                                        src="/icons/apple-min.png"
-                                        height={20}
-                                        width={20}
-                                        alt=""
-                                        objectFit="contain"
-                                    />
-                                </a>
-                                <p
-                                    style={{
-                                        margin: '5px',
-                                        paddingLeft: '5px',
-                                        paddingRight: '5px',
-                                        width: '50px',
-                                        height: '27px',
-                                        backgroundColor: '#ffffff',
-                                        textAlign: 'center',
-                                        borderRadius: '5px',
-                                        boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.1)',
-                                    }}
-                                    onClick={() => setModalState('SIGNIN')}
-                                >
-                                    <Image
-                                        src="/icons/mail-min.png"
-                                        height={20}
-                                        width={20}
-                                        alt=""
-                                        objectFit="contain"
-                                    />
-                                </p>
-                                {/* </>
-                                )} */}
+                                <Image src="/etha_logo.svg" height={40} width={110} alt="" />
                             </div>
-                            <Button
-                                variant="link"
-                                type="button"
-                                className="mt-3 mb-2"
-                                style={{ width: '350px' }}
-                                onClick={() => setModalState('SIGNUP')}
+                            <h3 className="mt-2 px-3 w-100" style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                                Login to Get Started{' '}
+                            </h3>
+                            <p
+                                className="px-4 mt-0"
+                                style={{ width: '100%', textAlign: 'center', fontSize: '12px', color: '#676767' }}
                             >
-                                Don&apos;t have an Account? Sign Up Here
-                            </Button>
-                        </>
+                                Our system will create an account for you automatically, if you don&lsquo;t have an
+                                account.
+                            </p>
+                            <div className="w-100 mt-2" style={{ textAlign: 'center' }}>
+                                <br />
+                                <p
+                                    className="px-4 mt-3"
+                                    style={{ width: '100%', textAlign: 'center', fontSize: '12px', color: '#676767' }}
+                                >
+                                    By continuing you agree to our{' '}
+                                    <span
+                                        style={{ color: 'blue' }}
+                                        onClick={() => window.open('https://etha.one/terms-of-service', '_blank')}
+                                    >
+                                        <u>Terms</u>
+                                    </span>{' '}
+                                    and{' '}
+                                    <span
+                                        style={{ color: 'blue' }}
+                                        onClick={() => window.open('https://etha.one/privacy-policy', '_blank')}
+                                    >
+                                        <u>Privacy Policy</u>
+                                    </span>
+                                    .
+                                </p>
+                                <Button
+                                    className="mt-2"
+                                    onClick={async () => {
+                                        if (validateEmail(formData.email)) {
+                                            setModalState('SIGNIN');
+                                        } else {
+                                            toast('Please Enter a Valid Email Address');
+                                        }
+                                    }}
+                                    style={{
+                                        backgroundColor: '#4824d6',
+                                        color: '#fff',
+                                        width: '90%',
+                                        borderRadius: '10px',
+                                    }}
+                                >
+                                    Continue
+                                </Button>
+
+                                <p className="mt-4" style={{ color: '#676767', fontSize: '14px' }}>
+                                    Or
+                                </p>
+                                <Button
+                                    className="p-2 my-2 "
+                                    variant="outline"
+                                    style={{
+                                        fontSize: '14px',
+                                        maxWidth: '390px',
+                                        width: '90%',
+                                        borderRadius: '10px',
+                                        position: 'relative',
+                                    }}
+                                    onClick={async () => {
+                                        firebaseAnalytics.logEvent('social_login_click', {
+                                            type: 'google',
+                                        });
+                                    }}
+                                >
+                                    <div
+                                        className="d-flex w-100"
+                                        style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
+                                    >
+                                        <Image
+                                            alt="Google"
+                                            className="abs-left-25"
+                                            src="icons/google_color.svg"
+                                            height={26}
+                                            width={26}
+                                        />
+                                        &nbsp;&nbsp;Continue with Google
+                                    </div>
+                                </Button>
+                                <Button
+                                    className="p-2 my-2"
+                                    variant="outline"
+                                    style={{
+                                        fontSize: '14px',
+                                        width: '90%',
+                                        maxWidth: '390px',
+                                        alignItems: 'center',
+                                        borderRadius: '10px',
+                                        position: 'relative',
+                                    }}
+                                    onClick={async () => {
+                                        firebaseAnalytics.logEvent('social_login_click', {
+                                            type: 'apple',
+                                        });
+                                    }}
+                                >
+                                    <div
+                                        className="d-flex w-100"
+                                        style={{ alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
+                                    >
+                                        <Image
+                                            alt="Apple"
+                                            className="abs-left-25"
+                                            src="icons/apple_logo.svg"
+                                            height={'30px'}
+                                            width={'30px'}
+                                        />
+                                        &nbsp;&nbsp;Continue with Apple
+                                    </div>
+                                </Button>
+                            </div>
+                        </div>
                     ) : (
                         <></>
                     )}
@@ -222,7 +239,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                 }}
                             >
                                 <Image
-                                    src="/icons/back_arr.png"
+                                    src="icons/back_arr.png"
                                     height={25}
                                     width={25}
                                     alt=""
@@ -252,28 +269,27 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                     <p className="mt-3 mb-0" style={{ fontSize: '18px' }}>
                                         Email
                                     </p>
-                                    <FormControl
-                                        className="mb-1"
-                                        value={loginEmail}
-                                        onChange={(event) => {
-                                            setLoginEmail(event.target.value);
-                                        }}
-                                        style={{ borderRadius: '25px', color: '#676AB1', width: '100%' }}
-                                        type="email"
-                                        placeholder="Email"
+                                    <TextField
+                                        name="email"
+                                        style={{ width: '90%', maxWidth: '390px' }}
+                                        label="E-Mail Address"
+                                        variant="standard"
+                                        value={formData.email}
+                                        onChange={handleChange}
                                     />
+
                                     <p className="mt-3 mb-0" style={{ fontSize: '18px' }}>
                                         Password
                                     </p>
-                                    <FormControl
-                                        className="mb-2"
-                                        value={loginPassword}
-                                        onChange={(event) => {
-                                            setLoginPassword(event.target.value);
-                                        }}
-                                        style={{ borderRadius: '25px', color: '#676AB1', width: '100%' }}
+                                    <TextField
+                                        className="my-1"
+                                        style={{ width: '90%', height: '60px', fontSize: '14px' }}
+                                        label="Password"
+                                        variant="standard"
                                         type="password"
-                                        placeholder="Password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
                                     />
                                 </div>
                             </div>
@@ -326,7 +342,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                 }}
                             >
                                 <Image
-                                    src="/icons/back_arr.png"
+                                    src="icons/back_arr.png"
                                     height={25}
                                     width={25}
                                     alt=""
@@ -473,7 +489,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                     ) : (
                         <></>
                     )}
-                </Col>
+                </div>
             </Modal.Body>
         </Modal>
     );

@@ -1,4 +1,3 @@
-// Dependencies
 import React from 'react';
 import { Col, Row, Container, Image } from 'react-bootstrap';
 import { useEffect } from 'react';
@@ -7,8 +6,6 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 
 export const PressArticle: NextPage = () => {
-    const history = useRouter();
-
     return (
         <div>
             <Head>
@@ -18,6 +15,7 @@ export const PressArticle: NextPage = () => {
                     content="Etha launches world’s first non-partisan polling tool for political statements"
                     key="ogTitle"
                 />
+                <meta name="keywords" content="etha,latest politician statements,political polls" />
             </Head>
             <div
                 className="d-flex p-4"

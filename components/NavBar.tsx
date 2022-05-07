@@ -1,12 +1,8 @@
-// Dependencies
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Dropdown, Col, Form, InputGroup, Button } from 'react-bootstrap';
+import { Navbar, Nav, Dropdown, Col, Form, InputGroup, Button, Container, NavDropdown } from 'react-bootstrap';
 import Image from 'next/image';
-// import { useHistory, useLocation } from 'react-router-dom';
 import { setContactFormVisibility } from '../redux';
-// Components
-// CSS
 import { useRouter } from 'next/router';
 import styles from '../styles/NavBar.module.css';
 import Link from 'next/link';
@@ -31,12 +27,88 @@ export const NavBar: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useRouter();
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
-    // 'About us', 'Publishers', 'Brand', 'Business', 'Careers',
-    const navTitles = ['Feedback'];
 
     return (
         <>
-            <div className={`${styles.home_nav_container}`}>
+            <Navbar
+                collapseOnSelect
+                expand="lg"
+                bg="light"
+                sticky="top"
+                variant="light"
+                style={{ zIndex: 200, backgroundColor: '#fff' }}
+            >
+                <Container>
+                    <Navbar.Brand href="#home">
+                        <Image
+                            alt="Etha"
+                            className="p-0 m-0 d-flex align-items-center mr-3"
+                            height={'28px'}
+                            width={'100%'}
+                            src="/logo.svg"
+                        />
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ color: '#000 !important' }} />
+                    <Navbar.Collapse id="responsive-navbar-nav" className="m-auto">
+                        <Nav className="d-flex w-100" style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <Nav.Link href="/about-us" style={{ color: '#000' }}>
+                                About Us
+                            </Nav.Link>
+                            <Nav.Link style={{ color: '#000' }} onClick={() => setShowJoinPage(true)}>
+                                Contact
+                            </Nav.Link>
+                            <Nav.Link
+                                style={{ color: '#000' }}
+                                onClick={() => window.open('https://wefunder.com/etha.one', '_blank')}
+                            >
+                                Invest Now
+                            </Nav.Link>
+                            <Button
+                                variant="primary ml-2 mr-2"
+                                style={{
+                                    borderRadius: '5px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    minWidth: '50px !important',
+                                    width: '100px !important',
+                                }}
+                                onClick={() =>
+                                    window.open('https://play.google.com/store/apps/details?id=one.etha.app', '_blank')
+                                }
+                            >
+                                <Image
+                                    className="p-0 py-0 pr-2"
+                                    src={`/home/play-store.svg`}
+                                    alt=""
+                                    height={40}
+                                    width={120}
+                                />
+                            </Button>
+                            <Button
+                                variant="light mr-0"
+                                style={{
+                                    borderRadius: '5px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    border: 'none !important',
+                                }}
+                                onClick={() => window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')}
+                            >
+                                <Image
+                                    className="p-0 py-0"
+                                    src={`/home/app-store.svg`}
+                                    alt=""
+                                    height={40}
+                                    width={120}
+                                />
+                            </Button>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            {/* <div className={`${styles.home_nav_container}`}>
                 <div
                     className="p-0 m-0 d-flex align-items-center"
                     onClick={() => {
@@ -45,6 +117,7 @@ export const NavBar: React.FC = () => {
                     style={{ cursor: 'pointer' }}
                 >
                     <Image
+                        alt="Etha"
                         className="p-0 m-0 d-flex align-items-center mr-3"
                         height={25}
                         width={38.94}
@@ -60,23 +133,16 @@ export const NavBar: React.FC = () => {
                 >
                     About Us
                 </div>
-                {navTitles.map((val, idx) => {
-                    return (
-                        <div
-                            key={`${val}-${idx}`}
-                            className={`${styles.nav_link} m-0 p-0 mx-4`}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                                setShowJoinPage(true);
-                                //history.push(`/${val.toLowerCase().split(' ')[0]}`);
-                            }}
-                        >
-                            {val}
-                        </div>
-                    );
-                })}
+                <div
+                    className={`${styles.nav_link} m-0 p-0 mx-4`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        setShowJoinPage(true);
+                    }}
+                >
+                    Contact
+                </div>
 
-                {/* Invest Button @ top right of page */}
                 <Button
                     variant="primary"
                     href="https://wefunder.com/etha.one"
@@ -91,7 +157,7 @@ export const NavBar: React.FC = () => {
                 >
                     Invest Now <ArrowForwardIos fontSize="small" />
                 </Button>
-            </div>
+            </div> */}
 
             <ContactUsModal show={showJoinPage} onHide={() => setShowJoinPage(false)} />
         </>

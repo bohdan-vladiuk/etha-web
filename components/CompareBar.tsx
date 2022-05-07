@@ -1,6 +1,4 @@
-// Dependencies
 import React, { useEffect, useState } from 'react';
-// Components
 import { VoteCount } from '../models';
 import Image from 'next/image';
 

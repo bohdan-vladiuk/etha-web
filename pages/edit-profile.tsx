@@ -62,17 +62,6 @@ export const EditUserProfile: NextPage = () => {
             history.push('/home');
         }
     }, [state.signedIn]);
-    // Code implemented for uploading images
-    // const [picture, setPicture] = useState<any | null>();
-    // const [imgData, setImgData] = useState<any | null>();
-    // const onChangePicture = (e: any) => {
-    //     if (e.target.files[0]) {
-    //         setPicture(e.target.files[0]);
-    //         const reader = new FileReader();
-    //         reader.addEventListener('load', () => setImgData(reader.result));
-    //         reader.readAsDataURL(e.target.files[0]);
-    //     }
-    // };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -167,9 +156,6 @@ export const EditUserProfile: NextPage = () => {
                                         className="d-flex w-100 m-0 mt-3"
                                         style={{ position: 'relative', alignItems: 'center' }}
                                     >
-                                        {/* <div className="d-flex w-100 pl-2">
-                    <h6>Name</h6>
-                </div> */}
                                         <TextField
                                             variant="standard"
                                             className="mb-3"
@@ -253,21 +239,6 @@ export const EditUserProfile: NextPage = () => {
                                         aria-describedby="basic-addon1"
                                         onChange={handleChange}
                                     />
-                                    {/* <div className="d-flex w-100 pl-2">
-                    <h6>Title</h6>
-                </div>
-
-                <FormControl
-                    className="mb-3"
-                    style={{ borderRadius: '5px' }}
-                    placeholder="Enter a short title"
-                    name="title"
-                    type="search"
-                    aria-label="Title"
-                    value={formData.title}
-                    aria-describedby="basic-addon1"
-                    onChange={handleChange}
-                /> */}
                                     <TextField
                                         variant="standard"
                                         className="w-100 mb-3"
