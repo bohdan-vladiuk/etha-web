@@ -1,12 +1,15 @@
 .home_nav_container {
     display: flex;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     align-items: center;
     justify-content: flex-start;
     flex-direction: row;
     padding: 3vh 80px;
     background-color: #ffffff;
     width: 100%;
+    z-index: 200;
 }
 
 .nav_link {
@@ -21,12 +24,10 @@
 
 @media screen and (max-width: 1000px) {
     .home_nav_container {
-        display: none;
         align-items: center;
         justify-content: flex-start;
         flex-direction: row;
-        padding: 30px 0;
-        margin: 0 80px;
+        padding: 30px 80;
     }
 
     .nav_link {

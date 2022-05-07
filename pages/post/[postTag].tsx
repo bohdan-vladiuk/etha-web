@@ -165,6 +165,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                 <meta name="twitter:title" content={`${post.user?.name} says "${post.text}"`} />
                 <meta name="twitter:description" content="Intelligent Political Discourse" />
                 <meta name="twitter:image" content={post.user?.imageUrl} />
+                <meta name="keywords" content={`etha,${post.user?.name}, ${post.user?.title}`} />
             </Head>
             <AppNavBar />
             <Container

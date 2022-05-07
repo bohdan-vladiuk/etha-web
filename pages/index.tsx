@@ -10,10 +10,12 @@ import { CustomButton } from '../components/Button.component';
 import { Footer } from '../components/Footer';
 import { Button, Carousel, CarouselItem, Col, Container, Image } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { ArrowDownward, ArrowDownwardRounded, ArrowForwardIos } from '@mui/icons-material';
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { setModalVisibility } from '../redux';
 import { faqs, featurePoints } from '../models/Web';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { ImQuotesLeft } from 'react-icons/im';
 
 const featureList = [
     {
@@ -43,15 +45,16 @@ const Home: NextPage = () => {
     const state = useAppSelector((reduxState) => ({
         signedIn: reduxState.userReducer.signed_in,
     }));
+    const [carouselIndex, setCarouselIndex] = useState(0);
+
     const history = useRouter();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         const win: Window = window;
         const onScroll: EventListener = (event: Event) => {
-            console.log('scroll: ' + win.scrollY);
-            console.log('scrollHE: ' + win.innerHeight);
-            if (win.scrollY >= win.innerHeight) {
+            if (document.body.scrollTop >= win.innerHeight) {
+                console.log('hithere');
                 setOpacity((opacity) => (opacity > 1 ? 1 : opacity + 0.2));
                 setShowJoinButton(true);
             } else {
@@ -61,13 +64,20 @@ const Home: NextPage = () => {
         };
 
         win.addEventListener('scroll', onScroll);
+        win.addEventListener('wheel', onScroll);
 
-        return () => window.removeEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('wheel', onScroll);
+        };
     }, [opacity]);
 
-    function validateEmail(testMail: string): boolean {
-        const re = /\S+@\S+\.\S+/;
-        return re.test(testMail);
+    function handleCarouselSelect() {
+        if (carouselIndex === 0) {
+            setCarouselIndex(1);
+        } else {
+            setCarouselIndex(0);
+        }
     }
 
     function getFeaturePointsUI(segment: number) {
@@ -80,8 +90,8 @@ const Home: NextPage = () => {
     }
     return (
         <>
+            {showJoinButton && <NavBar />}
             <div className={styles.container}>
-                {showJoinButton && <NavBar />}
                 <div className={`${styles.landing_container}`}>
                     <Container className="mb-0" style={{ paddingBottom: '40px' }}>
                         <div
@@ -199,15 +209,125 @@ const Home: NextPage = () => {
                 </div>
                 <div className={`${styles.landing_container_light} pt-2`}>
                     <Container className="mb-0" style={{ paddingBottom: '40px' }}>
-                        <div className={`${styles.testimonial_container} w-100`}>
-                            <div className={`${styles.testimonial_card}`}></div>
-                            <div className={`${styles.testimonial_card}`}></div>
-                            <div className={`${styles.testimonial_card}`}></div>
+                        <div className={`${styles.testimonial_container} w-100 d-none d-md-flex`}>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When you feel oblivious and detached from the political domian
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When news anxiety leads to feelings of helplessness and hopelessness
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+
+                                    <div className={`${styles.testimonial_content}`}>
+                                        Our civic engagement and democracy inevitably will also suffer.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
+                        <div className=" d-flex w-100 d-md-none" style={{ flexWrap: 'wrap' }}>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When you feel oblivious and detached from the political domian
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+                                    <div className={`${styles.testimonial_content}`}>
+                                        When news anxiety leads to feelings of helplessness and hopelessness
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`${styles.testimonial_card}`}>
+                                <div className="d-flex w-100 py-3">
+                                    <div
+                                        style={{
+                                            verticalAlign: 'top',
+                                            alignContent: 'start',
+                                            fontSize: '50px',
+                                            width: '70px',
+                                            marginRight: '10px',
+                                        }}
+                                    >
+                                        <ImQuotesLeft style={{ verticalAlign: 'top' }} />
+                                    </div>
+                                    <div className={`${styles.testimonial_content}`}>
+                                        Our civic engagement and democracy inevitably will also suffer.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex w-100 mt-2 mb-2" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
                         </div>
-                        <div className={`${styles.dark_container} mt-5`}>
+                        <div className={`${styles.dark_container}`} style={{ marginTop: '80px' }}>
                             <Col md={6} className="px-4 pt-5">
                                 <h1 className={styles.light_header}>
                                     We care how you feel about news biasedness and misinformation
@@ -313,7 +433,14 @@ const Home: NextPage = () => {
                                 <Image src="/home/iphone-3.png" width="100%" style={{ objectFit: 'cover' }} />
                             </Col>
                         </div>
-                        <Carousel indicators={false} interval={3000} controls fade className="w-100 mt-4">
+                        <Carousel
+                            indicators={false}
+                            interval={3000}
+                            controls={false}
+                            fade
+                            className="w-100 mt-4"
+                            activeIndex={carouselIndex}
+                        >
                             <Carousel.Item
                                 className="d-flex w-100"
                                 style={{ justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
@@ -349,7 +476,7 @@ const Home: NextPage = () => {
                                                         width="100%"
                                                         style={{ objectFit: 'cover' }}
                                                     />
-                                                </div>{' '}
+                                                </div>
                                                 <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
                                             </div>
                                         </Col>
@@ -357,6 +484,14 @@ const Home: NextPage = () => {
                                 })}
                             </Carousel.Item>
                         </Carousel>
+                        <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
+                            <Button variant="carousel" onClick={handleCarouselSelect}>
+                                <IoIosArrowBack />
+                            </Button>
+                            <Button variant="carousel" onClick={handleCarouselSelect}>
+                                <IoIosArrowForward />{' '}
+                            </Button>
+                        </div>
                         <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
                         </div>

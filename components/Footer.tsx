@@ -41,7 +41,7 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
                 className="d-flex w-100 p-0 mt-4 mr-4 mb-3"
                 style={{ cursor: 'pointer', alignItems: 'left', flexWrap: 'wrap' }}
             >
-                <Col xs={6} md={2} className="m-0 p-0">
+                <Col xs={6} sm={3} className="m-0 p-0">
                     <Button
                         variant="primary ml-0 mr-2"
                         style={{
@@ -59,7 +59,7 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
                         <Image className="p-0 py-0 pr-2" src={`/home/play-store.svg`} alt="" height={40} width={120} />
                     </Button>
                 </Col>
-                <Col xs={6} md={2} className="m-0 p-0">
+                <Col xs={6} sm={3} className="m-0 p-0">
                     <Button
                         variant="light ml-0 mr-2"
                         style={{
