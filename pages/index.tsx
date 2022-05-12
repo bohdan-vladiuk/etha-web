@@ -116,7 +116,7 @@ const Home: NextPage = () => {
                                     className="d-flex p-0 mt-4 mr-4"
                                     style={{ cursor: 'pointer', alignItems: 'center', flexWrap: 'wrap' }}
                                 >
-                                    <Col md={3.5} className="m-0 p-0">
+                                    <Col md={3.5} className="mt-2 p-0">
                                         <Button
                                             variant="primary ml-0 mr-2"
                                             style={{
@@ -143,7 +143,7 @@ const Home: NextPage = () => {
                                             />
                                         </Button>
                                     </Col>
-                                    <Col md={3.5} className="m-0 p-0">
+                                    <Col md={3.5} className="mt-2 p-0">
                                         <Button
                                             variant="light ml-0 mr-2"
                                             style={{
@@ -166,7 +166,7 @@ const Home: NextPage = () => {
                                             />
                                         </Button>
                                     </Col>
-                                    <Col md={3} className="m-0 p-0">
+                                    <Col md={3} className="mt-2 p-0">
                                         <Button
                                             variant="light-custom m-0 p-0"
                                             style={{
@@ -178,11 +178,7 @@ const Home: NextPage = () => {
                                                 border: 'none !important',
                                             }}
                                             onClick={() => {
-                                                if (state.signedIn) {
-                                                    history.push('/home');
-                                                } else {
-                                                    dispatch(setModalVisibility(true));
-                                                }
+                                                history.push('/home');
                                             }}
                                         >
                                             <Image
