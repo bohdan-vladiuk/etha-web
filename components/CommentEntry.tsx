@@ -1,14 +1,16 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dropdown, Image, Button, FormControl } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { ContactUs, deleteComment, postReaction, updateComment } from '../middleware';
+import { ContactUs, deleteComment, postReaction, updateComment, postCommentReply } from '../middleware';
 import _ from 'lodash';
 import { Comment, ContactUsForm, User, CommentRequest, CommentReactionRequest, ReactionCount } from '../models';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { deleteCommentFromLocal, setModalVisibility, setComments } from '../redux';
 import { HiOutlineThumbDown, HiOutlineThumbUp } from 'react-icons/hi';
 import { firebaseAnalytics } from '../auth/firebaseClient';
+import style from '../styles/[postTag].module.css';
+import { CommentReplyEntry } from './CommentReplyEntry';
 
 interface CommentEntryProps {
     comment: Comment;
@@ -19,6 +21,9 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
     const iconSize = '18';
     const [userReaction, setUserReaction] = useState<boolean | undefined>(props.comment.userReaction);
     const [comment, setCommentData] = useState<Comment>(props.comment);
+    const [commentReplies, setCommentReplies] = useState<Array<Comment>>(props.comment.replies)
+    const [replyState, setReplyState] = useState<boolean>(false);
+    const [commentPost, setCommentPost] = useState('');
 
     const state = useAppSelector((reduxState) => ({
         signedIn: reduxState.userReducer.signed_in,
@@ -93,6 +98,36 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                 isChange: isChange,
             });
         });
+    }
+
+    function handleCommentReply() {
+        if (state.userId !== undefined && state.userId !== '' && commentPost.trim().length > 0) {
+            const commentRequest: CommentRequest = {
+                text: commentPost,
+                postId: comment.postId || '',
+            };
+            postCommentReply(state.token, comment.id.toString() || '', commentRequest, dispatch, (data) => {
+                setReplyState(false);
+                setCommentPost('');
+                console.log(data);
+                setCommentReplies(data.replies);
+                firebaseAnalytics.logEvent('comment_reply_success', {
+                    userId: state.userId,
+                    commentId: comment.id?.toString(),
+                });
+            });
+        } else if (commentPost.length !== 0) {
+            dispatch(setModalVisibility(true));
+        }
+    }
+
+    function removeCommentReplie(commentId: string) {
+        const replies = commentReplies;
+        replies.splice(
+            replies.findIndex((o: any) => o.id === commentId),
+            1,
+        );
+        setCommentReplies(replies);
     }
 
     return (
@@ -253,6 +288,9 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                             {_.isEmpty(comment.reactionCount) ? '' : comment.reactionCount.dislike}
                                         </span>
                                     </span>
+                                    <span role="button" style={{ fontWeight: 600 }} onClick={() => setReplyState(true)}>
+                                        Reply
+                                    </span>
                                 </div>
                                 <div
                                     className="d-flex"
@@ -330,6 +368,38 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                     </Dropdown>
                 </div>
             </div>
+            {commentReplies.length !== 0 && (
+                <div className='ml-5'>
+                    {commentReplies.map((reply) => (
+                        <CommentReplyEntry key={reply.id} comment={reply} removeReply={removeCommentReplie} />
+                    ))}
+                </div>
+            )}
+            { replyState && (<div className={style.comment_input_container_large}>
+                <FormControl
+                    className={style.comment_input}
+                    value={commentPost}
+                    onKeyPress={handleKeyPress}
+                    onChange={(event) => {
+                        setCommentPost(event.target.value);
+                    }}
+                    type="text"
+                    placeholder="Reply a comment"
+                />
+                <div className='d-flex flex-row'>
+                    <Button variant="comment-reply-cancel" title="Comment" type="submit" onClick={()=>{setReplyState(false); setCommentPost('')}}>
+                        <i className="fa fa-close" style={{fontSize: "16px"}} />
+                    </Button>
+                    <Button
+                        variant="share-comment"
+                        title="Comment"
+                        type="submit"
+                        onClick={handleCommentReply}
+                    >
+                        <i className="fas fa-paper-plane"></i>
+                    </Button>
+                </div>
+            </div>)}
             <hr className="mt-1" style={{ backgroundColor: '#F7F7F7' }} />
         </div>
     );
