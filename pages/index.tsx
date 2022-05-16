@@ -178,11 +178,7 @@ const Home: NextPage = () => {
                                                 border: 'none !important',
                                             }}
                                             onClick={() => {
-                                                if (state.signedIn) {
-                                                    history.push('/home');
-                                                } else {
-                                                    dispatch(setModalVisibility(true));
-                                                }
+                                                history.push('/home');
                                             }}
                                         >
                                             <Image
