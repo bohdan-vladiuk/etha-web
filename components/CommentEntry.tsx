@@ -20,8 +20,8 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
     const dispatch = useAppDispatch();
     const iconSize = '18';
     const [userReaction, setUserReaction] = useState<boolean | undefined>(props.comment.userReaction);
-    const [comment, setCommentData] = useState<Comment>(props.comment);
-    const [commentReplies, setCommentReplies] = useState<Array<Comment>>(props.comment.replies)
+    const [comment, setCommentData] = useState<Comment>(props.comment || {});
+    const [commentReplies, setCommentReplies] = useState<Array<Comment>>(props.comment.replies);
     const [replyState, setReplyState] = useState<boolean>(false);
     const [commentPost, setCommentPost] = useState('');
 
@@ -106,16 +106,22 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                 text: commentPost,
                 postId: comment.postId || '',
             };
-            postCommentReply(state.token, comment.id.toString() || '', commentRequest, dispatch, (data) => {
-                setReplyState(false);
-                setCommentPost('');
-                console.log(data);
-                setCommentReplies(data.replies);
-                firebaseAnalytics.logEvent('comment_reply_success', {
-                    userId: state.userId,
-                    commentId: comment.id?.toString(),
-                });
-            });
+            postCommentReply(
+                state.token,
+                comment.id !== undefined ? comment.id.toString() : '',
+                commentRequest,
+                dispatch,
+                (data) => {
+                    setReplyState(false);
+                    setCommentPost('');
+                    console.log(data);
+                    setCommentReplies(data.replies);
+                    firebaseAnalytics.logEvent('comment_reply_success', {
+                        userId: state.userId,
+                        commentId: comment.id?.toString(),
+                    });
+                },
+            );
         } else if (commentPost.length !== 0) {
             dispatch(setModalVisibility(true));
         }
@@ -331,7 +337,7 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                                         onClick={() => {
                                             deleteComment(state.token, comment.id || '', dispatch, (response) => {
                                                 if (response) {
-                                                    dispatch(deleteCommentFromLocal(comment.id || ''));
+                                                    dispatch(deleteCommentFromLocal(comment.id || '', false));
                                                     toast('Your comment has been deleted');
                                                 } else {
                                                     toast(
@@ -369,37 +375,42 @@ export const CommentEntry: React.FC<CommentEntryProps> = (props: CommentEntryPro
                 </div>
             </div>
             {commentReplies.length !== 0 && (
-                <div className='ml-5'>
+                <div className="ml-5">
                     {commentReplies.map((reply) => (
-                        <CommentReplyEntry key={reply.id} comment={reply} removeReply={removeCommentReplie} />
+                        <CommentReplyEntry key={reply.id} comment={reply} />
                     ))}
                 </div>
             )}
-            { replyState && (<div className={style.comment_input_container_large}>
-                <FormControl
-                    className={style.comment_input}
-                    value={commentPost}
-                    onKeyPress={handleKeyPress}
-                    onChange={(event) => {
-                        setCommentPost(event.target.value);
-                    }}
-                    type="text"
-                    placeholder="Reply a comment"
-                />
-                <div className='d-flex flex-row'>
-                    <Button variant="comment-reply-cancel" title="Comment" type="submit" onClick={()=>{setReplyState(false); setCommentPost('')}}>
-                        <i className="fa fa-close" style={{fontSize: "16px"}} />
-                    </Button>
-                    <Button
-                        variant="share-comment"
-                        title="Comment"
-                        type="submit"
-                        onClick={handleCommentReply}
-                    >
-                        <i className="fas fa-paper-plane"></i>
-                    </Button>
+            {replyState && (
+                <div className={style.comment_input_container_large}>
+                    <FormControl
+                        className={style.comment_input}
+                        value={commentPost}
+                        onKeyPress={handleKeyPress}
+                        onChange={(event) => {
+                            setCommentPost(event.target.value);
+                        }}
+                        type="text"
+                        placeholder="Reply a comment"
+                    />
+                    <div className="d-flex flex-row">
+                        <Button
+                            variant="comment-reply-cancel"
+                            title="Comment"
+                            type="submit"
+                            onClick={() => {
+                                setReplyState(false);
+                                setCommentPost('');
+                            }}
+                        >
+                            <i className="fa fa-close" style={{ fontSize: '16px' }} />
+                        </Button>
+                        <Button variant="share-comment" title="Comment" type="submit" onClick={handleCommentReply}>
+                            <i className="fas fa-paper-plane"></i>
+                        </Button>
+                    </div>
                 </div>
-            </div>)}
+            )}
             <hr className="mt-1" style={{ backgroundColor: '#F7F7F7' }} />
         </div>
     );

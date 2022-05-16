@@ -6,13 +6,12 @@ import { ContactUs, deleteComment, postReaction, updateComment } from '../middle
 import _ from 'lodash';
 import { Comment, ContactUsForm, User, CommentRequest, CommentReactionRequest, ReactionCount } from '../models';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { deleteCommentReplyFromLocal, setModalVisibility, setComments } from '../redux';
+import { setModalVisibility, setComments, deleteCommentFromLocal } from '../redux';
 import { HiOutlineThumbDown, HiOutlineThumbUp } from 'react-icons/hi';
 import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
 
 interface CommentEntryProps {
     comment: Comment;
-    removeReply: (id: string) => void;
 }
 
 export const CommentReplyEntry: React.FC<CommentEntryProps> = (props: CommentEntryProps) => {
@@ -288,8 +287,7 @@ export const CommentReplyEntry: React.FC<CommentEntryProps> = (props: CommentEnt
                                         onClick={() => {
                                             deleteComment(state.token, comment.id || '', dispatch, (response) => {
                                                 if (response) {
-                                                    dispatch(deleteCommentReplyFromLocal(comment.id || ''));
-                                                    props.removeReply(comment.id);
+                                                    dispatch(deleteCommentFromLocal(comment.id || '', true));
                                                     toast('Your comment has been deleted');
                                                 } else {
                                                     toast(

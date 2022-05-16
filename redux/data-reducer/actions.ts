@@ -49,12 +49,8 @@ export const setUserPosts = (page: number, recvData: object): SetPostAction => (
     postData: recvData,
 });
 
-export const deleteCommentFromLocal = (commentId: string): DeleteCommentAction => ({
+export const deleteCommentFromLocal = (commentId: string, isReply: boolean): DeleteCommentAction => ({
     type: DELETE_COMMENT,
     commentId: commentId,
-});
-
-export const deleteCommentReplyFromLocal = (commentId: string): DeleteCommentAction => ({
-    type: DELETE_COMMENT_REPLY,
-    commentId: commentId,
+    isReply: isReply,
 });
