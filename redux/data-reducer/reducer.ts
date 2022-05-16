@@ -31,6 +31,17 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
                 commentData: commentData,
             };
         }
+        case types.DELETE_COMMENT_REPLY: {
+            const commentData = state.commentData;
+            commentData.content[0].replies.splice(
+                commentData.content[0].replies.findIndex((o: any) => o.id === action.commentId),
+                1,
+            );
+            return {
+                ...state,
+                commentData: commentData,
+            };
+        }
         case types.SET_POSTS: {
             switch (action.postType) {
                 case 'new':
