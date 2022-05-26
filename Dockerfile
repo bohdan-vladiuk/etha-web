@@ -32,13 +32,13 @@ COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
 
-EXPOSE 80
+EXPOSE 8880
 
-ENV PORT 80
+ENV PORT 8880
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
 
 CMD ["node_modules/.bin/next", "start"]
