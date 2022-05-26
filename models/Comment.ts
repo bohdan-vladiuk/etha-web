@@ -6,6 +6,7 @@ export interface Comment {
     user: User;
     userName?: string;
     text?: string;
+    replies: Array<Comment>,
     postId?: string;
     createdAt: Date;
     reactionCount: ReactionCount;

@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+import { Comment } from '../../models';
 import { IDataState } from './interfaces';
 import * as types from './types';
 
@@ -22,15 +23,25 @@ function DataReducer(state = initialState, action: AnyAction): IDataState {
         }
         case types.DELETE_COMMENT: {
             const commentData = state.commentData;
-            commentData.content.splice(
-                commentData.content.findIndex((o: any) => o.id === action.commentId),
-                1,
-            );
+            if (action.isReply) {
+                commentData.content.forEach((comment: Comment) => {
+                    comment.replies.splice(
+                        commentData.content.findIndex((o: any) => o.id === action.commentId),
+                        1,
+                    );
+                });
+            } else {
+                commentData.content.splice(
+                    commentData.content.findIndex((o: any) => o.id === action.commentId),
+                    1,
+                );
+            }
             return {
                 ...state,
                 commentData: commentData,
             };
         }
+
         case types.SET_POSTS: {
             switch (action.postType) {
                 case 'new':
