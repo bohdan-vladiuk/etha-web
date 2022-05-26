@@ -40,6 +40,7 @@ export const EDIT_COMMENTS = `${baseUrl}/comment`;
 export const DELETE_COMMENTS = `${baseUrl}/comment`;
 export const GET_COMMENTS_LIST = `${baseUrl}/comment`;
 export const GET_USER_COMMENT_COUNT = `${baseUrl}/comment/count/user`;
+export const POST_COMMENT_REPLY = `${baseUrl}/comment/commentId/reply`;
 
 export const SET_VOTES = `${baseUrl}/vote`;
 export const DELETE_VOTE = `${baseUrl}/vote`;
