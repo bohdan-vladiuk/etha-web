@@ -2,7 +2,7 @@ import { SetCommentAction, SetPostAction } from './interfaces';
 import { SET_COMMENTS, SET_POSTS, SET_USER_ACTIVITY_DATA } from './types';
 import { SetUserPosts, SetUserActiivityAction } from './interfaces';
 import { SET_USERS } from './types';
-import { DeleteCommentAction, DELETE_COMMENT } from '.';
+import { DeleteCommentAction, DELETE_COMMENT, DELETE_COMMENT_REPLY } from '.';
 
 export const setUsers = (users: object): SetUserPosts => ({
     type: SET_USERS,
@@ -49,7 +49,8 @@ export const setUserPosts = (page: number, recvData: object): SetPostAction => (
     postData: recvData,
 });
 
-export const deleteCommentFromLocal = (commentId: string): DeleteCommentAction => ({
+export const deleteCommentFromLocal = (commentId: string, isReply: boolean): DeleteCommentAction => ({
     type: DELETE_COMMENT,
     commentId: commentId,
+    isReply: isReply,
 });

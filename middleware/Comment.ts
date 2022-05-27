@@ -5,8 +5,9 @@ import {
     POST_COMMENTS,
     EDIT_COMMENTS,
     SET_COMMENT_REACTION,
+    POST_COMMENT_REPLY,
 } from '../services/API';
-import { CommentReactionRequest, CommentRequest, ReactionCount } from '../models';
+import { CommentReactionRequest, CommentRequest, ReactionCount, Comment } from '../models';
 import api from '../services/api-helper';
 import { setComments, setLoaderVisibility } from '../redux';
 import { AppDispatch } from '../redux/store';
@@ -155,6 +156,30 @@ export async function postReaction(
                     commentId: commentReactionRequest.commentId,
                     value: commentReactionRequest.value,
                 });
+            },
+            (err) => {
+                console.log('Error: ', err);
+            },
+        )
+        .finally(() => {
+            dispatch(setLoaderVisibility(false));
+        });
+}
+
+export async function postCommentReply(
+    token: string,
+    commentId: string,
+    commentRequest: CommentRequest,
+    dispatch: AppDispatch,
+    cleanFunction: (comment: Comment) => void,
+): Promise<void> {
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    const url = POST_COMMENT_REPLY.replace('commentId', (commentId || '' ))
+    dispatch(setLoaderVisibility(true));
+    api.post(url, commentRequest, config)
+        .then(
+            (response) => {
+                cleanFunction(response.data.content[0]);
             },
             (err) => {
                 console.log('Error: ', err);

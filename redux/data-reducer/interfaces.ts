@@ -28,6 +28,7 @@ export interface SetCommentAction {
 export interface DeleteCommentAction {
     type: string;
     commentId: string;
+    isReply: boolean;
 }
 
 export interface SetUserActiivityAction {
