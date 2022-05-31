@@ -20,19 +20,19 @@ import { ImQuotesLeft } from 'react-icons/im';
 const featureList = [
     {
         title: 'View Profiles and Current Ratings of Politicians',
-        image: '/home/features/test.png',
+        image: '/home/features/4.png',
     },
     {
         title: 'Agree and Disagree with statements made by politicians',
-        image: '/home/features/test.png',
+        image: '/home/features/3.png',
     },
     {
         title: 'Share your Political Views',
-        image: '/home/features/test.png',
+        image: '/home/features/1.png',
     },
     {
         title: 'See the latest topics and trends',
-        image: '/home/features/test.png',
+        image: '/home/features/2.png',
     },
 ];
 
@@ -50,6 +50,11 @@ const Home: NextPage = () => {
     const history = useRouter();
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        if (state.signedIn) {
+            history.push('/home');
+        }
+    }, [state.signedIn]);
     useEffect(() => {
         const win: Window = window;
         const onScroll: EventListener = (event: Event) => {

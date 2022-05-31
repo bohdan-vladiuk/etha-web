@@ -19,6 +19,10 @@ export const faqs: FaqDetails[] = [
         question: 'Why agree or disagree?',
         answer: 'Agree and Disagree breaks down the subjective narratives of various ideologies into an objective format. This helps us understand the perspectives and ideologies that are being promoted in the media right now and how it affects the people on the long run.',
     },
+    {
+        question: 'How does Etha safeguard my Privacy?',
+        answer: 'We have state of the art reliable systems thagt ensuere that your identity is abstracted and safeguarded at all times. We do not collect any sensitive data regarding the identity of the user. The insights and the analytics we provide are a derivative of data that is collected anonymously',
+    },
 ];
 
 export const featurePoints: string[] = [

@@ -272,12 +272,8 @@ export const PostPanel: NextPage<Props> = (props) => {
                                                 fontWeight: 400,
                                                 color: 'black',
                                                 textAlign: 'justify',
-                                                cursor: 'pointer',
                                             }}
                                             className="mt-2 px-3"
-                                            onClick={(event) => {
-                                                history.push(`/post/${post.tag}`);
-                                            }}
                                         >
                                             {'"' + post.text + '" '}
                                             <a
