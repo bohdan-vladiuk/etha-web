@@ -324,7 +324,7 @@ const Home: NextPage = () => {
                             <div className={`${styles.seperator}`} />
                         </div>
                         <div className={`${styles.dark_container}`} style={{ marginTop: '80px' }}>
-                            <Col md={6} className="px-4 pt-5">
+                            <Col md={12} lg={6} className="px-4 pt-5">
                                 <h1 className={styles.light_header}>
                                     We care how you feel about news biasedness and misinformation
                                 </h1>
@@ -362,7 +362,7 @@ const Home: NextPage = () => {
                             <div className={`${styles.seperator}`} />
                         </div>
                         <div className={`${styles.black_container}`}>
-                            <Col md={6} className="pl-4">
+                            <Col md={12} lg={6} className="pl-4">
                                 <h1 className={styles.light_header}>A Safe Place for free expression </h1>
                                 <p className={styles.light_content}>
                                     Almost two-thirds of the people in the U.S. are stressed by the news. we are
@@ -370,10 +370,10 @@ const Home: NextPage = () => {
                                     engagement inevitably suffer,
                                 </p>
                                 <div
-                                    className="d-flex p-0 mt-4 mr-4 mb-3"
+                                    className="d-flex p-0 mt-4 mb-3"
                                     style={{ cursor: 'pointer', alignItems: 'center', flexWrap: 'wrap' }}
                                 >
-                                    <Col xs={6} lg={4} className="m-0 p-0">
+                                    <Col xs={6} md={3} lg={4} className="m-0 p-0">
                                         <Button
                                             variant="primary ml-0 mr-2"
                                             style={{
@@ -400,7 +400,7 @@ const Home: NextPage = () => {
                                             />
                                         </Button>
                                     </Col>
-                                    <Col xs={6} lg={4} className="m-0 p-0">
+                                    <Col xs={6} md={3} lg={4} className="m-0 p-0">
                                         <Button
                                             variant="light ml-0 mr-2"
                                             style={{

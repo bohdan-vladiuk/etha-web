@@ -102,9 +102,6 @@ const Home: NextPage = () => {
                                 })}
                         </InfiniteScroll>
                     </Col>
-                    <Col className=" d-none d-lg-flex" lg={3}>
-                        {/* <SidePanelRight /> */}
-                    </Col>
                 </Row>
                 <AppFooter />
             </Container>
