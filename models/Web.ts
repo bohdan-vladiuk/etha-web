@@ -16,10 +16,6 @@ export const faqs: FaqDetails[] = [
         answer: 'The LeaderQ score is the public approval rating of a certain politician. It varies depending on how people have been reacting to the statements made by the politician. This value changes based on the agrees, disagrees and the various constructive comments made by the users reagarding the political leader.',
     },
     {
-        question: 'Why agree or disagree?',
-        answer: 'Agree and Disagree breaks down the subjective narratives of various ideologies into an objective format. This helps us understand the perspectives and ideologies that are being promoted in the media right now and how it affects the people on the long run.',
-    },
-    {
         question: 'How does Etha safeguard my Privacy?',
         answer: 'We have state of the art reliable systems thagt ensuere that your identity is abstracted and safeguarded at all times. We do not collect any sensitive data regarding the identity of the user. The insights and the analytics we provide are a derivative of data that is collected anonymously',
     },

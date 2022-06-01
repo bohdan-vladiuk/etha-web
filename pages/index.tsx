@@ -31,7 +31,7 @@ const featureList = [
         image: '/home/features/1.png',
     },
     {
-        title: 'See the latest topics and trends',
+        title: 'See the l   atest topics and trends',
         image: '/home/features/2.png',
     },
 ];
@@ -334,9 +334,9 @@ const Home: NextPage = () => {
                                     We care how you feel about news biasedness and misinformation
                                 </h1>
                                 <p className={styles.light_content}>
-                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
-                                    helplessness and hopelessness in the face of diverse misinformation and our civic
-                                    engagement inevitably suffer,
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. We are
+                                    helpless and hopeless in the face of diverse misinformation and our civic engagement
+                                    inevitably suffer,
                                 </p>
                             </Col>
                             <Col md={6} style={{ height: '400px !important' }}>
@@ -371,8 +371,8 @@ const Home: NextPage = () => {
                                 <h1 className={styles.light_header}>A Safe Place for free expression </h1>
                                 <p className={styles.light_content}>
                                     Almost two-thirds of the people in the U.S. are stressed by the news. we are
-                                    helplessness and hopelessness in the face of diverse misinformation and our civic
-                                    engagement inevitably suffer,
+                                    helpless and hopeless in the face of diverse misinformation and our civic engagement
+                                    inevitably suffer,
                                 </p>
                                 <div
                                     className="d-flex p-0 mt-4 mb-3"
