@@ -20,19 +20,19 @@ import { ImQuotesLeft } from 'react-icons/im';
 const featureList = [
     {
         title: 'View Profiles and Current Ratings of Politicians',
-        image: '/home/features/test.png',
+        image: '/home/features/4.png',
     },
     {
         title: 'Agree and Disagree with statements made by politicians',
-        image: '/home/features/test.png',
+        image: '/home/features/3.png',
     },
     {
         title: 'Share your Political Views',
-        image: '/home/features/test.png',
+        image: '/home/features/1.png',
     },
     {
-        title: 'See the latest topics and trends',
-        image: '/home/features/test.png',
+        title: 'See the l   atest topics and trends',
+        image: '/home/features/2.png',
     },
 ];
 
@@ -50,6 +50,11 @@ const Home: NextPage = () => {
     const history = useRouter();
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        if (state.signedIn) {
+            history.push('/home');
+        }
+    }, [state.signedIn]);
     useEffect(() => {
         const win: Window = window;
         const onScroll: EventListener = (event: Event) => {
@@ -329,9 +334,9 @@ const Home: NextPage = () => {
                                     We care how you feel about news biasedness and misinformation
                                 </h1>
                                 <p className={styles.light_content}>
-                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
-                                    helplessness and hopelessness in the face of diverse misinformation and our civic
-                                    engagement inevitably suffer,
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. We are
+                                    helpless and hopeless in the face of diverse misinformation and our civic engagement
+                                    inevitably suffer,
                                 </p>
                             </Col>
                             <Col md={6} style={{ height: '400px !important' }}>
@@ -366,8 +371,8 @@ const Home: NextPage = () => {
                                 <h1 className={styles.light_header}>A Safe Place for free expression </h1>
                                 <p className={styles.light_content}>
                                     Almost two-thirds of the people in the U.S. are stressed by the news. we are
-                                    helplessness and hopelessness in the face of diverse misinformation and our civic
-                                    engagement inevitably suffer,
+                                    helpless and hopeless in the face of diverse misinformation and our civic engagement
+                                    inevitably suffer,
                                 </p>
                                 <div
                                     className="d-flex p-0 mt-4 mb-3"
