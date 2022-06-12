@@ -17,7 +17,7 @@ export const faqs: FaqDetails[] = [
     },
     {
         question: 'How does Etha safeguard my Privacy?',
-        answer: 'We have state of the art reliable systems that ensuere that your identity is abstracted and safeguarded at all times. We do not collect any sensitive data regarding the identity of the user. The insights and the analytics we provide are a derivative of data that is collected anonymously',
+        answer: 'We have state of the art reliable systems that ensures your identity is abstracted and safeguarded at all times. We do not collect any sensitive data regarding the identity of the user. The insights and the analytics we provide are a derivative of data that is collected anonymously',
     },
 ];
 
