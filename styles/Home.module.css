@@ -137,8 +137,6 @@
 .testimonial_container .testimonial_card:nth-child(3) {
     --translate-x: 58%;
     z-index: 3;
-    background: #4824d6 0% 0% no-repeat padding-box;
-    color: #fff;
 }
 
 .seperator {

@@ -226,39 +226,13 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                                                             {user.voteCount?.agree !== undefined &&
                                                             user.voteCount?.disagree !== undefined
                                                                 ? (
-                                                                      (user.voteCount?.agree * 100) /
+                                                                      (user.voteCount?.agree * 1000) /
                                                                       (user.voteCount?.agree + user.voteCount?.disagree)
-                                                                  ).toFixed(2) + '%'
+                                                                  ).toFixed(0)
                                                                 : '...'}
                                                         </h4>
-                                                        <h6 style={{ fontWeight: 'bolder' }}>Approval Rating</h6>
+                                                        <h6 style={{ fontWeight: 'bolder' }}>LeadeQ Score</h6>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex" style={{ justifyContent: 'space-between' }}>
-                                                <div className="mx-3 px-2 py-2">
-                                                    <h4 style={{ fontWeight: 'bolder' }}>
-                                                        {state.postsData.totalElements !== undefined
-                                                            ? state.postsData.totalElements
-                                                            : '...'}
-                                                    </h4>
-                                                    <h6 style={{ fontWeight: 'bolder' }}>Posts</h6>
-                                                </div>
-                                                <div className="mx-3 px-2 py-2">
-                                                    <h4 style={{ fontWeight: 'bolder' }}>
-                                                        {user.voteCount?.agree !== undefined
-                                                            ? user.voteCount?.agree
-                                                            : '...'}
-                                                    </h4>
-                                                    <h6>Agrees</h6>
-                                                </div>
-                                                <div className="mx-3 px-2 py-2">
-                                                    <h4 style={{ fontWeight: 'bolder' }}>
-                                                        {user.voteCount?.disagree !== undefined
-                                                            ? user.voteCount?.disagree
-                                                            : '...'}
-                                                    </h4>
-                                                    <h6>Disagrees</h6>
                                                 </div>
                                             </div>
                                         </div>
