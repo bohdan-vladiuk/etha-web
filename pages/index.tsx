@@ -31,7 +31,7 @@ const featureList = [
         image: '/home/features/1.png',
     },
     {
-        title: 'See the l   atest topics and trends',
+        title: 'See the latest topics and trends',
         image: '/home/features/2.png',
     },
 ];
@@ -115,7 +115,7 @@ const Home: NextPage = () => {
                                 <h1 className={styles.home_header}>Let&lsquo;s Fix the System</h1>
                                 <p className={styles.home_content_grey}>
                                     Introducing Etha - your new favorite interactive social news platform, which helps
-                                    you hold politicians accountable and mitigates the spread of misinformation.
+                                    you hold politicians accountable.
                                 </p>
                                 <div
                                     className="d-flex p-0 mt-4 mr-4"
@@ -328,15 +328,31 @@ const Home: NextPage = () => {
                         <div className="d-flex w-100 mt-2 mb-2" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
                         </div>
+                        <div
+                            className="d-flex w-100 my-5 py-5"
+                            style={{ alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}
+                        >
+                            <h1 className={styles.home_header_secondary}>
+                                Participate in free, open and global conversations with healthy discourse
+                            </h1>
+                            <p className={`${styles.home_content_small}`}>
+                                Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                helplessness and hopelessness in the face of diverse misinformation and our civic
+                                engagement inevitably suffers.
+                            </p>
+                        </div>{' '}
+                        <div className="d-flex w-100 mt-2 mb-2" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
+                        </div>
                         <div className={`${styles.dark_container}`} style={{ marginTop: '80px' }}>
                             <Col md={12} lg={6} className="px-4 pt-5">
                                 <h1 className={styles.light_header}>
-                                    We care how you feel about news biasedness and misinformation
+                                    We care how you feel about your politicians and they should too.
                                 </h1>
                                 <p className={styles.light_content}>
-                                    Almost two-thirds of the people in the U.S. are stressed by the news. We are
-                                    helpless and hopeless in the face of diverse misinformation and our civic engagement
-                                    inevitably suffer,
+                                    Introducing Etha - your new favorite interactive social news platform, which helps
+                                    you hold politicians accountable.Almost two-thirds of the people in the U.S. are
+                                    stressed by the news.
                                 </p>
                             </Col>
                             <Col md={6} style={{ height: '400px !important' }}>
@@ -348,7 +364,7 @@ const Home: NextPage = () => {
                                 />
                             </Col>
                         </div>
-                        <div className={`${styles.landing_container_light} pt-5 mt-5`}>
+                        {/* <div className={`${styles.landing_container_light} pt-5 mt-5`}>
                             {featureList.map((feature) => {
                                 return (
                                     <Col
@@ -362,77 +378,9 @@ const Home: NextPage = () => {
                                     </Col>
                                 );
                             })}
-                        </div>
+                        </div> */}
                         <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
-                        </div>
-                        <div className={`${styles.black_container}`}>
-                            <Col md={12} lg={6} className="pl-4">
-                                <h1 className={styles.light_header}>A Safe Place for free expression </h1>
-                                <p className={styles.light_content}>
-                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
-                                    helpless and hopeless in the face of diverse misinformation and our civic engagement
-                                    inevitably suffer,
-                                </p>
-                                <div
-                                    className="d-flex p-0 mt-4 mb-3"
-                                    style={{ cursor: 'pointer', alignItems: 'center', flexWrap: 'wrap' }}
-                                >
-                                    <Col xs={6} md={3} lg={4} className="m-0 p-0">
-                                        <Button
-                                            variant="primary ml-0 mr-2"
-                                            style={{
-                                                borderRadius: '5px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                minWidth: '50px !important',
-                                                width: '100px !important',
-                                            }}
-                                            onClick={() =>
-                                                window.open(
-                                                    'https://play.google.com/store/apps/details?id=one.etha.app',
-                                                    '_blank',
-                                                )
-                                            }
-                                        >
-                                            <Image
-                                                className="p-0 py-0 pr-2"
-                                                src={`/home/play-store.svg`}
-                                                alt=""
-                                                height={40}
-                                                width={120}
-                                            />
-                                        </Button>
-                                    </Col>
-                                    <Col xs={6} md={3} lg={4} className="m-0 p-0">
-                                        <Button
-                                            variant="light ml-0 mr-2"
-                                            style={{
-                                                borderRadius: '5px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                border: 'none !important',
-                                            }}
-                                            onClick={() =>
-                                                window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
-                                            }
-                                        >
-                                            <Image
-                                                className="p-0 py-0"
-                                                src={`/home/app-store.svg`}
-                                                alt=""
-                                                height={40}
-                                                width={120}
-                                            />
-                                        </Button>
-                                    </Col>
-                                </div>
-                            </Col>
-                            <Col md={6} className="my-0 py-0">
-                                <Image src="/home/iphone-3.png" width="100%" style={{ objectFit: 'cover' }} />
-                            </Col>
                         </div>
                         <Carousel
                             indicators={false}
@@ -496,18 +444,76 @@ const Home: NextPage = () => {
                         <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
                         </div>
-                        <div
-                            className="d-flex w-100 my-5 py-5"
-                            style={{ alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}
-                        >
-                            <h1 className={styles.home_header_secondary}>
-                                Participate in free, open and global conversations with healthy discourse
-                            </h1>
-                            <p className={`${styles.home_content_small}`}>
-                                Almost two-thirds of the people in the U.S. are stressed by the news. we are
-                                helplessness and hopelessness in the face of diverse misinformation and our civic
-                                engagement inevitably suffer,
-                            </p>
+                        <div className={`${styles.black_container}`}>
+                            <Col md={12} lg={6} className="pl-4">
+                                <h1 className={styles.light_header}>A Safe Place for free expression </h1>
+                                <p className={styles.light_content}>
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. We are
+                                    helpless and hopeless in the face of diverse misinformation and our civic engagement
+                                    inevitably suffer,
+                                </p>
+                                <div
+                                    className="d-flex p-0 mt-4 mb-3"
+                                    style={{ cursor: 'pointer', alignItems: 'center', flexWrap: 'wrap' }}
+                                >
+                                    <Col xs={6} md={3} lg={4} className="m-0 p-0">
+                                        <Button
+                                            variant="primary ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                minWidth: '50px !important',
+                                                width: '100px !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open(
+                                                    'https://play.google.com/store/apps/details?id=one.etha.app',
+                                                    '_blank',
+                                                )
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0 pr-2"
+                                                src={`/home/play-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                    <Col xs={6} md={3} lg={4} className="m-0 p-0">
+                                        <Button
+                                            variant="light ml-0 mr-2"
+                                            style={{
+                                                borderRadius: '5px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                border: 'none !important',
+                                            }}
+                                            onClick={() =>
+                                                window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')
+                                            }
+                                        >
+                                            <Image
+                                                className="p-0 py-0"
+                                                src={`/home/app-store.svg`}
+                                                alt=""
+                                                height={40}
+                                                width={120}
+                                            />
+                                        </Button>
+                                    </Col>
+                                </div>
+                            </Col>
+                            <Col md={6} className="my-0 py-0">
+                                <Image src="/home/iphone-3.png" width="100%" style={{ objectFit: 'cover' }} />
+                            </Col>
+                        </div>
+                        <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
                         </div>
                         <div className="w-100">
                             <h1 className={`${styles.home_header_secondary} mb-5`}>Frequently Asked Questions</h1>
