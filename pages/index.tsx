@@ -591,7 +591,7 @@ const Home: NextPage = () => {
             <a
                 href="https://www.producthunt.com/posts/etha?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-etha"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer"
             >
                 <img
                     className="m-2"
