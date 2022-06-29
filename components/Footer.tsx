@@ -131,7 +131,7 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
                             window.open('https://wefunder.com/etha.one', '_blank');
                         }}
                     >
-                        Invest Now
+                        Invest
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <SocialIcons variant="dark" />

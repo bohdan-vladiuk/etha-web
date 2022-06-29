@@ -9,7 +9,7 @@ export const faqs: FaqDetails[] = [
     },
     {
         question: 'How does Etha reduce biasedness?',
-        answer: 'We have devloped AI solutions that help us collect data from more than 10,000 news media channels. It uses the previous known data, crowdsourcing (wisdom of the public) and the nrratives of the news articles to understand and mitigate the biasedness on the applicaiton.',
+        answer: 'We have devloped AI solutions that help us collect data from more than 10,000 news media channels. It uses the previous known data, crowdsourcing (wisdom of the public) and the narratives of the news articles to understand and mitigate the biasedness on the applicaiton.',
     },
     {
         question: 'LeaderQ Score, what does it mean?',
