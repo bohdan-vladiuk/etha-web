@@ -1,37 +1,42 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import nookies from 'nookies';
 import { firebaseClient } from './firebaseClient';
-import firebaseApp from 'firebase/app';
 import { useAppDispatch } from '../redux/store';
 import { setToken } from '../redux';
 
-const AuthContext = createContext<{ user: firebaseApp.User | null }>({
+const AuthContext = createContext<{ user: firebaseClient.User | null }>({
     user: null,
 });
 
 export function AuthProvider({ children }: any) {
-    const [user, setUser] = useState<firebaseApp.User | null>(null);
+    const [user, setUser] = useState<firebaseClient.User | null>(null);
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             (window as any).nookies = nookies;
         }
-        return firebaseClient.auth().onIdTokenChanged(async (user) => {
-            if (!user) {
-                console.log(`no token found...`);
-                setUser(null);
+        const initializeAuth = async () => {
+            await import('firebase/auth');
+            firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.LOCAL);
+            return firebaseClient.auth().onIdTokenChanged(async (user) => {
+                if (!user) {
+                    console.log(`no token found...`);
+                    setUser(null);
+                    nookies.destroy(null, 'token');
+                    nookies.set(null, 'token', '', { path: '/' });
+                    firebaseClient.auth().signOut();
+                    return;
+                }
+                console.log(`updating token...`);
+                const token = await user.getIdToken();
+                setUser(user);
                 nookies.destroy(null, 'token');
-                nookies.set(null, 'token', '', { path: '/' });
-                firebaseClient.auth().signOut();
-                return;
-            }
-            console.log(`updating token...`);
-            const token = await user.getIdToken();
-            setUser(user);
-            nookies.destroy(null, 'token');
-            nookies.set(null, 'token', token, { path: '/' });
-            dispatch(setToken(token));
-        });
+                nookies.set(null, 'token', token, { path: '/' });
+                dispatch(setToken(token));
+            });
+        };
+        initializeAuth();
     }, []);
 
     // force refresh the token every 10 minutes

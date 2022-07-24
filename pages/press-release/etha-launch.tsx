@@ -15,7 +15,7 @@ export const PressArticle: NextPage = () => {
                     content="Etha launches world’s first non-partisan polling tool for political statements"
                     key="ogTitle"
                 />
-                <meta name="keywords" content="etha,latest politician statements,political polls" />
+                <meta name="keywords" content="politics,latest politician statements,political polls" />
             </Head>
             <div
                 className="d-flex p-4"

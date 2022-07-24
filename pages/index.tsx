@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-// import Image from 'next/image';
+import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
 import { NavBar } from '../components/NavBar';
@@ -8,7 +8,7 @@ import { Page } from '../components/PageComponent';
 import { ContactUsModal } from '../components/ContactUsModal';
 import { CustomButton } from '../components/Button.component';
 import { Footer } from '../components/Footer';
-import { Button, Carousel, CarouselItem, Col, Container, Image } from 'react-bootstrap';
+import { Button, Carousel, CarouselItem, Col, Container } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { useRouter } from 'next/router';
@@ -19,6 +19,7 @@ import { ImQuotesLeft } from 'react-icons/im';
 import { TextField } from '@mui/material';
 import { SubscribeToNewsLetter } from '../models';
 import { SubscribeNewsletter } from '../middleware';
+import Head from 'next/head';
 
 const featureList = [
     {
@@ -41,8 +42,8 @@ const featureList = [
 
 const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
-    const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
-    const [opacity, setOpacity] = useState(0.0);
+    // const [showJoinButton, setShowJoinButton] = useState<boolean>(false);
+    // const [opacity, setOpacity] = useState(0.0);
     const segment1 = getFeaturePointsUI(1);
     const segment2 = getFeaturePointsUI(2);
     const state = useAppSelector((reduxState) => ({
@@ -53,32 +54,31 @@ const Home: NextPage = () => {
     const history = useRouter();
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        if (state.signedIn) {
-            history.push('/home');
-        }
-    }, [state.signedIn]);
-    useEffect(() => {
-        const win: Window = window;
-        const onScroll: EventListener = (event: Event) => {
-            if (document.body.scrollTop >= win.innerHeight) {
-                console.log('hithere');
-                setOpacity((opacity) => (opacity > 1 ? 1 : opacity + 0.2));
-                setShowJoinButton(true);
-            } else {
-                setOpacity((opacity) => (opacity <= 0 ? 0 : opacity - 0.2));
-                opacity === 0 && setShowJoinButton(false);
-            }
-        };
+    // useEffect(() => {
+    //     if (state.signedIn) {
+    //         history.push('/home');
+    //     }
+    // }, [state.signedIn]);
+    // useEffect(() => {
+    //     const win: Window = window;
+    //     const onScroll: EventListener = (event: Event) => {
+    //         if (document.body.scrollTop >= win.innerHeight) {
+    //             setOpacity((opacity) => (opacity > 1 ? 1 : opacity + 0.2));
+    //             setShowJoinButton(true);
+    //         } else {
+    //             setOpacity((opacity) => (opacity <= 0 ? 0 : opacity - 0.2));
+    //             opacity === 0 && setShowJoinButton(false);
+    //         }
+    //     };
 
-        win.addEventListener('scroll', onScroll);
-        win.addEventListener('wheel', onScroll);
+    //     win.addEventListener('scroll', onScroll);
+    //     win.addEventListener('wheel', onScroll);
 
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-            window.removeEventListener('wheel', onScroll);
-        };
-    }, [opacity]);
+    //     return () => {
+    //         window.removeEventListener('scroll', onScroll);
+    //         window.removeEventListener('wheel', onScroll);
+    //     };
+    // }, [opacity]);
 
     function handleCarouselSelect() {
         if (carouselIndex === 0) {
@@ -125,7 +125,10 @@ const Home: NextPage = () => {
 
     return (
         <>
-            {showJoinButton && <NavBar />}
+            <Head>
+                <meta name="keywords" content="politics,latest politician statements,political polls" />
+            </Head>
+            {/* {showJoinButton && <NavBar />} */}
             <div className={styles.container}>
                 <div className={`${styles.landing_container}`}>
                     <Container className="mb-0" style={{ paddingBottom: '40px' }}>
@@ -133,13 +136,14 @@ const Home: NextPage = () => {
                             className="d-flex w-100"
                             style={{
                                 justifyContent: 'center',
-                                paddingTop: '60px',
                                 alignItems: 'center',
                                 flexWrap: 'wrap',
                             }}
                         >
                             <Col lg={5}>
-                                <Image src="/home/iphone-1.png" width="100%" />
+                                <div style={{ width: '100%', height: '70vh', position: 'relative' }}>
+                                    <Image src="/home/iphone-1.png" layout="fill" objectFit="contain" />
+                                </div>
                             </Col>
                             <Col lg={7}>
                                 <h1 className={styles.home_header}>Let&lsquo;s Fix the System</h1>
@@ -441,7 +445,9 @@ const Home: NextPage = () => {
                                 </div>
                             </Col>
                             <Col md={6} className="my-0 py-0">
-                                <Image src="/home/iphone-3.png" width="100%" style={{ objectFit: 'cover' }} />
+                                <div style={{ width: '100%', height: '50vh', position: 'relative' }}>
+                                    <Image src="/home/iphone-3.png" layout="fill" objectFit="cover" />
+                                </div>
                             </Col>
                         </div>
                         {/* <div className={`${styles.landing_container_light} pt-5 mt-5`}>
@@ -479,11 +485,9 @@ const Home: NextPage = () => {
                                         <Col key={`fp-${index}`} className={`${styles.feature_point_container}`} sm={6}>
                                             <div className={`${styles.feature_point}`}>
                                                 <div className={`${styles.checkmark}`}>
-                                                    <Image
-                                                        src="/home/check.svg"
-                                                        width="100%"
-                                                        style={{ objectFit: 'cover' }}
-                                                    />
+                                                    <div style={{ width: 'auto', height: '4vh', position: 'relative' }}>
+                                                        <Image src="/home/check.svg" layout="fill" objectFit="cover" />
+                                                    </div>
                                                 </div>
                                                 <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
                                             </div>
@@ -500,11 +504,9 @@ const Home: NextPage = () => {
                                         <Col key={`fp-${index}`} className={`${styles.feature_point_container}`} sm={6}>
                                             <div className={`${styles.feature_point}`}>
                                                 <div className={`${styles.checkmark}`}>
-                                                    <Image
-                                                        src="/home/check.svg"
-                                                        width="100%"
-                                                        style={{ objectFit: 'cover' }}
-                                                    />
+                                                    <div style={{ width: 'auto', height: '4vh', position: 'relative' }}>
+                                                        <Image src="/home/check.svg" layout="fill" objectFit="cover" />
+                                                    </div>
                                                 </div>
                                                 <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
                                             </div>
@@ -524,7 +526,7 @@ const Home: NextPage = () => {
                         <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
                         </div>
-                        <div className={`${styles.dark_container}`} style={{ marginTop: '80px' }}>
+                        <div className={`${styles.dark_container}`} style={{ marginTop: '30px' }}>
                             <Col md={12} lg={6} className="px-4 pt-5">
                                 <h1 className={styles.light_header}>A Safe Place for free expression </h1>
                                 <p className={styles.light_content}>
@@ -562,12 +564,9 @@ const Home: NextPage = () => {
                                 </div>
                             </Col>
                             <Col md={6} style={{ height: '400px !important' }}>
-                                <Image
-                                    src="/home/iphone-2.png"
-                                    width="100%"
-                                    height="100%"
-                                    style={{ objectFit: 'contain' }}
-                                />
+                                <div style={{ width: '100%', height: '400px', position: 'relative' }}>
+                                    <Image src="/home/iphone-2.png" layout="fill" objectFit="contain" />
+                                </div>
                             </Col>
                         </div>
                         <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>

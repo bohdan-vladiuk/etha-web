@@ -17,7 +17,6 @@ class MyDocument extends Document {
                         name="description"
                         content="Etha a gamified, objective discourse is needed to make democracy withstand the onslaught of media manipulation and extreme voter polarization."
                     />
-                    <meta name="keywords" content="etha,latest politician statements,political polls" />
                     <meta name="robots" content="index, follow" />
                     <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
                     <meta name="language" content="English" />
@@ -45,12 +44,6 @@ class MyDocument extends Document {
                     <meta name="msvalidate.01" content="FD277DA85E7B450C3FB9CDFBF22FF2CA" />
                     <meta name="yandex-verification" content="ff1cde9a4ca6bb62" />
 
-                    <script
-                        async
-                        id="fontAwesome"
-                        src="https://kit.fontawesome.com/51999c6eef.js"
-                        crossOrigin="anonymous"
-                    />
                     <script
                         dangerouslySetInnerHTML={{
                             __html: `
@@ -107,6 +100,12 @@ class MyDocument extends Document {
                         }}
                     />
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
+                    <script
+                        async
+                        id="fontAwesome"
+                        src="https://kit.fontawesome.com/51999c6eef.js"
+                        crossOrigin="anonymous"
+                    />
                     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
                 </Head>
                 <body>

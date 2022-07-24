@@ -1,5 +1,4 @@
 import firebaseClient from 'firebase/app';
-import 'firebase/auth';
 import 'firebase/analytics';
 
 /*
@@ -25,10 +24,8 @@ let firebaseAnalytics: firebaseClient.analytics.Analytics;
 
 if (typeof window !== 'undefined') {
     firebaseClient.initializeApp(CLIENT_CONFIG);
-    firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.LOCAL);
     (window as any).firebase = firebaseClient;
-    firebaseAuth = firebaseClient.auth();
     firebaseAnalytics = firebaseClient.analytics();
 }
 
-export { firebaseClient, firebaseAuth, firebaseAnalytics };
+export { firebaseClient, firebaseAnalytics };

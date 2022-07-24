@@ -82,6 +82,7 @@ export async function checkUser(email: string, onSuccess: (provider: string) => 
 }
 
 export async function signInUser(user: User, dispatch: AppDispatch, cleanFunction: () => void): Promise<void> {
+    await import('firebase/auth');
     api.post(SIGN_IN_USER, user).then(
         (response) => {
             if (response.data !== undefined && response.data !== '') {
@@ -112,6 +113,7 @@ export async function signInUser(user: User, dispatch: AppDispatch, cleanFunctio
 }
 
 export async function signUpUser(user: User, dispatch: AppDispatch, cleanFunction: () => void): Promise<void> {
+    await import('firebase/auth');
     api.post(SIGN_UP_USER, user).then(
         (response) => {
             if (response.data !== undefined && response.data !== '') {

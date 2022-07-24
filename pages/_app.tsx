@@ -32,11 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }));
     useEffect(() => {
         if (state.token !== undefined && state.token !== '') {
-            getUserDetailsWithToken(state.token, dispatch, (recvUser) => {
-                if (_.isEmpty(recvUser)) {
-                    //TODO
-                }
-            });
+            getUserDetailsWithToken(state.token, dispatch, (recvUser) => {});
         }
     }, [dispatch, state.token, state.userId]);
 

@@ -20,15 +20,17 @@ import { CompareBar } from '../../components/CompareBar';
 import { AppFooter } from '../../components/AppFooter';
 import { firebaseAnalytics } from '../../auth/firebaseClient';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import keyword_extractor from 'keyword-extractor';
 
 interface Props {
     preFetchPost?: Post;
+    keywords: string;
 }
 
 export const PostPanel: NextPage<Props> = (props) => {
     const [userVote, setUserVote] = useState<boolean | undefined>();
     const [post, setPostData] = useState<Post>(props.preFetchPost || {});
-
+    const [keywords] = useState(props.keywords);
     const [commentPost, setCommentPost] = useState('');
     const [commentPage, setCommentPage] = useState(0);
     const state = useAppSelector((reduxState) => ({
@@ -165,7 +167,7 @@ export const PostPanel: NextPage<Props> = (props) => {
                 <meta name="twitter:title" content={`${post.user?.name} says "${post.text}"`} />
                 <meta name="twitter:description" content="Intelligent Political Discourse" />
                 <meta name="twitter:image" content={post.user?.imageUrl} />
-                <meta name="keywords" content={`etha,${post.user?.name}, ${post.user?.title}`} />
+                <meta name="keywords" content={`politics,${post.user?.name}, ${keywords}`} />
             </Head>
             <AppNavBar />
             <Container
@@ -504,9 +506,17 @@ export const PostPanel: NextPage<Props> = (props) => {
 PostPanel.getInitialProps = async ({ query }) => {
     const postTag = query.postTag;
     let post = {};
+    let extracted_keywords: string[] = [];
     await api.get(GET_POST_TAG + `/${postTag}`).then(
         (response) => {
             post = response.data;
+            extracted_keywords = keyword_extractor.extract(response.data.text, {
+                language: 'english',
+                remove_digits: true,
+                return_changed_case: true,
+                return_chained_words: true,
+                remove_duplicates: false,
+            });
         },
         (err) => {
             console.log('Error: ', err);
@@ -515,6 +525,7 @@ PostPanel.getInitialProps = async ({ query }) => {
     );
     return {
         preFetchPost: post,
+        keywords: extracted_keywords.join(','),
     };
 };
 

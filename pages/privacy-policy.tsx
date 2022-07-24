@@ -3,12 +3,16 @@ import { Col, Row, Container, Image } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
+import Head from 'next/head';
 
 export const PrivacyPolicy: NextPage = () => {
     const history = useRouter();
 
     return (
         <div>
+            <Head>
+                <meta name="keywords" content="politics,latest politician statements,political polls" />
+            </Head>
             <div
                 className="d-flex p-4"
                 style={{

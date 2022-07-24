@@ -97,7 +97,7 @@ const Search: NextPage = () => {
     return (
         <>
             <Head>
-                <meta name="keywords" content="etha,latest politician statements,political polls" />
+                <meta name="keywords" content="politics,latest politician statements,political polls" />
             </Head>
             <AppNavBar />
             <Container

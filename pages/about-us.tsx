@@ -10,7 +10,7 @@ export const AboutUs: NextPage = () => {
     return (
         <>
             <Head>
-                <meta name="keywords" content="etha,latest politician statements,political polls" />
+                <meta name="keywords" content="politics,latest politician statements,political polls" />
             </Head>
             <div
                 className="d-flex w-100 p-4"

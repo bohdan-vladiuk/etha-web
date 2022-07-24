@@ -114,7 +114,10 @@ export const PoliticianPanel: NextPage<Props> = (props) => {
                 <meta name="twitter:title" content={`${user?.title}`} />
                 <meta name="twitter:description" content="Intelligent Political Discourse" />
                 <meta name="twitter:image" content={`${user?.imageUrl}`} />
-                <meta name="keywords" content={`etha,${user?.name}, ${user?.title}`} />
+                <meta
+                    name="keywords"
+                    content={`politics,latest politician polls, ${user?.name}, ${user?.title?.split(',')[0]}`}
+                />
             </Head>{' '}
             <AppNavBar />
             <Container

@@ -19,9 +19,10 @@ interface SignInModalProps {
 type SignInScreenState = 'MAIN' | 'SIGNIN' | 'SIGNUP';
 
 export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps) => {
-    const googleProvider = new firebaseClient.auth.GoogleAuthProvider();
-    var appleProvider = new firebaseClient.auth.OAuthProvider('apple.com');
+    const [googleProvider, setGoogleProvider]: any = useState(undefined);
+    const [appleProvider, setAppleProvider]: any = useState(undefined);
 
+    const [isAuthInit, setAuthInit] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
     const { show, onHide } = props;
     const [formData, setFormData] = useState({
@@ -52,6 +53,16 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
         setSignUpConfirmPassword('');
         //window.localStorage.setItem('redirectUrl', pathname);
     }, [show]);
+
+    useEffect(() => {
+        const initializeAuth = async () => {
+            await import('firebase/auth');
+            setGoogleProvider(new firebaseClient.auth.GoogleAuthProvider());
+            setAppleProvider(new firebaseClient.auth.OAuthProvider('apple.com'));
+            setAuthInit(true);
+        };
+        initializeAuth();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -134,6 +145,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                         borderRadius: '10px',
                                         position: 'relative',
                                     }}
+                                    disabled={!isAuthInit}
                                     onClick={async () => {
                                         firebaseAnalytics.logEvent('social_login_click', {
                                             type: 'google',
@@ -169,6 +181,7 @@ export const SignInModal: React.FC<SignInModalProps> = (props: SignInModalProps)
                                 <Button
                                     className="p-2 my-2"
                                     variant="outline"
+                                    disabled={!isAuthInit}
                                     style={{
                                         fontSize: '14px',
                                         width: '90%',
