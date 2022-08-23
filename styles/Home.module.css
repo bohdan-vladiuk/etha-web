@@ -288,6 +288,17 @@
     font-weight: 600;
 }
 
+.image_wrapper {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+}
+
+.text_wrapper {
+    padding-left: 72px;
+}
+
 @media screen and (max-width: 1000px) {
     .container {
         display: flex;
