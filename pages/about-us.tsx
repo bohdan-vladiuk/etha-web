@@ -162,7 +162,7 @@ export const AboutUs: NextPage = () => {
                 <h2> Our Backbone</h2>
             </Container>
             <Container
-                className="d-flex m-auto   "
+                className="d-flex m-auto"
                 style={{ width: '80%', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
             >
                 {teamCardSmall.map((details: SmallCardDetails, index: number) => {

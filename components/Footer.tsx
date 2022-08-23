@@ -41,44 +41,38 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
                 className="d-flex w-100 p-0 mt-4 mr-4 mb-3"
                 style={{ cursor: 'pointer', alignItems: 'left', flexWrap: 'wrap' }}
             >
-                <Col xs={6} sm={3} className="m-0 p-0">
-                    <Button
-                        variant="primary ml-0 mr-2"
-                        style={{
-                            borderRadius: '5px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            minWidth: '50px !important',
-                            width: '100px !important',
-                        }}
-                        onClick={() =>
-                            window.open('https://play.google.com/store/apps/details?id=one.etha.app', '_blank')
-                        }
-                    >
-                        <Image className="p-0 py-0 pr-2" src={`/home/play-store.svg`} alt="" height={40} width={120} />
-                    </Button>
-                </Col>
-                <Col xs={6} sm={3} className="m-0 p-0">
-                    <Button
-                        variant="light ml-0 mr-2"
-                        style={{
-                            borderRadius: '5px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            border: 'none !important',
-                        }}
-                        onClick={() => window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')}
-                    >
-                        <Image className="p-0 py-0" src={`/home/app-store.svg`} alt="" height={40} width={120} />
-                    </Button>
-                </Col>
+                <Button
+                    variant="primary ml-0 mr-2"
+                    style={{
+                        borderRadius: '5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: '50px !important',
+                        width: '100px !important',
+                    }}
+                    onClick={() =>
+                        window.open('https://play.google.com/store/apps/details?id=one.etha.app', '_blank')
+                    }
+                >
+                    <Image className="p-0 py-0 pr-2" src={`/home/play-store.svg`} alt="" height={40} width={120} />
+                </Button>
+                <Button
+                    variant="light ml-0 mr-2"
+                    style={{
+                        borderRadius: '5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        border: 'none !important',
+                    }}
+                    onClick={() => window.open('https://apps.apple.com/me/app/etha/id1588384989', '_blank')}
+                >
+                    <Image className="p-0 py-0" src={`/home/app-store.svg`} alt="" height={40} width={120} />
+                </Button>
             </div>
-            <div style={{ color: '#fff' }}>© 2022 All Rights Reserved | Made with Love in NYC &#x1F496;</div>
-
             <div
-                className="d-flex w-100 mt-3"
+                className="d-flex w-100 mt-5"
                 style={{
                     justifyContent: 'space-evenly',
                     flexWrap: 'wrap-reverse',
@@ -105,6 +99,7 @@ export const Footer: React.FC<FooterProps> = (props: FooterProps) => {
                         Terms
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div style={{ color: '#fff' }}>© 2022 All Rights Reserved</div>
                 </Col>
                 <Col lg={6} className="d-flex" style={{ justifyContent: 'flex-end' }}>
                     <div

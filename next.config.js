@@ -3,9 +3,10 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
     reactStrictMode: false,
-    images: {
-        domains: ['resources.etha.one', '*'],
-    },
 });
 
-module.exports = withBundleAnalyzer({});
+module.exports = withBundleAnalyzer({
+    images: {
+        domains: ['resources.etha.one', '*', 'api.producthunt.com'],
+    },
+});
