@@ -1,3 +1,81 @@
+export const carousels: imgDetails[] = [
+    {
+        id: 1,
+        filename: '/home/carousel/1.png',
+        width: 390,
+        height: 844,
+    },
+    {
+        id: 2,
+        filename: '/home/carousel/2.png',
+        width: 390,
+        height: 844,
+    },
+    {
+        id: 3,
+        filename: '/home/carousel/3.png',
+        width: 390,
+        height: 844,
+    },
+    {
+        id: 4,
+        filename: '/home/carousel/4.png',
+        width: 390,
+        height: 844,
+    },
+    {
+        id: 5,
+        filename: '/home/carousel/5.png',
+        width: 390,
+        height: 844,
+    },
+    {
+        id: 6,
+        filename: '/home/carousel/6.png',
+        width: 390,
+        height: 844,
+    },
+    {
+        id: 7,
+        filename: '/home/carousel/7.png',
+        width: 390,
+        height: 844,
+    },
+    {
+        id: 8,
+        filename: '/home/carousel/8.png',
+        width: 390,
+        height: 844,
+    },
+];
+
+export const less_biases: imgDetails[] = [
+    {
+        id: 1,
+        filename: '/home/biased-1.png',
+        width: 404,
+        height: 578,
+    },
+    {
+        id: 2,
+        filename: '/home/biased-2.png',
+        width: 404,
+        height: 708,
+    },
+    {
+        id: 3,
+        filename: '/home/biased-3.png',
+        width: 404,
+        height: 578,
+    },
+    {
+        id: 4,
+        filename: '/home/biased-4.png',
+        width: 404,
+        height: 708,
+    },
+];
+
 export const faqs: FaqDetails[] = [
     {
         question: 'What is Etha?',
@@ -31,6 +109,13 @@ export const featurePoints: string[] = [
     "Conversations tie into the politician's LeaderQ score, making them more or less popular over time.",
     'We use our technology to limit the distribution and reach of harmful or misleading information',
 ];
+
+export interface imgDetails {
+    id: number;
+    filename: string;
+    width: number;
+    height: number;
+}
 
 export interface FaqDetails {
     question: string;
