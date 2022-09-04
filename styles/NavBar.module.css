@@ -22,6 +22,23 @@
     color: black;
 }
 
+.sticky_navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 200;
+    background-color: #fff;
+    transition: top 0.5s;
+}
+.sticky_navbar_hidden {
+    position: fixed;
+    top: -100px;
+    width: 100%;
+    z-index: 200;
+    background-color: #fff;
+    transition: top 0.5s;
+}
+
 @media screen and (max-width: 1000px) {
     .home_nav_container {
         align-items: center;

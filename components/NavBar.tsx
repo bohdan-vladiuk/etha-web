@@ -27,16 +27,31 @@ export const NavBar: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useRouter();
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
+    const [hidden, setHidden] = useState<boolean>(true);
+
+    useEffect(() => {
+        window.addEventListener('scroll', stickNavbar);
+
+        return () => {
+            window.removeEventListener('scroll', stickNavbar);
+        };
+    }, []);
+
+    const stickNavbar = () => {
+        if (window !== undefined) {
+            let windowHeight = window.scrollY;
+            windowHeight > 550 ? setHidden(false) : setHidden(true);
+        }
+    };
 
     return (
         <>
             <Navbar
                 collapseOnSelect
                 expand="lg"
-                bg="light"
                 sticky="top"
                 variant="light"
-                style={{ zIndex: 200, backgroundColor: '#fff' }}
+                className={hidden ? styles.sticky_navbar_hidden : styles.sticky_navbar}
             >
                 <Container>
                     <Navbar.Brand href="#home">

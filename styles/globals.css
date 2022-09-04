@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 html,
 body {
     height: 100% !important;
@@ -155,11 +157,11 @@ input[type='number']::-webkit-outer-spin-button {
     vertical-align: center;
     margin: 0 10px;
     padding: 0;
-    background: #ffffff;
+    background: #ffffff !important;
 }
 
 .btn-carousel:hover {
-    background: #f7f7f7;
+    background: #f7f7f7 !important;
 }
 
 .btn-vote {

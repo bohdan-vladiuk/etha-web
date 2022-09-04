@@ -3,22 +3,25 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import { NavBar } from '../components/NavBar';
 import { ContactUsModal } from '../components/ContactUsModal';
 import { Footer } from '../components/Footer';
 import { Button, Carousel, Col, Container } from 'react-bootstrap';
 import { ArrowForwardIos } from '@mui/icons-material';
 import { useRouter } from 'next/router';
-import { faqs, featurePoints } from '../models/Web';
+import { faqs, featurePoints, carousels, less_biases } from '../models/Web';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { ImQuotesLeft } from 'react-icons/im';
 import { SubscribeToNewsLetter } from '../models';
 import { SubscribeNewsletter } from '../middleware';
+import { stylesheetInclude } from 'sitemap/dist/lib/sitemap-stream';
 
 const Home: NextPage = () => {
     const [showJoinPage, setShowJoinPage] = useState<boolean>(false);
     const segment1 = getFeaturePointsUI(1);
     const segment2 = getFeaturePointsUI(2);
     const [carouselIndex, setCarouselIndex] = useState(0);
+    const [carouselImageId, setCarouselImageId] = useState(0);
     const [email, setEmail] = useState('');
     const history = useRouter();
 
@@ -27,6 +30,17 @@ const Home: NextPage = () => {
             setCarouselIndex(1);
         } else {
             setCarouselIndex(0);
+        }
+    }
+
+    function handleCarouselImageSelect(increase: number) {
+        const imageID = carouselImageId + increase;
+        if (imageID > 7) {
+            setCarouselImageId(0);
+        } else if (imageID < 0) {
+            setCarouselImageId(7);
+        } else {
+            setCarouselImageId(imageID);
         }
     }
 
@@ -70,6 +84,7 @@ const Home: NextPage = () => {
             <Head>
                 <meta name="keywords" content="politics,latest politician statements,political polls" />
             </Head>
+            <NavBar />
             <div className={styles.container}>
                 <div className={`${styles.landing_container}`}>
                     <Container className="mb-0" style={{ paddingBottom: '40px', paddingTop: '120px' }}>
@@ -83,13 +98,19 @@ const Home: NextPage = () => {
                         >
                             <Col lg={5}>
                                 <div style={{ width: '100%', height: '70vh', position: 'relative' }}>
-                                    <Image src="/home/iphone-1.png" layout="fill" objectFit="contain" alt="etha-mobile" />
+                                    <Image
+                                        src="/home/iphone-4.png"
+                                        layout="fill"
+                                        objectFit="contain"
+                                        alt="etha-mobile"
+                                    />
                                 </div>
                             </Col>
                             <Col lg={7}>
                                 <h1 className={styles.home_header}>Let&apos;s Fix the System</h1>
                                 <p className={styles.home_content_grey}>
-                                    Introducing Etha - your new favorite interactive social news platform, which helps you hold politicians accountable.
+                                    Introducing Etha - your new favorite interactive social news platform, which helps
+                                    you hold politicians accountable.
                                 </p>
                                 <div
                                     className="d-flex p-0 mt-4 mr-4"
@@ -305,17 +326,35 @@ const Home: NextPage = () => {
                         <div className={`${styles.dark_container} mt-5`}>
                             <Col md={12} lg={6} className={styles.text_wrapper}>
                                 <h1 className={styles.light_header}>
-                                    We care how you feel about your politicians and they should too.
+                                    We care how you feel about news biasness and misinformation
                                 </h1>
                                 <p className={styles.light_content}>
-                                    Introducing Etha - your new favorite interactive social news platform, which helps you hold politicians accountable.Almost two-thirds of the people in the U.S. are stressed by the news.
+                                    Almost two-thirds of the people in the U.S. are stressed by the news. we are
+                                    helplessness and hopelessness in the face of diverse misinformation and our civic
+                                    engagement inevitably suffer.
                                 </p>
                             </Col>
                             <Col md={6} className="my-0 py-0">
-                                <div style={{ width: '100%', height: '50vh', position: 'relative' }}>
+                                <div style={{ width: '100%', height: '535px', position: 'relative' }}>
                                     <Image src="/home/iphone-2.png" layout="fill" objectFit="cover" alt="iphone-2" />
                                 </div>
                             </Col>
+                        </div>
+                        <div className={styles.biased_content_container}>
+                            {less_biases.map((img) => (
+                                <div className={styles.biased_content} key={img.id}>
+                                    <Image
+                                        src={img.filename}
+                                        alt="Get less-biased content at all times"
+                                        objectFit="contain"
+                                        width={img.width}
+                                        height={img.height}
+                                    />
+                                    <div className={styles.biased_comment}>
+                                        <p>Get less-biased content at all times</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                         <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
@@ -390,9 +429,6 @@ const Home: NextPage = () => {
                                 </div>
                             </Col>
                         </div>
-                        <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
-                            <div className={`${styles.seperator}`} />
-                        </div>
                         <Carousel
                             indicators={false}
                             interval={3000}
@@ -411,7 +447,12 @@ const Home: NextPage = () => {
                                             <div className={`${styles.feature_point}`}>
                                                 <div className={`${styles.checkmark}`}>
                                                     <div style={{ width: 'auto', height: '4vh', position: 'relative' }}>
-                                                        <Image src="/home/check.svg" layout="fill" objectFit="cover" alt="check" />
+                                                        <Image
+                                                            src="/home/check.svg"
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            alt="check"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
@@ -430,7 +471,12 @@ const Home: NextPage = () => {
                                             <div className={`${styles.feature_point}`}>
                                                 <div className={`${styles.checkmark}`}>
                                                     <div style={{ width: 'auto', height: '4vh', position: 'relative' }}>
-                                                        <Image src="/home/check.svg" layout="fill" objectFit="cover" alt="check" />
+                                                        <Image
+                                                            src="/home/check.svg"
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            alt="check"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className={`${styles.feature_point_content}`}>{featurePoint}</div>
@@ -441,18 +487,26 @@ const Home: NextPage = () => {
                             </Carousel.Item>
                         </Carousel>
                         <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
-                            <Button variant="carousel" onClick={handleCarouselSelect}>
+                            <Button
+                                variant="carousel"
+                                style={{ padding: '10px 11px 14px 9px' }}
+                                onClick={handleCarouselSelect}
+                            >
                                 <IoIosArrowBack />
                             </Button>
-                            <Button variant="carousel" onClick={handleCarouselSelect}>
+                            <Button
+                                variant="carousel"
+                                style={{ padding: '10px 9px 14px 11px' }}
+                                onClick={handleCarouselSelect}
+                            >
                                 <IoIosArrowForward />
                             </Button>
                         </div>
-                        <div className="d-flex w-100 my-5 py-5" style={{ justifyContent: 'center' }}>
+                        <div className="d-flex w-100 mt-5" style={{ justifyContent: 'center' }}>
                             <div className={`${styles.seperator}`} />
                         </div>
                         <div
-                            className="d-flex w-100 my-5 py-5"
+                            className="d-flex w-100 my-5"
                             style={{ alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}
                         >
                             <h1 className={styles.home_header_secondary}>
@@ -464,8 +518,46 @@ const Home: NextPage = () => {
                                 engagement inevitably suffers.
                             </p>
                         </div>
+                        <div className={styles.carousel_container}>
+                            <Carousel
+                                className={styles.image_carousel}
+                                indicators={false}
+                                interval={3000}
+                                activeIndex={carouselImageId}
+                            >
+                                {carousels.map((img, index) => (
+                                    <Carousel.Item key={index}>
+                                        <Image
+                                            src={img.filename}
+                                            width={img.width}
+                                            height={img.height}
+                                            alt="Carousel Image"
+                                        />
+                                    </Carousel.Item>
+                                ))}
+                            </Carousel>
+                        </div>
+                        <div className="d-flex w-100" style={{ justifyContent: 'center' }}>
+                            <Button
+                                variant="carousel"
+                                style={{ padding: '10px 11px 14px 9px' }}
+                                onClick={() => handleCarouselImageSelect(-1)}
+                            >
+                                <IoIosArrowBack />
+                            </Button>
+                            <Button
+                                variant="carousel"
+                                style={{ padding: '10px 9px 14px 11px' }}
+                                onClick={() => handleCarouselImageSelect(1)}
+                            >
+                                <IoIosArrowForward />
+                            </Button>
+                        </div>
+                        <div className="d-flex w-100 my-4 py-4" style={{ justifyContent: 'center' }}>
+                            <div className={`${styles.seperator}`} />
+                        </div>
                         <div className="w-100">
-                            <h1 className={`${styles.home_header_secondary} mb-5`}>Frequently Asked Questions</h1>
+                            <h1 className={`${styles.home_header_secondary} mb-5`}>Facts &amp; Questions</h1>
                             {faqs.map((faq, index) => {
                                 return (
                                     <Col className={`${styles.faq_container}`} lg={12} key={index}>
